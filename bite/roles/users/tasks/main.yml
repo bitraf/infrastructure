@@ -4,7 +4,7 @@
   become: yes
   user:
     name: "{{ item.username }}"
-    groups: sudo,libvirt
+    groups: sudo,libvirt,kvm,libvirt-qemu
     append: yes
   with_items:
     - "{{ users }}"
