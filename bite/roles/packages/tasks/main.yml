@@ -38,6 +38,7 @@
     - man-db
     - ncdu
     - needrestart
+    - netcat-openbsd
     - screen
     - strace
     - tmux
