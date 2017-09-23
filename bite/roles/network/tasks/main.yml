@@ -25,6 +25,15 @@
               netmask 255.255.255.224
               gateway 77.40.158.97
 
+- name: disable ipv6 autoconf for enp4s0f1
+  tags: network
+  become: yes
+  sysctl:
+    name: net.ipv6.conf.enp4s0f1.autoconf
+    value: 0
+    state: present
+    reload: yes
+
 - name: configure name resolution
   tags: network
   become: yes
