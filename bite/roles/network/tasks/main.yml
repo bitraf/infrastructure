@@ -1,5 +1,6 @@
 ---
 - name: configure network interfaces
+  tags: network
   become: yes
   copy:
     dest: /etc/network/interfaces
@@ -10,6 +11,7 @@
       iface lo inet loopback
 
 - name: configure bitraf network interfaces
+  tags: network
   become: yes
   copy:
     dest: /etc/network/interfaces.d/bitraf
@@ -24,6 +26,7 @@
               gateway 77.40.158.97
 
 - name: configure name resolution
+  tags: network
   become: yes
   copy:
     dest: /etc/resolv.conf
