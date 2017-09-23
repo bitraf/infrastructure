@@ -1,0 +1,4 @@
+---
+- hosts: bite
+  roles:
+    - packages
