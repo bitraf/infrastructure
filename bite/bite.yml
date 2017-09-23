@@ -2,3 +2,4 @@
 - hosts: bite
   roles:
     - packages
+    - users

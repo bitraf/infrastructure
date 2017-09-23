@@ -1,0 +1,20 @@
+---
+- name: super user accounts
+  tags: users
+  become: yes
+  user:
+    name: "{{ item.username }}"
+    groups: sudo
+    append: yes
+  with_items:
+    - "{{ users }}"
+
+- name: users' authorized_keys
+  tags: users
+  become: yes
+  authorized_key:
+    user: "{{ item.username }}"
+    state: present
+    key: "{{ item.authorized_keys }}"
+  with_items:
+    - "{{ users }}"
