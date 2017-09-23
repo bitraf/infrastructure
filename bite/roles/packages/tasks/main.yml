@@ -44,4 +44,8 @@
     - vim
 
     # for running virtual machines
-    # to do
+    - libvirt-clients
+    - libvirt-daemon-system
+    - qemu-utils
+    - virt-top
+    - virtinst
