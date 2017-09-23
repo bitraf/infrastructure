@@ -27,7 +27,6 @@
     - firmware-qlogic
 
     # useful utilities and things
-    #- ansible
     - aptitude
     - bridge-utils
     - debian-goodies
@@ -35,6 +34,7 @@
     - htop
     - iperf
     - ltrace
+    - man-db
     - ncdu
     - needrestart
     - screen
