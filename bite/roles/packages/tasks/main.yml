@@ -1,5 +1,6 @@
 ---
 - name: configure debian repositories
+  tags: packages
   notify: update apt cache
   become: yes
   copy:
@@ -27,7 +28,6 @@
     - firmware-qlogic
 
     # useful utilities and things
-    #- ansible
     - aptitude
     - bridge-utils
     - debian-goodies
@@ -35,8 +35,10 @@
     - htop
     - iperf
     - ltrace
+    - man-db
     - ncdu
     - needrestart
+    - netcat-openbsd
     - screen
     - strace
     - tmux
@@ -44,4 +46,9 @@
     - vim
 
     # for running virtual machines
-    # to do
+    - libvirt-clients
+    - libvirt-daemon-system
+    - qemu-kvm
+    - qemu-utils
+    - virt-top
+    - virtinst
