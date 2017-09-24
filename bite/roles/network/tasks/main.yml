@@ -16,23 +16,38 @@
   copy:
     dest: /etc/network/interfaces.d/bitraf
     content: |
-      #auto enp4s0f0
-      #iface enp4s0f0 inet dhcp
+      auto enp4s0f0
+      iface enp4s0f0 inet manual
+
+      auto br0
+      iface br0 inet static
+              bridge_ports enp4s0f0
+              address 10.13.37.3
+              netmask 255.255.255.0
 
       auto enp4s0f1
-      iface enp4s0f1 inet static
+      iface enp4s0f1 inet manual
+
+      auto br1
+      iface br1 inet static
+              bridge_ports enp4s0f1
               address 77.40.158.102
               netmask 255.255.255.224
               gateway 77.40.158.97
 
-- name: disable ipv6 autoconf for enp4s0f1
+- name: disable ipv6 autoconf for some interfaces
   tags: network
   become: yes
   sysctl:
-    name: net.ipv6.conf.enp4s0f1.autoconf
+    name: "net.ipv6.conf.{{ item }}.autoconf"
     value: 0
     state: present
     reload: yes
+  with_items:
+    - enp4s0f0
+    - br0
+    - enp4s0f1
+    - br1
 
 - name: configure name resolution
   tags: network
