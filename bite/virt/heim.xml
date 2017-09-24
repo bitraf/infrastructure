@@ -1,0 +1,41 @@
+<domain type='kvm'>
+  <name>heim</name>
+  <uuid>f5b8c05b-9c7a-3211-49b9-2bd635f7e2aa</uuid>
+  <memory>1000000</memory>
+  <currentMemory>1000000</currentMemory>
+  <vcpu>1</vcpu>
+  <os>
+    <type>hvm</type>
+    <boot dev='hd'/>
+  </os>
+  <features>
+    <acpi/>
+  </features>
+  <clock offset='utc'/>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>destroy</on_crash>
+  <devices>
+    <emulator>/usr/bin/kvm</emulator>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='raw'/>
+      <source file='/home/mastensg/heim'/>
+      <target dev='hda'/>
+    </disk>
+    <!--
+    <disk type='file' device='cdrom'>
+      <driver name='qemu' type='raw'/>
+      <source file='/home/mastensg/debian-9.1.0-amd64-netinst.iso'/>
+      <target dev='hdb'/>
+      <readonly/>
+    </disk>
+    -->
+    <interface type='bridge'>
+      <mac address='52:54:00:00:01:89'/>
+      <source bridge='br1'/>
+    </interface>
+    <input type='tablet' bus='usb'/> 
+    <input type='mouse' bus='ps2'/>
+    <graphics type='vnc' port='-1' listen='127.0.0.1'/>
+  </devices>
+</domain>
