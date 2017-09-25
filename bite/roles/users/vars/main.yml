@@ -7,3 +7,7 @@ users:
     state: present
     authorized_keys: |
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICOayiImJKc7Qfmp2i33QNreBZ+zatorDVP3IUEPXlch mastensg@reed
+  - username: trygvis
+    state: present
+    authorized_keys: |
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJAzB6JB/hZ87M6ozsd7lgKxgOacEOZZRxa4ucs11lqq trygvis@conflatorio
