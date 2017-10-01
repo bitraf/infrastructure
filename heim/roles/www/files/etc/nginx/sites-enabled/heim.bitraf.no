@@ -9,7 +9,7 @@ server {
         try_files $uri $uri/ =404;
     }
 
-    location ~ ^/~(.+?)(/.*)?$ {
+    location ~ ^/~?([a-z0-9]+?)(/.*)?$ {
         alias /home/$1/www$2;
         autoindex on;
     }
