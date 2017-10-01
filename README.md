@@ -17,6 +17,6 @@ See also
 --------
 
 Infrastructure on the Bitraf wiki:
-- https://bitraf.no/wiki/Nettverk
-- https://bitraf.no/wiki/Bite
-- https://bitraf.no/wiki/Heim
+- [Nettverk](https://bitraf.no/wiki/Nettverk)
+- [Bite](https://bitraf.no/wiki/Bite)
+- [Heim](https://bitraf.no/wiki/Heim)
