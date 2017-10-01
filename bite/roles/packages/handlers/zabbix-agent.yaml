@@ -1,0 +1,9 @@
+# vim:ts=2:sw=2:sts=2:et:ai:fdm=marker
+- hosts: zabbix-agents
+  become: yes
+  tasks:
+  - name: Make sure zabbix.karlsbakk.net is in the server list
+    lineinfile:
+      dest: /etc/zabbix/zabbix_agentd.conf
+      regexp: '^Server='
+      line: 'Server=zabbix.karlsbakk.net'
