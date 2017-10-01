@@ -1,0 +1,7 @@
+---
+- hosts: heim
+  roles:
+    - network
+    - packages
+    - superusers
+    - users

@@ -1,0 +1,6 @@
+users:
+  # jensa:$6$BilcEbQVX$faicoq1Y5D.zrmkLu7yLzpwzQBZYyf8ngArTiEfigkdUH1YLr7Hki5hmWj3oO23ZAeSzF9kUUrDtB36IpkA.J.:100023:100023:Intopublish AS:/bitraf/home/jensa:/bin/bash
+  - username: jensa
+    password: $6$BilcEbQVX$faicoq1Y5D.zrmkLu7yLzpwzQBZYyf8ngArTiEfigkdUH1YLr7Hki5hmWj3oO23ZAeSzF9kUUrDtB36IpkA.J.
+    fullname: Intopublish AS
+    state: present

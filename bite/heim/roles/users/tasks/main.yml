@@ -1,0 +1,12 @@
+---
+- name: user accounts
+  tags: users
+  become: yes
+  user:
+    name: "{{ item.username }}"
+    password: "{{ item.password }}"
+    comment: "{{ item.fullname }}"
+    shell: /bin/bash
+    append: yes
+  with_items:
+    - "{{ users }}"

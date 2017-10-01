@@ -1,0 +1,43 @@
+---
+- name: configure network interfaces
+  tags: network
+  become: yes
+  copy:
+    dest: /etc/network/interfaces
+    content: |
+      source /etc/network/interfaces.d/*
+
+      auto lo
+      iface lo inet loopback
+
+- name: configure heim network interfaces
+  tags: network
+  become: yes
+  copy:
+    dest: /etc/network/interfaces.d/heim
+    content: |
+      auto ens3
+      iface ens3 inet static
+              address 77.40.158.103
+              netmask 255.255.255.224
+              gateway 77.40.158.97
+
+- name: disable ipv6 autoconf for some interfaces
+  tags: network
+  become: yes
+  sysctl:
+    name: "net.ipv6.conf.{{ item }}.autoconf"
+    value: 0
+    state: present
+    reload: yes
+  with_items:
+    - ens3
+
+- name: configure name resolution
+  tags: network
+  become: yes
+  copy:
+    dest: /etc/resolv.conf
+    content: |
+      nameserver 8.8.8.8
+      nameserver 8.8.4.4
