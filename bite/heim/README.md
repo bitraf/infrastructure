@@ -1,6 +1,8 @@
 heim.bitraf.no
 ==============
 
+Every member of Bitraf has a user account here.
+
 Apply ansible configuration
 ---------------------------
 
