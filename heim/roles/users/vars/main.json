@@ -1,0 +1,10 @@
+{
+  "users": [
+    {
+      "username": "mastensg",
+      "password": "$6$lGEuYQgsk$OZWtZAXE81OA/GhQYC/g32neSDa/47.A.I.4SUllD79pA9JrQLCo/qPXxnbvPPRMR4AGmQG0IG7.XX/TZrfSJ/",
+      "fullname": "Martin Stensgård",
+      "shell": "/bin/bash"
+    }
+  ]
+}

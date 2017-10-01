@@ -1,0 +1,16 @@
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    index index.html;
+
+    location /index.html {
+        root /var/www/heim.bitraf.no;
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ ^/~(.+?)(/.*)?$ {
+        alias /home/$1/www$2;
+        autoindex on;
+    }
+}
