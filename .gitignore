@@ -1,2 +1,3 @@
+*.not_encrypted
 *.retry
 *.swp
