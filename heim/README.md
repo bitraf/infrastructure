@@ -16,4 +16,5 @@ ansible-playbook heim.yml
 See also
 --------
 
+- [heim.bitraf.no](http://heim.bitraf.no/)
 - [bitraf wiki](https://bitraf.no/wiki/Heim)
