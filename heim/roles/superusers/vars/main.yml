@@ -18,3 +18,7 @@ superusers:
     state: present
     authorized_keys: |
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJlXRj/vYaL3v/ynF4Z1Sc5up9b1hCdfSZv4bLzwLWYv roy@karlsbakk.net
+  - username: odinho
+    state: present
+    authorized_keys: |
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOXi2hd00LZWMvVNPFGESL2KgmeeuxpYGzjvQU1eESEB odin@h
