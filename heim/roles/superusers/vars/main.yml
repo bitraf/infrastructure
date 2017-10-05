@@ -22,3 +22,6 @@ superusers:
     state: present
     authorized_keys: |
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOXi2hd00LZWMvVNPFGESL2KgmeeuxpYGzjvQU1eESEB odin@h
+  - username: haavares
+    state: present
+    authorized_keys: ""
