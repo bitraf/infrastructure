@@ -43,6 +43,8 @@
     - zabbix-agent
     - munin-node
     - sysstat
+    - nmap
+    - net-tools
 
     # services
     - nginx
