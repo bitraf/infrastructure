@@ -1,0 +1,47 @@
+---
+- name: configure network interfaces
+  tags: network
+  become: yes
+  copy:
+    dest: /etc/network/interfaces
+    content: |
+      source /etc/network/interfaces.d/*
+
+      auto lo
+      iface lo inet loopback
+
+- name: configure p2k16-staging network interfaces
+  tags: network
+  become: yes
+  copy:
+    dest: /etc/network/interfaces.d/p2k16-staging
+    content: |
+      # The primary network interface
+      allow-hotplug ens3
+      iface ens3 inet dhcp
+
+      allow-hotplug ens10
+      iface ens10 inet static
+      	address 77.40.158.104
+      	netmask 255.255.255.224
+
+- name: disable ipv6 autoconf for some interfaces
+  tags: network
+  become: yes
+  sysctl:
+    name: "net.ipv6.conf.{{ item }}.autoconf"
+    value: 0
+    state: present
+    reload: yes
+  with_items:
+    - ens3
+    - ens10
+
+- name: configure name resolution
+  tags: network
+  become: yes
+  copy:
+    dest: /etc/resolv.conf
+    content: |
+      nameserver 8.8.8.8
+      nameserver 8.8.4.4

@@ -1,0 +1,30 @@
+---
+- name: no default nginx site
+  tags: www
+  become: yes
+  notify: reload nginx
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: nginx site heim.bitraf.no
+  tags: www
+  become: yes
+  notify: reload nginx
+  copy:
+    dest: /etc/nginx/sites-enabled/heim.bitraf.no
+    src: etc/nginx/sites-enabled/heim.bitraf.no
+
+- name: heim.bitraf.no www root directory
+  tags: www
+  become: yes
+  file:
+    path: /var/www/heim.bitraf.no
+    state: directory
+
+- name: heim.bitraf.no/index.html
+  tags: www
+  become: yes
+  copy:
+    dest: /var/www/heim.bitraf.no/index.html
+    src: var/www/heim.bitraf.no/index.html

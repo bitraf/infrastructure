@@ -1,0 +1,6 @@
+---
+- hosts: p2k16_staging
+  roles:
+    - network
+    - packages
+    - superusers

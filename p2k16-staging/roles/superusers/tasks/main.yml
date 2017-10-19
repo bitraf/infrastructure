@@ -1,0 +1,30 @@
+---
+- name: superuser accounts
+  tags: superusers
+  become: yes
+  user:
+    name: "{{ item.username }}"
+    groups: sudo,systemd-journal
+    shell: /bin/bash
+    append: yes
+  with_items:
+    - "{{ superusers }}"
+
+- name: superuser authorized_keys
+  tags: superusers
+  become: yes
+  authorized_key:
+    user: "{{ item.username }}"
+    state: present
+    key: "{{ item.authorized_keys }}"
+  with_items:
+    - "{{ superusers }}"
+
+- name: Allow 'sudo' group to have passwordless sudo
+  tags: superusers
+  become: yes
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%sudo'
+    line: '%sudo ALL=(ALL) NOPASSWD: ALL'
