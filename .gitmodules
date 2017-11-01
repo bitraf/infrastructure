@@ -1,0 +1,3 @@
+[submodule "misc/ansible-vault-tools"]
+	path = misc/ansible-vault-tools
+	url = https://github.com/building5/ansible-vault-tools

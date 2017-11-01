@@ -1,3 +1,6 @@
 *.not_encrypted
 *.retry
 *.swp
+
+vault-password
+vault-password.asc
