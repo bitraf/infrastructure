@@ -5,7 +5,7 @@ ansible-vault settings
 ----------------------
 
 First, run `git submodule update --init`. Then run
-`misc/ansible-vault-tools/gpg-vault-password-file.sh vault-password`
+`bash misc/ansible-vault-tools/gpg-vault-password-file.sh vault-password`
 (but make sure you have a valid gpg key locally first). When asked for
 a password, give the password for the vault. This will store the vault
 password in a GPG encrypted file locally. As GPG uses your system's
