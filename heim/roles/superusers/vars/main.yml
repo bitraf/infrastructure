@@ -25,3 +25,6 @@ superusers:
   - username: haavares
     state: present
     authorized_keys: ""
+  - username: margrav
+    state: present
+    authorized_keys: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDrbAcmOIRSERVam1SKtMZDkST98ImyYVhRaW10RNF2YSgnmVbD6Wqq5oaFpGh4+9FVg9QbEx4O5FnSxGjnmJeVfTC162sK/oWl1NSZ4lmVALCOa0OnsbJ+AHGERBcv/6KoGCJ2slSRUgMkZEl46D2SP1mLH2HFhvugQMXWXBd8qBD3GmJ3QocR9bnWiJYE1uD57jkUpT2IJC9mgHoRR6inq/09lN/VANftlKvasrwgKGZwIU3nIquXSeHD9jtAP5rXzalRp+VJ8LM2zHKiRjRZf4FFgniruTT/fdYSdnvLqmo/yd0Y/nPxhESm9JqRQpKe6fdTJUJFwQ7SRTgHnVxp margrav@Martins-MacBook-Air.local

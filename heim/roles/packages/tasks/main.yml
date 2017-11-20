@@ -45,6 +45,7 @@
     - sysstat
     - nmap
     - net-tools
+    - python3-pip
 
     # services
     - nginx
