@@ -16,7 +16,7 @@
   authorized_key:
     user: "{{ item.username }}"
     state: "{{ item.state }}"
-    key: "{{ item.authorized_keys }}"
+    key: "{{ users[item.username].authorized_keys }}"
   with_items:
     - "{{ superusers }}"
 

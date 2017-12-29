@@ -1,0 +1,25 @@
+users:
+  eliasbakken:
+    authorized_keys: |
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEVoE61UreMtgITTsdSoX2UzBmeLJitKsXRhia7EmJP0
+  mastensg:
+    authorized_keys: |
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICOayiImJKc7Qfmp2i33QNreBZ+zatorDVP3IUEPXlch mastensg@reed
+  trygvis:
+    authorized_keys: |
+      ssh-dss AAAAB3NzaC1kc3MAAACBALEyHFyiNS5BLIHYyMZP8mfx6HL0ECb4kolBCU0pSH+BLcNDK6rwVDKCoAemyj3yw5DfY72CVKK3A+LU0MywTkK3qAVf7t04ksdEgHKWq9dkp1bbLGHO0q7zVKeC3nOshZ1jjH5WvxxHDi5K3qE3dU4Aue1ltyjoV8NTTHWk4GcbAAAAFQDy2XnQi7QjbEIQPUAQADXpT22bawAAAIAyq/zAV5AmOVGiKecuzvTIZklCNorl/yTrIgRML2lWoyZpP3pXho7Mden7UC20RRZZEnTNvl/BsZSou7ttw2vXjPbV+eUFuC1cXBlI5/uPxDkoNEXSd+ucXtaXNaZqrtKt6mH7r0L9U5CwLOuE1oFm44nsHfSWK4O7wIxAAixUiQAAAIB1K/CF4XxwFCQYN1x2BVZFqhyWNUVO3Envv2g+yHfZDSVJDF649Q6gXmNHqsvJrLJuUcrnIUzBl7MQYCNTgI9vXxUYeSQ+sp+bxrcefRIdrxxqwHMuAKJit01XnvfY/lc/PQkClXc27Fg6S1jdJeQT3199TceVgC1J5sHgU5o9dQ== trygvis@birgitte
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPX+sVfRvl0+KxsDlbIutyB/Es3exTwNfDVHwi9orwz3 trygvis@birgitte
+  tingo:
+    authorized_keys: ""
+  royk:
+    authorized_keys: |
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJlXRj/vYaL3v/ynF4Z1Sc5up9b1hCdfSZv4bLzwLWYv roy@karlsbakk.net
+  odinho:
+    authorized_keys: |
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOXi2hd00LZWMvVNPFGESL2KgmeeuxpYGzjvQU1eESEB odin@h
+  haavares:
+    authorized_keys: ""
+  drerik:
+    authorized_keys: |
+      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDiPC/mWsamawwNjzrJQ4wB8W+4xvSKQrmJqsNH+EXqV+8zcdzDz0g7c6UTQpwD4P4BX3V3Gm/fyGzim75/vT7XxiSDdimQ0k/reXFkxq+HNwhqFSOQE6IoVt7lmoT+D9duUeQeO6wTyEsAOUdiDyqcpyiZF3st0JLGpYKJE3m5KQ0NE1ALT9/fFGyPd5G6mLSe3rcsygCpwdG4RzEh30b2BA7hFIYCAdk/NHZ8gcNs1Ci9kMXODf/xwOa36TG4y35C1HJHY3hW91tSbPCPd2A6o0OKa0aCXUc8aGQiCcln193kN/qSIX9MZ5PZRm4o0/b08qcK75oI+8yEK1OwW+21 esu@Eriks-MacBook-Pro.local
+
