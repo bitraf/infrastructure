@@ -15,7 +15,7 @@
   become: yes
   authorized_key:
     user: "{{ item.username }}"
-    state: "{{ item.present }}"
+    state: "{{ item.state }}"
     key: "{{ item.authorized_keys }}"
   with_items:
     - "{{ superusers }}"
