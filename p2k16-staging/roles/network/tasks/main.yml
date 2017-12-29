@@ -24,6 +24,9 @@
       iface ens10 inet static
       	address 77.40.158.104
       	netmask 255.255.255.224
+      iface ens10 inet6 static
+        address 2001:840:4b0b:1000:77:40:158:104/64
+        gateway 2001:840:4b0b:1000::1
 
 - name: disable ipv6 autoconf for some interfaces
   tags: network
