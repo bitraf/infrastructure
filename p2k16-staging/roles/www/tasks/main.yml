@@ -12,19 +12,19 @@
   become: yes
   notify: reload nginx
   copy:
-    dest: /etc/nginx/sites-enabled/heim.bitraf.no
-    src: etc/nginx/sites-enabled/heim.bitraf.no
+    dest: /etc/nginx/sites-enabled/p2k16-staging.bitraf.no
+    src: etc/nginx/sites-enabled/p2k16-staging.bitraf.no
 
-- name: heim.bitraf.no www root directory
+- name: p2k16-staging.bitraf.no www root directory
   tags: www
   become: yes
   file:
-    path: /var/www/heim.bitraf.no
+    path: /var/www/p2k16-staging.bitraf.no
     state: directory
 
-- name: heim.bitraf.no/index.html
+- name: p2k16-staging.bitraf.no/index.html
   tags: www
   become: yes
   copy:
-    dest: /var/www/heim.bitraf.no/index.html
-    src: var/www/heim.bitraf.no/index.html
+    dest: /var/www/p2k16-staging.bitraf.no/index.html
+    src: var/www/p2k16-staging.bitraf.no/index.html

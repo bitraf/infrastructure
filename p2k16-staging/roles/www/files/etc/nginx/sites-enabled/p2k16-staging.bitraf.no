@@ -5,12 +5,7 @@ server {
     index index.html;
 
     location /index.html {
-        root /var/www/heim.bitraf.no;
+        root /var/www/p2k16-staging.bitraf.no;
         try_files $uri $uri/ =404;
-    }
-
-    location ~ ^/~?([a-z0-9]+?)(/.*)?$ {
-        alias /home/$1/www$2;
-        autoindex on;
     }
 }
