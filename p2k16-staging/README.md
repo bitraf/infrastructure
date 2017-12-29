@@ -8,7 +8,7 @@ You need a superuser account on p2k16-staging.
 If you don't have one, ask one of the superusers for one.
 
 ```
-ansible-playbook p2k16-staging.yml
+ansible-playbook p2k16_staging.yml
 ```
 
 See also
