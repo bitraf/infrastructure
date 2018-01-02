@@ -1,0 +1,18 @@
+p2k16.bitraf.no
+===============
+
+Apply ansible configuration
+---------------------------
+
+You need a superuser account on p2k16.
+If you don't have one, ask one of the superusers for one.
+
+```
+ansible-playbook p2k16.yml
+```
+
+See also
+--------
+
+- [p2k16.bitraf.no](http://p2k16.bitraf.no/)
+- [bitraf wiki](https://bitraf.no/wiki/p2k16)
