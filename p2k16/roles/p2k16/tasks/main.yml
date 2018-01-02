@@ -1,7 +1,9 @@
 ---
 - name: p2k16 nodejs
   become: yes
-  tags: p2k16
+  tags:
+    - p2k16
+    - p2k16-nodejs
   block:
     - name: packages
       apt:
@@ -86,9 +88,13 @@
     - name: p2k16-flyway
       postgresql_user: 
         name: p2k16-flyway
+        password: "{{ p2k16_secret.DB_PASSWORD_FLYWAY }}"
+        encrypted: yes
     - name: p2k16-web
       postgresql_user: 
         name: p2k16-web
+        password: "{{ p2k16_secret.DB_PASSWORD_WEB }}"
+        encrypted: yes
     - name: p2k16 db
       postgresql_db:
         name: "p2k16"
@@ -116,6 +122,8 @@
         - python3
         - virtualenv
         - nodejs
+        - unzip
+        - openjdk-8-jre
 
     - name: p2k16 git
       notify: p2k16 restart
