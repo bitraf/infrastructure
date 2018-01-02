@@ -10,11 +10,11 @@
       auto lo
       iface lo inet loopback
 
-- name: configure p2k16-staging network interfaces
+- name: configure p2k16 network interfaces
   tags: network
   become: yes
   copy:
-    dest: /etc/network/interfaces.d/p2k16-staging
+    dest: /etc/network/interfaces.d/p2k16
     content: |
       # The primary network interface
       allow-hotplug ens3
@@ -22,10 +22,10 @@
 
       allow-hotplug ens9
       iface ens9 inet static
-        address 77.40.158.104
+        address 77.40.158.105
         netmask 255.255.255.224
       iface ens9 inet6 static
-        address 2001:840:4b0b:1000:77:40:158:104/64
+        address 2001:840:4b0b:1000:77:40:158:105/64
         gateway 2001:840:4b0b:1000::1
 
 - name: disable ipv6 autoconf for some interfaces
