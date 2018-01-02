@@ -15,7 +15,7 @@
       tags: pg
       notify: update apt cache
       copy:
-        dest: /etc/apt/sources.list.d/nodesource.list
+        dest: /etc/apt/sources.list.d/postgresql.list
         content: 'deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main'
 
 - meta: flush_handlers
