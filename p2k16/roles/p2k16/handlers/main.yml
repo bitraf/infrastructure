@@ -1,0 +1,17 @@
+---
+- name: reload nginx
+  become: yes
+  service:
+    name: nginx
+    state: reloaded
+
+- name: update apt cache
+  become: yes
+  apt:
+    update_cache: yes
+
+- name: p2k16 restart
+  become: yes
+  systemd:
+    name: "p2k16@{{ p2k16_domain_name }}.service"
+    state: restarted

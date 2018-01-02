@@ -1,50 +1,24 @@
 ---
-- name: configure network interfaces
-  tags: network
+- tags: network
   become: yes
-  copy:
-    dest: /etc/network/interfaces
-    content: |
-      source /etc/network/interfaces.d/*
+  block:
+    - name: configure network interfaces
+      copy:
+        dest: /etc/network/interfaces
+        content: |
+          source /etc/network/interfaces.d/*
 
-      auto lo
-      iface lo inet loopback
+          auto lo
+          iface lo inet loopback
 
-- name: configure p2k16 network interfaces
-  tags: network
-  become: yes
-  copy:
-    dest: /etc/network/interfaces.d/p2k16
-    content: |
-      # The primary network interface
-      allow-hotplug ens3
-      iface ens3 inet dhcp
+    - name: configure network interfaces
+      copy:
+        src: etc/network/interfaces.d/{{ ansible_hostname }}
+        dest: /etc/network/interfaces.d/{{ ansible_hostname }}
 
-      allow-hotplug ens9
-      iface ens9 inet static
-        address 77.40.158.105
-        netmask 255.255.255.224
-      iface ens9 inet6 static
-        address 2001:840:4b0b:1000:77:40:158:105/64
-        gateway 2001:840:4b0b:1000::1
-
-- name: disable ipv6 autoconf for some interfaces
-  tags: network
-  become: yes
-  sysctl:
-    name: "net.ipv6.conf.{{ item }}.autoconf"
-    value: 0
-    state: present
-    reload: yes
-  with_items:
-    - ens3
-    - ens9
-
-- name: configure name resolution
-  tags: network
-  become: yes
-  copy:
-    dest: /etc/resolv.conf
-    content: |
-      nameserver 8.8.8.8
-      nameserver 8.8.4.4
+    - name: configure name resolution
+      copy:
+        dest: /etc/resolv.conf
+        content: |
+          nameserver 8.8.8.8
+          nameserver 8.8.4.4

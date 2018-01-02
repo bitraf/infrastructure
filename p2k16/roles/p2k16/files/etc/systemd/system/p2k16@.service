@@ -1,0 +1,14 @@
+[Unit]
+After=network.target postgresql.service
+
+[Service]
+ExecStart=/opt/p2k16/src/infrastructure/run-p2k16
+WorkingDirectory=/opt/p2k16
+KillMode=process
+Restart=on-failure
+User=p2k16
+Group=p2k16
+Environment=P2K16_CONFIG=/opt/p2k16/src/infrastructure/config-%i.cfg
+
+[Install]
+WantedBy=multi-user.target

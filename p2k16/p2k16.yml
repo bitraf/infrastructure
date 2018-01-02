@@ -1,8 +1,12 @@
 ---
-- hosts: p2k16
+- hosts:
+    - p2k16
+    - p2k16-staging
   vars_files:
     - ../vars/users.yml
   roles:
     - network
     - packages
     - superusers
+    - postgresql-server
+    - p2k16
