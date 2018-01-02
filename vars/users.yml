@@ -9,6 +9,7 @@ users:
     authorized_keys: |
       ssh-dss AAAAB3NzaC1kc3MAAACBALEyHFyiNS5BLIHYyMZP8mfx6HL0ECb4kolBCU0pSH+BLcNDK6rwVDKCoAemyj3yw5DfY72CVKK3A+LU0MywTkK3qAVf7t04ksdEgHKWq9dkp1bbLGHO0q7zVKeC3nOshZ1jjH5WvxxHDi5K3qE3dU4Aue1ltyjoV8NTTHWk4GcbAAAAFQDy2XnQi7QjbEIQPUAQADXpT22bawAAAIAyq/zAV5AmOVGiKecuzvTIZklCNorl/yTrIgRML2lWoyZpP3pXho7Mden7UC20RRZZEnTNvl/BsZSou7ttw2vXjPbV+eUFuC1cXBlI5/uPxDkoNEXSd+ucXtaXNaZqrtKt6mH7r0L9U5CwLOuE1oFm44nsHfSWK4O7wIxAAixUiQAAAIB1K/CF4XxwFCQYN1x2BVZFqhyWNUVO3Envv2g+yHfZDSVJDF649Q6gXmNHqsvJrLJuUcrnIUzBl7MQYCNTgI9vXxUYeSQ+sp+bxrcefRIdrxxqwHMuAKJit01XnvfY/lc/PQkClXc27Fg6S1jdJeQT3199TceVgC1J5sHgU5o9dQ== trygvis@birgitte
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPX+sVfRvl0+KxsDlbIutyB/Es3exTwNfDVHwi9orwz3 trygvis@birgitte
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJAzB6JB/hZ87M6ozsd7lgKxgOacEOZZRxa4ucs11lqq trygvis@conflatorio
   tingo:
     authorized_keys: ""
   royk:
