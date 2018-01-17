@@ -72,7 +72,7 @@
     - name: docroot dir
       copy:
         dest: "/{{ docroot }}/index.html"
-        src: "{{ docroot }}/index.html"
+        src: "docroot/index.html"
 
 - name: p2k16 database
   tags: p2k16-pg
@@ -136,6 +136,7 @@
       notify: p2k16 restart
       pip:
         name: /opt/p2k16/src/web
+        editable: true
         virtualenv: /opt/p2k16/env
         virtualenv_python: python3
         extra_args: --trusted-host github.com --process-dependency-links
