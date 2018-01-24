@@ -1,3 +1,7 @@
+# WARNING
+# WARNING This file is managed with ansible
+# WARNING
+
 # Cannot be enabled, because the rules not overwritten by more specific ones below
 #topic read /#
 #topic write /#

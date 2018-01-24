@@ -63,4 +63,4 @@
     - debug:
         msg: Forcing restart of mosquitto
       notify: restart mosquitto
-      changed_when: false
+      changed_when: true
