@@ -1,0 +1,14 @@
+#    - network
+#    - packages
+#    - users
+---
+- hosts: bomba
+  tasks:
+  - import_role:
+      name: "superusers"
+  vars_files:
+    - ../vars/users.yml
+  vars:
+    superusers:
+      - username: trygvis
+        state: present
