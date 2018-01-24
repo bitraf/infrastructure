@@ -1,0 +1,6 @@
+mqtt_accounts:
+  - name: bitraf-p2k16-web
+  - name: foo
+    state: absent
+  - name: bar
+    state: absent

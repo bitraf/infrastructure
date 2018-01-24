@@ -1,1 +1,4 @@
 bomba ansible_host=bomba.bitraf.no
+
+[mosquitto-servers]
+bomba

@@ -1,0 +1,1 @@
+mosquitto__password_file: /etc/mosquitto/conf.d/bitraf.passwords
