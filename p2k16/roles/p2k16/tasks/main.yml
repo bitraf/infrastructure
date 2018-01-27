@@ -112,6 +112,32 @@
   become: yes
   tags:
     - p2k16
+    - p2k16-config
+  block:
+    - name: /etc/p2k16
+      tags: systemd
+      file:
+        path: /etc/p2k16
+        state: directory
+
+    - name: p2k16 config - environment
+      tags: systemd
+      notify: p2k16 restart
+      template:
+        dest: "/etc/p2k16/{{ p2k16.domain_name }}.conf"
+        src: etc/p2k16/environment.conf.j2
+
+    - name: p2k16 config - flyway
+      tags: systemd
+      notify: p2k16 restart
+      template:
+        dest: "/etc/p2k16/flyway.conf"
+        src: etc/p2k16/flyway.conf.j2
+
+- name: p2k16 main
+  become: yes
+  tags:
+    - p2k16
     - p2k16-main
   block:
     - name: p2k16 packages
@@ -154,19 +180,6 @@
       bower:
         path: /opt/p2k16/src/web
         relative_execpath: /opt/p2k16/node_modules/.bin
-
-    - name: /etc/p2k16
-      tags: systemd
-      file:
-        path: /etc/p2k16
-        state: directory
-
-    - name: p2k16 config
-      tags: systemd
-      notify: p2k16 restart
-      template:
-        dest: "/etc/p2k16/{{ p2k16.domain_name }}.conf"
-        src: etc/p2k16/environment.conf.j2
 
     - name: systemd unit
       tags: systemd
