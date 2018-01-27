@@ -48,6 +48,10 @@ topic read /bitraf/door/+/isopen
 topic read /bitraf/door/+/error
 topic read /bitraf/door/+/openuntil
 
+# p2k16 prod and staging systems
+topic read bitraf/bitraf-p2k16-web/#
+topic read bitraf/bitraf-p2k16-web-staging/#
+
 # Guest door notification
 topic read bitraf/guestlogin/arriving
 
