@@ -151,6 +151,8 @@
         - unzip
         - openjdk-8-jre
         - mosquitto-clients
+        - python-certbot
+        - python-certbot-nginx
 
     - name: p2k16 git
       notify: p2k16 restart
