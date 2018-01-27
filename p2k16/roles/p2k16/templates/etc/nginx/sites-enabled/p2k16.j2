@@ -7,7 +7,7 @@ server {
     index index.html;
 
     location /index.html {
-        root /var/www/{{ p2k16_domain_name }};
+        root /var/www/{{ p2k16.domain_name }};
         try_files $uri $uri/ =404;
     }
 

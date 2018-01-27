@@ -98,6 +98,12 @@ topic readwrite bitraf/openbutton/+/led
 topic write bitraf/guestlogin/arriving
 topic readwrite fbp
 
+user bitraf-p2k16-web
+topic readwrite bitraf/bitraf-p2k16-web/#
+
+user bitraf-p2k16-web-staging
+topic readwrite bitraf/bitraf-p2k16-web-staging/#
+
 user bitraf-button-1
 topic write bitraf/button/1/#
 topic write bitraf/temperature/1/#

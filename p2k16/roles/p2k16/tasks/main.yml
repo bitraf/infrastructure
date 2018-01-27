@@ -43,7 +43,7 @@
   become: yes
   tags: www
   vars:
-    docroot: "var/www/{{ p2k16_domain_name }}"
+    docroot: "var/www/{{ p2k16.domain_name }}"
   block:
     - name: Packages for www
       apt:
@@ -61,7 +61,7 @@
     - name: nginx config
       notify: reload nginx
       template:
-        dest: "/etc/nginx/sites-enabled/{{ p2k16_domain_name }}"
+        dest: "/etc/nginx/sites-enabled/{{ p2k16.domain_name }}"
         src: etc/nginx/sites-enabled/p2k16.j2
 
     - name: docroot dir
@@ -88,12 +88,12 @@
     - name: p2k16-flyway
       postgresql_user: 
         name: p2k16-flyway
-        password: "{{ p2k16_secret.DB_PASSWORD_FLYWAY }}"
+        password: "{{ p2k16_secret.db_password_flyway }}"
         encrypted: yes
     - name: p2k16-web
       postgresql_user: 
         name: p2k16-web
-        password: "{{ p2k16_secret.DB_PASSWORD_WEB }}"
+        password: "{{ p2k16_secret.db_password_web }}"
         encrypted: yes
     - name: p2k16 db
       postgresql_db:
@@ -124,6 +124,7 @@
         - nodejs
         - unzip
         - openjdk-8-jre
+        - mosquitto-clients
 
     - name: p2k16 git
       notify: p2k16 restart
@@ -163,7 +164,7 @@
       tags: systemd
       notify: p2k16 restart
       template:
-        dest: "/etc/p2k16/{{ p2k16_domain_name }}.conf"
+        dest: "/etc/p2k16/{{ p2k16.domain_name }}.conf"
         src: etc/p2k16/environment.conf.j2
 
     - name: systemd unit
@@ -175,7 +176,7 @@
     - name: enable systemd unit
       tags: systemd
       systemd:
-        name: "p2k16@{{ p2k16_domain_name }}.service"
+        name: "p2k16@{{ p2k16.domain_name }}.service"
         daemon_reload: yes
         enabled: yes
         state: started

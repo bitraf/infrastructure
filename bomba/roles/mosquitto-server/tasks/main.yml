@@ -54,7 +54,7 @@
 
     - name: Create passwd entries
       environment:
-        PW: "{{ bitraf_passwords.mqtt[item.name] }}"
+        PW: "{{ bitraf_passwords.mqtt[item.name].password }}"
       command: "mosquitto_passwd -b {{ mosquitto__password_file }} {{ item.name | d(item) }} ${PW}"
       with_items:
         - "{{ mqtt_accounts }}"
