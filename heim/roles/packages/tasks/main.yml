@@ -49,3 +49,7 @@
 
     # services
     - nginx
+
+    # user requests
+    - php7.0
+    - php
