@@ -21,6 +21,10 @@
               address 77.40.158.103
               netmask 255.255.255.224
               gateway 77.40.158.97
+      auto ens5
+      iface ens5 inet static
+              address 10.13.37.4
+              netmask 255.255.255.0
 
 - name: disable ipv6 autoconf for some interfaces
   tags: network
