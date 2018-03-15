@@ -1,8 +1,0 @@
----
-- hosts: p2k16_staging
-  vars_files:
-    - ../vars/users.yml
-  roles:
-    - network
-    - packages
-    - superusers
