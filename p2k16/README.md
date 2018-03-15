@@ -25,6 +25,15 @@ For prod:
 ansible-playbook -l p2k16 p2k16.yml
 ```
 
+Letsencrypt / HTTPS
+===================
+
+    certbot run --installer nginx -d p2k16.bitraf.no \
+      --authenticator webroot \
+      --webroot /var/www/p2k16.bitraf.no
+
+https://github.com/certbot/certbot/issues/5405#issuecomment-356498627
+
 See also
 --------
 

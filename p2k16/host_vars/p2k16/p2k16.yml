@@ -1,1 +1,6 @@
-p2k16_domain_name: p2k16.bitraf.no
+p2k16:
+  domain_name: p2k16.bitraf.no
+  mqtt_host: mqtt.bitraf.no
+  mqtt_port: 1883
+  mqtt_username: bitraf-p2k16-web
+  mqtt_prefix: bitraf/bitraf-p2k16-web/door/

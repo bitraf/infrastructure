@@ -1,0 +1,25 @@
+#    - network
+#    - packages
+#    - users
+---
+- hosts: bomba
+  tasks:
+  - name: Role superusers
+    tags: superusers
+    import_role:
+      tags: superusers
+      name: superusers
+
+  - name: Role mosquitto-server
+    tags: mosquitto
+    become: yes
+    import_role:
+      name: mosquitto-server
+
+  vars_files:
+    - ../vars/users.yml
+    - ../vars/bitraf_passwords.yml
+  vars:
+    superusers:
+      - username: trygvis
+        state: present
