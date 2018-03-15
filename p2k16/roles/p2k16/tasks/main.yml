@@ -42,8 +42,6 @@
 - name: www for p2k16
   become: yes
   tags: www
-  vars:
-    docroot: "var/www/{{ p2k16.domain_name }}"
   block:
     - name: Packages for www
       apt:
@@ -124,7 +122,7 @@
       tags: systemd
       notify: p2k16 restart
       template:
-        dest: "/etc/p2k16/{{ p2k16.domain_name }}.conf"
+        dest: "{{ environment_conf }}"
         src: etc/p2k16/environment.conf.j2
 
     - name: p2k16 config - flyway
@@ -160,6 +158,12 @@
         repo: 'https://github.com/bitraf/p2k16'
         dest: /opt/p2k16/src
         version: master
+      register: git_checkout
+
+    - lineinfile:
+        path: "{{ environment_conf }}"
+        regexp: "^GIT_REVISION="
+        line: "GIT_REVISION={{ git_checkout.after }}"
 
     - name: p2k16 pip
       notify: p2k16 restart

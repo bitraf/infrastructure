@@ -1,0 +1,2 @@
+docroot: "var/www/{{ p2k16.domain_name }}"
+environment_conf: "/etc/p2k16/{{ p2k16.domain_name }}.conf"
