@@ -169,7 +169,6 @@
         virtualenv: /opt/p2k16/env
         virtualenv_python: python3
         extra_args: --trusted-host github.com --process-dependency-links
-        editable: true
 
     - name: p2k16 install bower
       notify: p2k16 restart
