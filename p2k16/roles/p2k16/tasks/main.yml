@@ -34,10 +34,43 @@
     - name: create p2k16 user
       user:
         name: p2k16
-        shell: "/bin/false"
+        shell: "/bin/bash"
         createhome: no
-        home: /
+        home: /opt/p2k16
         system: yes
+    - file:
+        state: directory
+        path: /opt/p2k16/bin
+    - copy:
+        src: opt/p2k16/bash_profile
+        dest: /opt/p2k16/.bash_profile
+    - copy:
+        content: ""
+        dest: /opt/p2k16/.bash_history
+        owner: p2k16
+        force: no
+
+- name: flyway for p2k16
+  become: yes
+  tags: flyway
+  block:
+    - file:
+        state: directory
+        path: /opt/p2k16/flyway
+    - template:
+        src: opt/p2k16/bin/flyway.j2
+        dest: /opt/p2k16/bin/flyway
+        mode: a=rx
+    - name: Download and extract Flyway {{ flyway_version }}
+      unarchive:
+        src: "https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/{{ flyway_version }}/flyway-commandline-{{ flyway_version }}.zip"
+        dest: /opt/p2k16/flyway
+        creates: "/opt/p2k16/flyway/flyway-{{ flyway_version }}"
+        remote_src: yes
+    - file:
+        path: "/opt/p2k16/flyway/flyway-{{ flyway_version }}/flyway"
+        mode: a=rx
+    # flyway.conf is created later
 
 - name: www for p2k16
   become: yes
