@@ -1,0 +1,62 @@
+---
+- tags: postfix
+  become: true
+  block:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+    - name: Install package
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - postfix
+        - swaks
+
+    - name: "Configure postfix: main.cf"
+      tags: postfix-config
+      notify: reload postfix
+      lineinfile:
+        dest: /etc/postfix/main.cf
+        line: "{{ item.key }} = {{ item.value }}"
+        regexp: "^{{ item.key }} ="
+      with_items:
+        - key: "smtp_sasl_auth_enable"
+          value: "yes"
+        - key: "smtp_sasl_password_maps"
+          value: "hash:/etc/postfix/sasl_passwd"
+        - key: "smtp_sasl_security_options"
+          value: "noanonymous"
+        - key: "smtp_sasl_tls_security_options"
+          value: "noanonymous"
+        - key: "smtp_tls_security_level"
+          value: "encrypt"
+        - key: "header_size_limit"
+          value: "4096000"
+        - key: "relayhost"
+          value: "[smtp.sendgrid.net]:587"
+
+    - name: Create /etc/postfix/sasl_passwd
+      tags: postfix-config
+      copy:
+        dest: /etc/postfix/sasl_passwd
+        content: ""
+        force: no
+        mode: 0600
+
+    - name: "Configure postfix: sasl_passwd"
+      tags: postfix-config
+      lineinfile:
+        dest: /etc/postfix/sasl_passwd
+        line: "{{ item.host }} {{ item.username }}:{{ item.password }}"
+        regexp: "^{{ item.host|regex_escape() }}"
+      with_items: "{{ postfix.sasl_password }}"
+      notify: postmap /etc/postfix/sasl_passwd
+
+    - name: Enable postfix service
+      service:
+        name: postfix
+        state: started
+        enabled: yes
+

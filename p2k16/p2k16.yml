@@ -10,4 +10,5 @@
     - packages
     - superusers
     - postgresql-server
+    - postfix
     - p2k16

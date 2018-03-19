@@ -1,0 +1,8 @@
+---
+- name: reload postfix
+  service: name=postfix state=reloaded
+  become: yes
+
+- name: postmap /etc/postfix/sasl_passwd
+  become: yes
+  shell: postmap /etc/postfix/sasl_passwd
