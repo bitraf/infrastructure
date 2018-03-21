@@ -39,6 +39,10 @@
         home: /opt/p2k16
         system: yes
     - file:
+        path: /opt/p2k16
+        owner: p2k16
+        mode: u=rwx,go=
+    - file:
         state: directory
         path: /opt/p2k16/bin
     - copy:
@@ -46,9 +50,12 @@
         dest: /opt/p2k16/.bash_profile
     - copy:
         content: ""
-        dest: /opt/p2k16/.bash_history
         owner: p2k16
         force: no
+        dest: "{{ item.dest }}"
+      with_items:
+        - dest: /opt/p2k16/.bash_history
+        - dest: /opt/p2k16/.viminfo
 
 - name: flyway for p2k16
   become: yes
@@ -164,6 +171,41 @@
       template:
         dest: "/etc/p2k16/flyway.conf"
         src: etc/p2k16/flyway.conf.j2
+
+    - name: Create files
+      copy:
+        content: ""
+        dest: "{{ item }}"
+        force: no
+        owner: p2k16
+        mode: "u=rw,go="
+      with_items:
+#        - /opt/p2k16/.pgpass
+        - /opt/p2k16/.pg_service.conf
+        - /opt/p2k16/.psql_history
+    - name: p2k16 config - ~/.pg_service.conf
+      copy:
+        dest: /opt/p2k16/.pg_service.conf
+        owner: p2k16
+        mode: "u=r,go="
+        content: |
+          [p2k16]
+          user=p2k16-web
+          dbname=p2k16
+          host=localhost
+          password={{ p2k16_secret.db_password_web }}
+#    - name: p2k16 config - ~/.pgpass
+#      lineinfile:
+#        path: /opt/p2k16/.pgpass
+#        regexp: "{{ item.re }}"
+#        line: "{{ item.value }}"
+#        owner: p2k16
+#        mode: "u=r,go="
+#      with_items:
+#        - re: "localhost:5432:p2k16:p2k16-web:"
+#          value: "localhost:5432:p2k16:p2k16-web:{{ p2k16_secret.db_password_web }}"
+#        - re: "localhost:5432:p2k16:p2k16-flyway:"
+#          value: "localhost:5432:p2k16:p2k16-flyway:{{ p2k16_secret.db_password_flyway }}"
 
 - name: p2k16 main
   become: yes
