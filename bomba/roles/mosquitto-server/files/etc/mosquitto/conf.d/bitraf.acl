@@ -103,7 +103,7 @@ topic write bitraf/guestlogin/arriving
 topic readwrite fbp
 
 user bitraf-p2k16-web
-topic readwrite bitraf/bitraf-p2k16-web/#
+topic write /bitraf/door/+/open
 
 user bitraf-p2k16-web-staging
 topic readwrite bitraf/bitraf-p2k16-web-staging/#

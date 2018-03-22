@@ -194,6 +194,11 @@
           dbname=p2k16
           host=localhost
           password={{ p2k16_secret.db_password_web }}
+          [p2k16-flyway]
+          user=p2k16-flyway
+          dbname=p2k16
+          host=localhost
+          password={{ p2k16_secret.db_password_flyway }}
 #    - name: p2k16 config - ~/.pgpass
 #      lineinfile:
 #        path: /opt/p2k16/.pgpass
@@ -228,7 +233,10 @@
         - python-certbot-nginx
 
     - name: p2k16 git
-      notify: p2k16 restart
+      tags: p2k16-pull
+      notify:
+        - flyway migrate
+        - p2k16 restart
       git:
         repo: 'https://github.com/bitraf/p2k16'
         dest: /opt/p2k16/src

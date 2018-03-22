@@ -15,3 +15,11 @@
   systemd:
     name: "p2k16@{{ p2k16.domain_name }}.service"
     state: restarted
+
+- name: flyway migrate
+  become: yes
+  # The become method would have been best but doesn't work with ansible 2.4
+  # https://github.com/ansible/ansible/issues/31125
+  # become_user: p2k16
+  # shell: flyway migrate
+  shell: sudo -iu p2k16 flyway migrate

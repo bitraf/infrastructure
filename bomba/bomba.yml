@@ -7,7 +7,6 @@
   - name: Role superusers
     tags: superusers
     import_role:
-      tags: superusers
       name: superusers
 
   - name: Role mosquitto-server
