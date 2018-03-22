@@ -27,6 +27,9 @@
     - firmware-bnx2x
     - firmware-qlogic
 
+    - unattended-upgrades
+    - apt-listchanges
+
     # useful utilities and things
     - aptitude
     - bridge-utils

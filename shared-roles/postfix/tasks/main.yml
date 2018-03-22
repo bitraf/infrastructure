@@ -12,6 +12,7 @@
         state: present
       with_items:
         - postfix
+        - libsasl2-modules
         - swaks
 
     - name: "Configure postfix: main.cf"
@@ -22,6 +23,12 @@
         line: "{{ item.key }} = {{ item.value }}"
         regexp: "^{{ item.key }} ="
       with_items:
+        - key: "mydomain"
+          value: "bitraf.no"
+        - key: "myorigin"
+          value: "bitraf.no"
+        - key: "mydestination"
+          value: ""
         - key: "smtp_sasl_auth_enable"
           value: "yes"
         - key: "smtp_sasl_password_maps"
