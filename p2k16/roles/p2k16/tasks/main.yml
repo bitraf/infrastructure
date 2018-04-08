@@ -250,6 +250,7 @@
 
     - name: p2k16 pip
       notify: p2k16 restart
+      tags: p2k16-pull
       pip:
         name: /opt/p2k16/src/web
         editable: true
