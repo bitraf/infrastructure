@@ -19,7 +19,8 @@ users:
     authorized_keys: |
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOXi2hd00LZWMvVNPFGESL2KgmeeuxpYGzjvQU1eESEB odin@h
   haavares:
-    authorized_keys: ""
+    authorized_keys: |
+      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCjyYhjUXvIOg7T2yHGchEt0h03unxPmATeDhE7Lh6BAGbtgdJCDqhZr3FQrT1CLPwaHtNkAbSFKrxe+n+xV4Bh6jzPxc4fVRSUGHz3VrMojtxey7BMo3YmYgj7riHgAFiVg787VtE2tDQwuHoCGdafeSJPZEpUMvfLe4oUG6KE9i2sQpkFCuVharc/grna67NmAIyVxQYqA3KdoUO/i7W3P8bEpDj6s6F6H63iX9quOLmHc1tbS7kAkaB7EVvhOAbsDbo8cpkAFbUOX9UJS4tJfOGMrkTJ6IhO7HyXM6LmoS3sA6EFSYFbdM7UjpVk7/RwJ7WjW2Sm/8MbtIgklo9t haavares@helga-908.local
   drerik:
     authorized_keys: |
       ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDiPC/mWsamawwNjzrJQ4wB8W+4xvSKQrmJqsNH+EXqV+8zcdzDz0g7c6UTQpwD4P4BX3V3Gm/fyGzim75/vT7XxiSDdimQ0k/reXFkxq+HNwhqFSOQE6IoVt7lmoT+D9duUeQeO6wTyEsAOUdiDyqcpyiZF3st0JLGpYKJE3m5KQ0NE1ALT9/fFGyPd5G6mLSe3rcsygCpwdG4RzEh30b2BA7hFIYCAdk/NHZ8gcNs1Ci9kMXODf/xwOa36TG4y35C1HJHY3hW91tSbPCPd2A6o0OKa0aCXUc8aGQiCcln193kN/qSIX9MZ5PZRm4o0/b08qcK75oI+8yEK1OwW+21 esu@Eriks-MacBook-Pro.local
