@@ -120,16 +120,18 @@
     ansible_ssh_pipelining: true
   block:
     - name: p2k16
-      postgresql_user: 
+      postgresql_user:
         name: p2k16
         role_attr_flags: "NOLOGIN"
     - name: p2k16-flyway
-      postgresql_user: 
+      tags: update-password
+      postgresql_user:
         name: p2k16-flyway
         password: "{{ p2k16_secret.db_password_flyway }}"
         encrypted: yes
     - name: p2k16-web
-      postgresql_user: 
+      tags: update-password
+      postgresql_user:
         name: p2k16-web
         password: "{{ p2k16_secret.db_password_web }}"
         encrypted: yes
@@ -159,14 +161,18 @@
         state: directory
 
     - name: p2k16 config - environment
-      tags: systemd
+      tags:
+        - systemd
+        - update-password
       notify: p2k16 restart
       template:
         dest: "{{ environment_conf }}"
         src: etc/p2k16/environment.conf.j2
 
     - name: p2k16 config - flyway
-      tags: systemd
+      tags:
+        - systemd
+        - update-password
       notify: p2k16 restart
       template:
         dest: "/etc/p2k16/flyway.conf"
@@ -184,6 +190,7 @@
         - /opt/p2k16/.pg_service.conf
         - /opt/p2k16/.psql_history
     - name: p2k16 config - ~/.pg_service.conf
+      tags: update-password
       copy:
         dest: /opt/p2k16/.pg_service.conf
         owner: p2k16
