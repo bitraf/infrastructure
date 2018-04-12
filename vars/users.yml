@@ -24,4 +24,6 @@ users:
   drerik:
     authorized_keys: |
       ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDiPC/mWsamawwNjzrJQ4wB8W+4xvSKQrmJqsNH+EXqV+8zcdzDz0g7c6UTQpwD4P4BX3V3Gm/fyGzim75/vT7XxiSDdimQ0k/reXFkxq+HNwhqFSOQE6IoVt7lmoT+D9duUeQeO6wTyEsAOUdiDyqcpyiZF3st0JLGpYKJE3m5KQ0NE1ALT9/fFGyPd5G6mLSe3rcsygCpwdG4RzEh30b2BA7hFIYCAdk/NHZ8gcNs1Ci9kMXODf/xwOa36TG4y35C1HJHY3hW91tSbPCPd2A6o0OKa0aCXUc8aGQiCcln193kN/qSIX9MZ5PZRm4o0/b08qcK75oI+8yEK1OwW+21 esu@Eriks-MacBook-Pro.local
-
+  mattis:
+    authorized_keys: |
+      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDZT7rK9c74U6DFotWTRuSW3JyOS6uMRlEOKwelfe1k/hxfHbzfKf0AjcK/penNk/+SnNykrfnutxc9vMmZp6P7GHPAAFXMqWzgs7FXFClCq+lSgty8VMg7yWCErMw0prFPQi8v49rdX26FpFMbi7ltt+FtWsqKa9mvccJcFw6HCXD6yx7iRwLGIQJM1nJPkgb3m7fme22w2WqTag76cMDBC2HUoXHxBwHLWoAbs9249O6vDoR61k7po/cBWcGInxLh66B+VBDRoZoeo/H3LzQs18uHTWVzGj1Twa7jwo236qCfRy0CMwmnu4G7Y+1B2MgoAEimN/SkL0jPit1y5qY9 mattis@ultramattis

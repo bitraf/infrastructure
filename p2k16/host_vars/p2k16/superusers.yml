@@ -15,3 +15,5 @@ superusers:
     state: present
   - username: drerik
     state: absent
+  - username: mattis
+    state: present
