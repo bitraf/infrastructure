@@ -178,6 +178,22 @@
         dest: "/etc/p2k16/flyway.conf"
         src: etc/p2k16/flyway.conf.j2
 
+    - name: p2k16 config - logrotate
+      copy:
+        dest: /etc/logrotate.d/p2k16
+        content: |
+          /opt/p2k16/log/p2k16.log {
+              daily
+              dateext
+              ifempty
+              compress
+              delaycompress
+              missingok
+              postrotate
+                  kill -USR1 $(cat /opt/p2k16/p2k16.pid)
+              endscript
+          }
+
     - name: Create files
       copy:
         content: ""
