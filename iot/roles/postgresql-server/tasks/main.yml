@@ -1,0 +1,35 @@
+---
+- name: postgresql-server
+  become: yes
+  tags:
+    - postgresql-server
+  block:
+    - name: Install PostgreSQL APT key
+      tags: pg
+      notify: update apt cache
+      apt_key:
+        id: ACCC4CF8
+        keyserver: keyserver.ubuntu.com
+
+    - name: PostgreSQL APT repository
+      tags: pg
+      notify: update apt cache
+      copy:
+        dest: /etc/apt/sources.list.d/postgresql.list
+        content: 'deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main'
+
+- meta: flush_handlers
+
+- name: postgresql packages
+  become: yes
+  tags: pg
+  block:
+    - name: packages
+      apt:
+        name: "{{ item }}"
+        install_recommends: no
+      with_items:
+        - postgresql-10
+        - postgresql-client-10
+        - python-psycopg2
+        - python3-psycopg2

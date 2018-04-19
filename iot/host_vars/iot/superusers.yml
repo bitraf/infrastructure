@@ -1,0 +1,7 @@
+superusers:
+  - username: mastensg
+    state: present
+  - username: trygvis
+    state: present
+  - username: talimere
+    state: present

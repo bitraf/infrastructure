@@ -1,0 +1,10 @@
+---
+- hosts:
+    - iot
+  vars_files:
+    - ../vars/users.yml
+  roles:
+    - network
+    - packages
+    - superusers
+    - postgresql-server
