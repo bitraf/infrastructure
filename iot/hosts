@@ -1,2 +1,1 @@
-#iot ansible_host=iot2.bitraf.no
-iot ansible_host=10.13.37.42
+iot ansible_host=iot2.bitraf.no
