@@ -12,3 +12,11 @@
     - postgresql-server
     - postfix
     - p2k16
+  tasks:
+    - name: PostgreSQL WAL-E
+      import_role:
+        name: postgresql-wal-e
+      tags: postgresql-wal-e
+      vars:
+        pwe_major: 10
+        pwe_instance: main
