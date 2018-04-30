@@ -1,0 +1,5 @@
+pwe_venv: /var/lib/postgresql/wal-e
+pwe:
+  venv: /var/lib/postgresql/wal-e
+#  envdir_bin: /var/lib/postgresql/wal-e/bin/envdir
+  envdir_bin: "{{ venv }}/bin/envdir"

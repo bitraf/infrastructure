@@ -1,0 +1,63 @@
+---
+- name: Packages for WAL-E
+  become: true
+  apt:
+    name: "{{ item }}"
+    install_recommends: no
+  with_items:
+    - pv
+    - lzop
+- name: pip
+  become: yes
+  become_user: postgres
+  vars:
+    ansible_ssh_pipelining: true
+  pip:
+    name: "{{ item }}"
+    virtualenv: "{{ pwe_venv }}"
+    virtualenv_python: python3
+  with_items:
+    - wal-e
+    - envdir
+
+- name: Config dir
+  become: true
+  file:
+    path: /etc/wal-e/{{ pwe_major }}-{{ pwe_instance }}-env.d
+    state: directory
+    mode: u=rwx,g=rx,o=
+    group: postgres
+
+- name: Config entry
+  become: true
+  notify: restart postgresql
+  copy:
+    dest: "/etc/wal-e/{{ pwe_major }}-{{ pwe_instance }}-env.d/{{ item.key }}"
+    content: "{{ item.value }}"
+    mode: u=rwx,g=rx,o=
+    group: postgres
+  with_items:
+    - key: "WALE_FILE_PREFIX"
+      value: "file://localhost/var/lib/postgresql/backups"
+
+- name: PostgreSQL config
+  become: true
+  notify: restart postgresql
+  copy:
+    dest: /etc/postgresql/{{ pwe_major }}/{{ pwe_instance }}/conf.d/bitraf-backup.conf
+    content: |
+      wal_level = archive
+      archive_mode = on
+      archive_command = '{{ pwe_venv }}/bin/envdir /etc/wal-e/{{ pwe_major }}-{{ pwe_instance }}-env.d {{ pwe_venv }}/bin/wal-e wal-push %p'
+      archive_timeout = 60
+
+- name: Cron jobs
+  become: true
+  cron:
+    name: "wal-e backup-push {{ pwe_major }}/{{ pwe_instance }}"
+    state: present
+    minute: "06"
+    hour: "4"
+    weekday: "sun"
+    user: "postgres"
+    job: "{{ pwe_venv }}/bin/envdir /etc/wal-e/{{ pwe_major }}-{{ pwe_instance }}-env.d {{ pwe_venv }}/bin/wal-e backup-push /var/lib/postgresql/{{ pwe_major }}/{{ pwe_instance }}"
