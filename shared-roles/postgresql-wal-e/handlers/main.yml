@@ -1,0 +1,5 @@
+---
+- name: restart postgresql
+  become: yes
+  service: name=postgresql@{{ pwe_major }}-{{ pwe_instance}} state=restarted
+
