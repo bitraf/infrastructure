@@ -7,6 +7,7 @@
   with_items:
     - pv
     - lzop
+
 - name: pip
   become: yes
   become_user: postgres
