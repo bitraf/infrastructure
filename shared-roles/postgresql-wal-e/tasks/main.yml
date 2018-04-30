@@ -55,7 +55,7 @@
 - name: Cron jobs
   become: true
   cron:
-    name: "wal-e backup-push {{ pwe_major }}/{{ pwe_instance }}"
+    cron_file: "postgresql-wal-e-{{ pwe_major }}-{{ pwe_instance }}"
     state: present
     minute: "06"
     hour: "4"
