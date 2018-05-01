@@ -1,6 +1,5 @@
 ---
-- tags: postfix
-  become: true
+- become: true
   block:
     - name: Update apt cache
       apt:
@@ -16,7 +15,7 @@
         - swaks
 
     - name: "Configure postfix: main.cf"
-      tags: postfix-config
+      tags: postfix-satellite-config
       notify: reload postfix
       lineinfile:
         dest: /etc/postfix/main.cf
@@ -45,7 +44,7 @@
           value: "[smtp.sendgrid.net]:587"
 
     - name: Create /etc/postfix/sasl_passwd
-      tags: postfix-config
+      tags: postfix-satellite-config
       copy:
         dest: /etc/postfix/sasl_passwd
         content: ""
@@ -53,7 +52,7 @@
         mode: 0600
 
     - name: "Configure postfix: sasl_passwd"
-      tags: postfix-config
+      tags: postfix-satellite-config
       lineinfile:
         dest: /etc/postfix/sasl_passwd
         line: "{{ item.host }} {{ item.username }}:{{ item.password }}"
@@ -66,4 +65,3 @@
         name: postfix
         state: started
         enabled: yes
-

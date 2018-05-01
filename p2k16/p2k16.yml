@@ -10,7 +10,7 @@
     - packages
     - superusers
     - postgresql-server
-    - postfix
+    - postfix-satellite
     - p2k16
   tasks:
     - name: PostgreSQL WAL-E
