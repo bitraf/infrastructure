@@ -20,8 +20,7 @@
 
 - meta: flush_handlers
 
-- name: postgresql packages
-  become: yes
+- become: yes
   tags: pg
   block:
     - name: packages
@@ -33,3 +32,19 @@
         - postgresql-client-10
         - python-psycopg2
         - python3-psycopg2
+
+    - name: Logrotate
+      copy:
+        dest: /etc/logrotate.d/postgresql-common
+        content: |
+          \# Managed by Ansible
+          /var/log/postgresql/*.log {
+                 daily
+                 dateext
+                 copytruncate
+                 delaycompress
+                 compress
+                 notifempty
+                 missingok
+                 su root root
+          }
