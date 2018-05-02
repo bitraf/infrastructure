@@ -16,8 +16,9 @@
       Unattended-Upgrade::Origins-Pattern {
           "origin=Debian,codename=${distro_codename},label=Debian";
           "origin=Debian,codename=${distro_codename},label=Debian-Security";
+          "origin=apt.postgresql.org,codename=${distro_codename}-pgdg,label=PostgreSQL for Debian/Ubuntu repository";
       }
-      Unattended-Upgrade::MinimalSteps "true";
+      // Unattended-Upgrade::MinimalSteps "true";
       Unattended-Upgrade::Mail "itavdelingen@bitraf.no";
       Unattended-Upgrade::MailOnlyOnError "false";
 
