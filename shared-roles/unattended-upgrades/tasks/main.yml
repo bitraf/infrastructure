@@ -29,3 +29,10 @@
     content: |
       APT::Periodic::Update-Package-Lists "1";
       APT::Periodic::Unattended-Upgrade "1";
+
+- name: Configure /etc/apt/listchanges.conf
+  become: true
+  lineinfile:
+    dest: /etc/apt/listchanges.conf
+    line: "email_address=itavdelingen@bitraf.no"
+    regexp: "^email_address="
