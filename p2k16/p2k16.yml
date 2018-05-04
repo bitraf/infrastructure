@@ -10,7 +10,7 @@
     - packages
     - superusers
     - postgresql-server
-    - postfix
+    - postfix-satellite
     - p2k16
   tasks:
     - name: PostgreSQL WAL-E
@@ -20,3 +20,7 @@
       vars:
         pwe_major: 10
         pwe_instance: main
+
+    - name: Unattended upgrades
+      import_role: name=unattended-upgrades
+      tags: unattended-upgrades
