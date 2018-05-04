@@ -1,0 +1,3 @@
+---
+- tags: postfix-satellite
+  include: postfix-satellite.yml
