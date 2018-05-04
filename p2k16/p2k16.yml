@@ -20,3 +20,7 @@
       vars:
         pwe_major: 10
         pwe_instance: main
+
+    - name: Unattended upgrades
+      import_role: name=unattended-upgrades
+      tags: unattended-upgrades
