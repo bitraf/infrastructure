@@ -37,7 +37,7 @@
       copy:
         dest: /etc/logrotate.d/postgresql-common
         content: |
-          \# Managed by Ansible
+          # Managed by Ansible
           /var/log/postgresql/*.log {
                  daily
                  dateext
