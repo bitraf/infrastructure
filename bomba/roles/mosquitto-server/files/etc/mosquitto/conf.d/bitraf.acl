@@ -79,8 +79,8 @@ topic read bitraf/currentsensor/+
 # Anyone can write, for now
 topic write bitraf/currentsensor/+
 
-# machine access
-topic read /bitraf/machine/#
+# https://github.com/bitraf/machineaccess
+topic read bitraf/machineaccess/#
 
 # OpenHAB
 user bitraf-openhab
@@ -134,7 +134,7 @@ topic write bitraf/nexa/1/cmd/#
 user bitraf-hotbot
 topic write bitraf/octoprint/hotbot/#
 
-# machine access
+# https://github.com/bitraf/machineaccess
 user bitraf-p2k16-web
 topic write bitraf/machineaccess/+/lock
 topic write bitraf/machineaccess/+/unlock
