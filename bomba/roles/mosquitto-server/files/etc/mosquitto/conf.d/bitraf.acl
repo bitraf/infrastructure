@@ -136,5 +136,5 @@ topic write bitraf/octoprint/hotbot/#
 
 # machine access
 user bitraf-p2k16-web
-topic write /bitraf/machine/+/lock
-topic write /bitraf/machine/+/unlock
+topic write bitraf/machineaccess/+/lock
+topic write bitraf/machineaccess/+/unlock
