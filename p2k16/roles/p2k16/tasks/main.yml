@@ -266,7 +266,9 @@
         version: master
       register: git_checkout
 
-    - lineinfile:
+    - name: Update GIT_REVISION
+      tags: p2k16-pull
+      lineinfile:
         path: "{{ environment_conf }}"
         regexp: "^GIT_REVISION="
         line: "GIT_REVISION={{ git_checkout.after }}"
