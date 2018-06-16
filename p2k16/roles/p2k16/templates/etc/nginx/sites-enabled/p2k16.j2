@@ -36,6 +36,25 @@ server {
     }
 
     location / {
+        try_files $uri @proxy;
+    }
+
+    location /passwd.php {
+        allow 127.0.0.1;
+
+        # Pløens gate 4
+        allow 77.40.158.96/27;
+        allow 2001:840:4b0b::/48;
+
+        # bitnode.bitraf.no
+        allow 85.90.244.199;
+        allow 2a01:7e01::f03c:91ff:fe67:e271;
+
+        deny all;
+        try_files $uri @proxy;
+    }
+
+    location @proxy {
         proxy_set_header Host $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
