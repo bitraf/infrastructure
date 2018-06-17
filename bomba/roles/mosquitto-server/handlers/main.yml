@@ -4,3 +4,9 @@
   service:
     name: mosquitto
     state: restarted
+- name: run mosquitto deploy handler
+  shell: /etc/letsencrypt/renewal-hooks/deploy/mosquitto-server
+  become: true
+  environment:
+    RENEWED_DOMAINS: 'mqtt.bitraf.no'
+    RENEWED_LINEAGE: '/etc/letsencrypt/live/mqtt.bitraf.no'

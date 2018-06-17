@@ -21,6 +21,15 @@
         src: "{{ item }}"
         dest: "/{{ item }}"
       with_items:
+        - etc/mosquitto/mosquitto.conf
+        - etc/mosquitto/bitraf.acl
+
+    - name: Remove old files
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - etc/mosquitto/conf.d/bitraf.passwords
         - etc/mosquitto/conf.d/bitraf.acl
         - etc/mosquitto/conf.d/bitraf.conf
 

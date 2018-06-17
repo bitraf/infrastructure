@@ -1,0 +1,6 @@
+---
+- name: Clone hivemq-mqtt-web-client
+  git:
+    repo: "https://github.com/bitraf/hivemq-mqtt-web-client"
+    dest: "/var/www/mqtt.bitraf.no/web"
+    version: bitraf
