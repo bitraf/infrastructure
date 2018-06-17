@@ -12,6 +12,12 @@
     import_role:
       name: mosquitto-server
 
+  - name: Role hivemq-mqtt-web-client
+    tags: hivemq-mqtt-web-client
+    become: yes
+    import_role:
+      name: hivemq-mqtt-web-client
+
   vars_files:
     - ../vars/users.yml
     - ../vars/bitraf_passwords.yml
