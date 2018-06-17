@@ -6,5 +6,8 @@
   roles:
     - network
     - packages
-    - superusers
     - postgresql-server
+  tasks:
+    - name: Running superusers
+      import_role: name=superusers
+      tags: superusers
