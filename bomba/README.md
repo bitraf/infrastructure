@@ -1,3 +1,3 @@
 # Configure Mosquitto
 
-    ansible-playbook bomba.yml --tags mosquitto
+    ansible-playbook bomba.yml --tags mosquitto-server
