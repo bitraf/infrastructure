@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+for domain in $RENEWED_DOMAINS; do
+  case $domain in
+  mqtt.bitraf.no)
+    umask 077
+
+    cp "$RENEWED_LINEAGE/fullchain.pem" "/etc/mosquitto/certs/$domain-fullchain.pem"
+    cp "$RENEWED_LINEAGE/privkey.pem" "/etc/mosquitto/certs/$domain-privkey.pem"
+
+    chown mosquitto "/etc/mosquitto/certs/$domain-fullchain.pem" "/etc/mosquitto/certs/$domain-privkey.pem"
+    chmod 400 "/etc/mosquitto/certs/$domain-fullchain.pem" "/etc/mosquitto/certs/$domain-privkey.pem"
+
+    systemctl restart mosquitto
+    ;;
+  esac
+done

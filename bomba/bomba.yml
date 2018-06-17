@@ -7,7 +7,7 @@
       name: superusers
 
   - name: Role mosquitto-server
-    tags: mosquitto
+    tags: mosquitto-server
     become: yes
     import_role:
       name: mosquitto-server
