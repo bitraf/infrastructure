@@ -24,3 +24,7 @@ users:
     state: present
     authorized_keys: |
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOXi2hd00LZWMvVNPFGESL2KgmeeuxpYGzjvQU1eESEB odin@h
+  - username: haavares
+    state: present
+    authorized_keys: |
+      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCjyYhjUXvIOg7T2yHGchEt0h03unxPmATeDhE7Lh6BAGbtgdJCDqhZr3FQrT1CLPwaHtNkAbSFKrxe+n+xV4Bh6jzPxc4fVRSUGHz3VrMojtxey7BMo3YmYgj7riHgAFiVg787VtE2tDQwuHoCGdafeSJPZEpUMvfLe4oUG6KE9i2sQpkFCuVharc/grna67NmAIyVxQYqA3KdoUO/i7W3P8bEpDj6s6F6H63iX9quOLmHc1tbS7kAkaB7EVvhOAbsDbo8cpkAFbUOX9UJS4tJfOGMrkTJ6IhO7HyXM6LmoS3sA6EFSYFbdM7UjpVk7/RwJ7WjW2Sm/8MbtIgklo9t haavares@helga-908.local
