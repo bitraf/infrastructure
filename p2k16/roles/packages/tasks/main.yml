@@ -15,6 +15,9 @@
       deb     http://ftp.no.debian.org/debian/ stretch-updates main contrib non-free
       deb-src http://ftp.no.debian.org/debian/ stretch-updates main contrib non-free
 
+      deb     http://ftp.no.debian.org/debian/ stretch-backports main contrib non-free
+      deb-src http://ftp.no.debian.org/debian/ stretch-backports main contrib non-free
+
 - name: install debian packages
   tags: packages
   become: yes
