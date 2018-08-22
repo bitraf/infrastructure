@@ -19,9 +19,9 @@
           "origin=Debian,codename=${distro_codename},label=Debian-Security";
           "origin=apt.postgresql.org,codename=${distro_codename}-pgdg,label=PostgreSQL for Debian/Ubuntu repository";
       }
-      // Unattended-Upgrade::MinimalSteps "true";
+      Unattended-Upgrade::MinimalSteps "True";
       Unattended-Upgrade::Mail "itavdelingen@bitraf.no";
-      Unattended-Upgrade::MailOnlyOnError "false";
+      Unattended-Upgrade::MailOnlyOnError "False";
 
 - name: Configure /etc/apt/apt.conf.d/20auto-upgrades
   become: true
