@@ -1,0 +1,16 @@
+---
+- hosts:
+    - unifi
+  vars_files:
+    - ../vars/bitraf_passwords.yml
+    - ../vars/users.yml
+  roles:
+    - network
+    - packages
+    - superusers
+    - postfix-satellite
+    - unifi
+  tasks:
+    - name: Unattended upgrades
+      import_role: name=unattended-upgrades
+      tags: unattended-upgrades
