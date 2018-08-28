@@ -26,5 +26,5 @@
         name: "{{ item }}"
         install_recommends: no
       with_items:
-        - default-jre
+        - openjdk-8-jre
         - unifi
