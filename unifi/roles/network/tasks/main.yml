@@ -1,0 +1,38 @@
+---
+- tags: network
+  become: yes
+  block:
+    - name: configure network interfaces
+      copy:
+        dest: /etc/network/interfaces
+        content: |
+          source /etc/network/interfaces.d/*
+
+          auto lo
+          iface lo inet loopback
+
+    - name: configure network interfaces
+      copy:
+        src: etc/network/interfaces.d/{{ ansible_hostname }}
+        dest: /etc/network/interfaces.d/{{ ansible_hostname }}
+
+    # NOTE(mastensg): unifi will listen on ONLY ipv6 if available.
+    - name: disable ipv6
+      tags: network
+      become: yes
+      sysctl:
+        name: "net.ipv6.conf.{{ item }}.disable_ipv6"
+        value: 1
+        state: present
+        reload: yes
+      with_items:
+        - all
+        - default
+        - lo
+
+    - name: configure name resolution
+      copy:
+        dest: /etc/resolv.conf
+        content: |
+          nameserver 8.8.8.8
+          nameserver 8.8.4.4

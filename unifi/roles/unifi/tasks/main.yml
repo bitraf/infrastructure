@@ -1,0 +1,30 @@
+---
+- name: unifi
+  become: yes
+  tags:
+    - unifi
+  block:
+    - name: Ubiquiti APT key
+      notify: update apt cache
+      apt_key:
+        id: 06E85760C0A52C50
+        keyserver: keyserver.ubuntu.com
+
+    - name: Ubiquiti APT repository
+      notify: update apt cache
+      copy:
+        dest: /etc/apt/sources.list.d/unifi.list
+        content: 'deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti'
+
+- meta: flush_handlers
+
+- become: yes
+  tags: unifi
+  block:
+    - name: packages
+      apt:
+        name: "{{ item }}"
+        install_recommends: no
+      with_items:
+        - openjdk-8-jre
+        - unifi
