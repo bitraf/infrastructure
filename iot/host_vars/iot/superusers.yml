@@ -5,3 +5,7 @@ superusers:
     state: present
   - username: talimere
     state: present
+  - username: tingo
+    state: present
+  - username: eliasbakken
+    state: present
