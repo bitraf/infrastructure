@@ -1,0 +1,16 @@
+- name: apt install
+  with_items:
+    - lxc
+    - python3-lxc
+    - debootstrap
+    - bridge-utils
+  apt:
+    name: "{{ item }}"
+    install_recommends: false
+- name: /etc/default/lxc.conf
+  copy:
+    dest: /etc/default/lxc.conf
+    content: ""
+
+- include_tasks: lxc-per-host.yml
+  with_dict: "{{ lxc_containers }}"
