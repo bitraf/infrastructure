@@ -1,0 +1,45 @@
+- hosts:
+    - bitnode
+  vars_files:
+    - ../vars/users.yml
+  vars:
+    int_link: br0
+    int_ipv4: 10.13.39.1
+    lxc_containers:
+      mw:
+        state: started
+        mac: 00:13:39:00:00:02
+        ipv4:
+          address: 10.13.39.2
+  handlers:
+    - name: systemctl restart systemd-networkd
+      become: true
+      systemd:
+        name: systemd-networkd
+        state: restarted
+  tasks:
+    - tags: packages
+      become: true
+      block:
+        - copy:
+            dest: /etc/apt/preferences.d/jessie-backports
+            content: |
+              Package: *
+              Pin: release a=jessie-backports
+              Pin-Priority: 500
+        - name: apt install
+          with_items:
+            - ufw
+          apt:
+            name: "{{ item }}"
+            install_recommends: false
+    - import_role: name=superusers
+      tags: superusers
+      become: true
+    - import_tasks: network.yml
+      tags: network
+      become: true
+    - name: LXC containers
+      import_tasks: lxc-containers.yml
+      tags: lxc-containers
+      become: true

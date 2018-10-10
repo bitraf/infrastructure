@@ -1,0 +1,74 @@
+- name: apt install
+  with_items:
+    - systemd
+  apt:
+    name: "{{ item }}"
+    install_recommends: false
+
+- name: enable systemd-networkd
+  systemd:
+    name: systemd-networkd
+    state: started
+
+- name: /etc/systemd/network/10-br0.netdev
+  notify: systemctl restart systemd-networkd
+  copy:
+    dest: /etc/systemd/network/10-br0.netdev
+    content: |
+      [NetDev]
+      Name=br0
+      Kind=bridge
+
+- name: /etc/systemd/network/11-br0.network
+  notify: systemctl restart systemd-networkd
+  copy:
+    dest: /etc/systemd/network/11-br0.network
+    content: |
+      [Match]
+      Name=br0
+
+      [Network]
+      Address={{ int_ipv4 }}
+
+- name: /etc/systemd/network/12-int0.netdev
+  notify: systemctl restart systemd-networkd
+  copy:
+    dest: /etc/systemd/network/12-int0.netdev
+    content: |
+      [NetDev]
+      Name=int0
+      Kind=dummy
+
+- name: /etc/systemd/network/13-int0.network
+  notify: systemctl restart systemd-networkd
+  copy:
+    dest: /etc/systemd/network/13-int0.network
+    content: |
+      [Match]
+      Name=int0
+
+      [Network]
+      Bridge=br0
+
+- name: sysctl net.ipv4.ip_forward
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: 1
+    sysctl_set: yes
+    state: present
+    reload: yes
+    sysctl_file: /etc/sysctl.d/99-bitraf-network.conf
+
+- debug:
+    msg: "TODO: enable and configure ufw"
+
+# Replace with ufw's before.rule
+- name: iptables NAT
+  become: yes
+  iptables:
+    table: nat
+    chain: POSTROUTING
+    out_interface: eth0
+    jump: MASQUERADE
+    comment: Enable NAT
+
