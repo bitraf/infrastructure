@@ -21,38 +21,4 @@
   apt:
     name: "{{ item }}"
     install_recommends: no
-  with_items:
-    # network interface firmware (non-free)
-    - firmware-bnx2
-    - firmware-bnx2x
-    - firmware-qlogic
-
-    - unattended-upgrades
-    - apt-listchanges
-
-    # useful utilities and things
-    - aptitude
-    - bridge-utils
-    - debian-goodies
-    - etckeeper
-    - hdparm
-    - htop
-    - iperf
-    - ltrace
-    - man-db
-    - ncdu
-    - needrestart
-    - netcat-openbsd
-    - screen
-    - strace
-    - tmux
-    - tree
-    - vim
-
-    # for running virtual machines
-    - libvirt-clients
-    - libvirt-daemon-system
-    - qemu-kvm
-    - qemu-utils
-    - virt-top
-    - virtinst
+  with_items: "{{ packages_packages }}"

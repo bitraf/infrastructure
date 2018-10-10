@@ -1,0 +1,11 @@
+# Generate hwaddr with
+#  echo $(od -vN 6 -An -tx1 /dev/urandom) |tr ' ' :
+# After you boot the container you'll get the IPv6 address
+lxc_host_containers:
+  dropbox:
+    state: stopped
+    hwaddr: ea:d9:02:a1:71:89
+    ipv4:
+      address: 10.13.37.200
+      netmask: 24
+      gateway: 10.13.37.1

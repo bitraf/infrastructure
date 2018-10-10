@@ -1,0 +1,4 @@
+---
+- hosts: dropbox
+  tasks:
+    - debug: msg=yo

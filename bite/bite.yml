@@ -5,3 +5,9 @@
     - packages
     - users
     - postfix-satellite
+
+  tasks:
+  - name: lxc-hosts
+    import_role: name=lxc-host
+    tags: lxc-host
+    become: yes

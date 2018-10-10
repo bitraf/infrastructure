@@ -1,0 +1,46 @@
+packages_packages:
+  # network interface firmware (non-free)
+  - firmware-bnx2
+  - firmware-bnx2x
+  - firmware-qlogic
+
+  - unattended-upgrades
+  - apt-listchanges
+
+  # useful utilities and things
+  - aptitude
+  - bridge-utils
+  - debian-goodies
+  - etckeeper
+  - hdparm
+  - htop
+  - iperf
+  - ltrace
+  - man-db
+  - ncdu
+  - needrestart
+  - netcat-openbsd
+  - screen
+  - strace
+  - tmux
+  - tree
+  - vim
+  - lshw
+  - ack
+
+  # for running virtual machines
+  - libvirt-clients
+  - libvirt-daemon-system
+  - qemu-kvm
+  - qemu-utils
+  - virt-top
+  - virtinst
+
+  # ZFS
+  - linux-headers-amd64 # required to build kernel modules
+  - zfs-dkms
+  - zfs-initramfs
+
+  # LXC
+  - lxc
+  - debootstrap

@@ -1,0 +1,11 @@
+- name: Install packages
+  apt:
+    name: "{{ item }}"
+    install_recommends: no
+  with_items:
+    - python-lxc
+
+- include_tasks: per-host.yml
+  vars:
+    i: "{{ item }}"
+  with_dict: "{{ lxc_host_containers }}"
