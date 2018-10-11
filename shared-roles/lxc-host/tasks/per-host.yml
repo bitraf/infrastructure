@@ -1,0 +1,88 @@
+- debug:
+    msg: "LXC HOST: {{ i.key }}"
+
+#- name: Check if LXC container is missing
+#  shell: lxc-ls --filter "^{{ i.key }}$"
+#  register: container
+#
+#- debug:
+#    msg: "TEST: {{ users|map(attribute='authorized_keys')|list }}"
+
+- name: Create container
+  lxc_container:
+    name: "{{ i.key }}"
+    state: "{{ i.value.state }}"
+    template: debian
+    template_options: -r stretch --packages git,etckeeper,python
+    backing_store: zfs
+    zfs_root: pool0/lxc
+  register: lxc
+
+- name: Connection info
+  when: lxc.changed
+  debug:
+    msg: "Container created! All keys for superusers are installed for
+      root user, so remember to add 'ansible_user=root' when running the
+      play for the host the first time."
+
+- name: Create /root/.ssh
+  when: lxc.changed
+  file:
+    path: "/var/lib/lxc/{{ i.key }}/rootfs/root/.ssh"
+    state: directory
+    mode: 0600
+    owner: root
+    group: root
+
+- name: Fill authorized_keys
+  when: lxc.changed
+  copy:
+    dest: "/var/lib/lxc/{{ i.key }}/rootfs/root/.ssh/authorized_keys"
+    content: |
+      {% for user in users %}
+      {% if user.authorized_keys is not none %}
+      {{ user.authorized_keys }}
+      {% endif %}
+      {% endfor %}
+
+- name: config-bitraf
+  register: config_bitraf
+  copy:
+    dest: "/var/lib/lxc/{{ i.key }}/config-bitraf"
+    content: |
+      lxc.network.type = veth
+      lxc.network.link = br0
+      lxc.network.flags = up
+      lxc.network.hwaddr = {{ i.value.hwaddr }}
+      lxc.network.ipv4 = {{ i.value.ipv4.address }}/{{ i.value.ipv4.netmask }}
+      lxc.network.ipv4.gateway = {{ i.value.ipv4.gateway }}
+      # 0 = trace, 1 = debug, 2 = info, 3 = notice, 4 = warn, 5 = error, 6 = critical, 7 = alert, and 8 = fatal.
+      lxc.loglevel = 1
+      lxc.logfile = /var/lib/lxc/{{ i.key }}/{{ i.key }}.log
+
+- name: config-machine
+  register: config_machine
+  copy:
+    dest: "/var/lib/lxc/{{ i.key }}/config-machine"
+    content: ""
+    force: no
+
+- name: "include file: config-bitraf"
+  register: include_bitraf
+  lineinfile:
+    path: "/var/lib/lxc/{{ i.key }}/config"
+    regexp: "^lxc.include *=.*/config-bitraf$"
+    line: "lxc.include = /var/lib/lxc/{{ i.key }}/config-bitraf"
+
+- name: "include file: config-machine"
+  register: include_machine
+  lineinfile:
+    path: "/var/lib/lxc/{{ i.key }}/config"
+    regexp: "^lxc.include *=.*/config-machine$"
+    line: "lxc.include = /var/lib/lxc/{{ i.key }}/config-machine"
+
+- name: restart lxc container {{ i.key }}
+  when: i.value.state == 'started' and (lxc.changed or config_bitraf.changed or config_machine.changed or include_bitraf.changed or include_machine.changed)
+  lxc_container:
+    name: "{{ i.key }}"
+    state: restarted

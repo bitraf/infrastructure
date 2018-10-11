@@ -1,0 +1,16 @@
+packages_packages:
+  - git
+  - etckeeper
+  - apt-utils
+  - sudo
+  - htop
+  - iperf
+  - ltrace
+  - man-db
+  - needrestart
+  - tmux
+  - screen
+  - aptitude
+  - systemd-cron
+  - less
+  - vim-nox

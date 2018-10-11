@@ -4,6 +4,7 @@
     - p2k16-staging
   vars_files:
     - ../vars/bitraf_passwords.yml
+    - ../vars/postfix.yml
     - ../vars/users.yml
   roles:
     - network

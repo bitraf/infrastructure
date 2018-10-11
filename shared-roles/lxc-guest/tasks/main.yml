@@ -1,0 +1,13 @@
+- name: Remove old /root/.ssh/authorized_keys
+  file:
+    path: /root/.ssh/authorized_keys
+    state: absent
+
+- name: Remove default packages
+  apt:
+    name: "{{ item }}"
+    state: absent
+    purge: yes
+  with_items:
+    - isc-dhcp-client
+    - ifupdown

@@ -5,3 +5,36 @@
     - packages
     - users
     - postfix-satellite
+  vars_files:
+    - ../vars/postfix.yml
+  tasks:
+  # The disk array doesn't work nicely with the UAS driver.
+  - name: /etc/modprobe.d/blacklist_uas.conf
+    become: True
+    register: blacklist_uas
+    copy:
+      dest: /etc/modprobe.d/blacklist_uas.conf
+      content: |
+        blacklist uas
+        options usb-storage quirks=152d:0539:u
+
+  - name: update-initramfs -u -k all
+    become: True
+    when: blacklist_uas.changed
+    shell: /usr/sbin/update-initramfs -u -k all
+
+  - name: lxc-hosts
+    import_role: name=lxc-host
+    tags: lxc-host
+    become: yes
+
+  - name: "Install machine specific config: {{ item }}"
+    tags:
+     - lxc-host
+     - lxc-host-config
+    become: yes
+    with_items:
+      - marvin
+    copy:
+      dest: "/var/lib/lxc/{{ item }}/config-machine"
+      src: "var/lib/lxc/{{ item }}/config-machine"
