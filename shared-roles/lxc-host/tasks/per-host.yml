@@ -1,6 +1,54 @@
 - debug:
     msg: "LXC HOST: {{ i.key }}"
 
+#- name: Check if LXC container is missing
+#  shell: lxc-ls --filter "^{{ i.key }}$"
+#  register: container
+#
+#- debug:
+#    msg: "TEST: {{ users|map(attribute='authorized_keys')|list }}"
+
+- name: Create container
+  lxc_container:
+    name: "{{ i.key }}"
+    state: "{{ i.value.state }}"
+    template: debian
+    template_options: -r stretch --packages git,etckeeper,python
+    backing_store: zfs
+    zfs_root: pool0/lxc
+  register: lxc
+
+- name: Connection info
+  when: lxc.changed
+  debug:
+    msg: "Container created! All keys for superusers are installed for
+      root user, so remember to add 'ansible_user=root' when running the
+      play for the host the first time."
+
+- name: Create /root/.ssh
+  when: lxc.changed
+  file:
+    path: "/var/lib/lxc/{{ i.key }}/rootfs/root/.ssh"
+    state: directory
+    mode: 0600
+    owner: root
+    group: root
+
+- name: Fill authorized_keys
+  when: lxc.changed
+  copy:
+    dest: "/var/lib/lxc/{{ i.key }}/rootfs/root/.ssh/authorized_keys"
+    content: |
+      {% for user in users %}
+      {{ user.authorized_keys is none }}
+      {% if user.authorized_keys is not none %}
+      {{ user.authorized_keys }}
+      {% endif %}
+      {% endfor %}
+
+#      {% for key in user.authorized_keys %}
+#      {% endfor %}
+
 - name: bitraf-config
   register: bitraf_config
   copy:
@@ -31,7 +79,7 @@
     line: "lxc.include = /var/lib/lxc/{{ i.key }}/bitraf-config"
 
 - name: restart lxc container {{ i.key }}
-  when: i.value.state == 'started' and (bitraf_config.changed and debian_config.changed_1 and debian_config.changed_2)
+  when: i.value.state == 'started' and (lxc.changed or bitraf_config.changed and debian_config_1.changed and debian_config_2.changed)
   lxc_container:
     name: "{{ i.key }}"
     state: restarted

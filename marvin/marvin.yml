@@ -1,0 +1,16 @@
+---
+- hosts: marvin
+  vars_files:
+    - ../vars/users.yml
+  tasks:
+    - name: lxc-guest
+      import_role: name=lxc-guest
+      tags: lxc-guest
+
+    - name: packages
+      import_role: name=packages
+      tags: packages
+
+    - name: superusers
+      import_role: name=superusers
+      tags: superusers

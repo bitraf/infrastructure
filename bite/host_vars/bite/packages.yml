@@ -40,6 +40,7 @@ packages_packages:
   - linux-headers-amd64 # required to build kernel modules
   - zfs-dkms
   - zfs-initramfs
+  - smartmontools
 
   # LXC
   - lxc

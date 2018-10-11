@@ -15,7 +15,7 @@ users:
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFJWlDmgPIwkUgljVKiNr2wfHGfz4VVoPvuDLJfMD9LM trygvis@arius-v2
   - username: tingo
     state: present
-    authorized_keys: ""
+    authorized_keys:
   - username: royk
     state: present
     authorized_keys: |
