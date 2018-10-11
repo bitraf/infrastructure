@@ -1,43 +1,28 @@
 ---
-- name: "superuser accounts"
-  tags: superusers
+- tags: superusers
   become: yes
-  user:
-    name: "{{ item.username }}"
-    groups: sudo,systemd-journal
-    shell: /bin/bash
-    append: yes
-  with_items:
-    - "{{ superusers }}"
+  vars:
+    usernames: "{{ users|dict2items|map(attribute='key')|list }}"
+  block:
+    - name: getent group sudo
+      getent:
+        database: group
 
-- name: "superuser authorized_keys, exclusively managed by Ansible"
-  tags:
-   - superusers
-   - keys
-  become: yes
-  copy:
-    dest: "/home/{{ item.username }}/.ssh/authorized_keys"
-    content: "{{ users[item.username].authorized_keys if item.state == 'present' else '' }}"
-  when: superusers_ssh_key_exclusive
-  with_items: "{{ superusers }}"
+    - name: Grant sudo
+      with_items: "{{ superusers }}"
+      user:
+        name: "{{ item }}"
+        groups: sudo,systemd-journal
+        append: yes
 
-- name: "superuser authorized_keys, shared management with Ansible"
-  tags:
-   - superusers
-   - keys
-  become: yes
-  authorized_key:
-    user: "{{ item.username }}"
-    state: "{{ item.state }}"
-    key: "{{ users[item.username].authorized_keys }}"
-  with_items: "{{ superusers }}"
-  when: not superusers_ssh_key_exclusive
+    - name: Revoke sudo
+      with_items: "{{ getent_group['sudo'][2].split(',') }}"
+      when: item not in superusers
+      shell: "gpasswd --delete {{ item }} sudo"
 
-- name: "Allow 'sudo' group to have passwordless sudo"
-  tags: superusers
-  become: yes
-  lineinfile:
-    dest: /etc/sudoers
-    state: present
-    regexp: '^%sudo'
-    line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+    - name: "Allow 'sudo' group to have passwordless sudo"
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%sudo'
+        line: '%sudo ALL=(ALL) NOPASSWD: ALL'
