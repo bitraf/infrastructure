@@ -5,7 +5,8 @@
     - packages
     - users
     - postfix-satellite
-
+  vars_files:
+    - ../vars/postfix.yml
   tasks:
   # The disk array doesn't work nicely with the UAS driver.
   - name: /etc/modprobe.d/blacklist_uas.conf

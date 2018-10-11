@@ -4,6 +4,7 @@
   vars_files:
     - ../vars/bitraf_passwords.yml
     - ../vars/users.yml
+    - ../vars/postfix.yml
   roles:
     - network
     - packages
