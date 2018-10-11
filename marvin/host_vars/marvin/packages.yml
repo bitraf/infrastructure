@@ -1,6 +1,7 @@
 packages_packages:
   - git
   - etckeeper
+  - apt-utils
   - sudo
   - htop
   - iperf
@@ -9,3 +10,7 @@ packages_packages:
   - needrestart
   - tmux
   - screen
+  - aptitude
+  - systemd-cron
+  - less
+  - vim-nox

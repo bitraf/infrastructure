@@ -1,0 +1,1 @@
+lxc.mount.entry = /pool0/dropbox dropbox none bind,relative,create=dir 0 0

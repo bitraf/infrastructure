@@ -40,19 +40,15 @@
     dest: "/var/lib/lxc/{{ i.key }}/rootfs/root/.ssh/authorized_keys"
     content: |
       {% for user in users %}
-      {{ user.authorized_keys is none }}
       {% if user.authorized_keys is not none %}
       {{ user.authorized_keys }}
       {% endif %}
       {% endfor %}
 
-#      {% for key in user.authorized_keys %}
-#      {% endfor %}
-
-- name: bitraf-config
-  register: bitraf_config
+- name: config-bitraf
+  register: config_bitraf
   copy:
-    dest: "/var/lib/lxc/{{ i.key }}/bitraf-config"
+    dest: "/var/lib/lxc/{{ i.key }}/config-bitraf"
     content: |
       lxc.network.type = veth
       lxc.network.link = br0
@@ -64,22 +60,29 @@
       lxc.loglevel = 1
       lxc.logfile = /var/lib/lxc/{{ i.key }}/{{ i.key }}.log
 
-- name: include file
-  register: debian_config_1
-  lineinfile:
-    path: "/var/lib/lxc/{{ i.key }}/config"
-    regexp: "^lxc.include *=.*/debian.common.conf$"
-    line: "lxc.include = /usr/share/lxc/config/debian.common.conf"
+- name: config-machine
+  register: config_machine
+  copy:
+    dest: "/var/lib/lxc/{{ i.key }}/config-machine"
+    content: ""
+    force: no
 
-- name: include file
-  register: debian_config_2
+- name: "include file: config-bitraf"
+  register: include_bitraf
   lineinfile:
     path: "/var/lib/lxc/{{ i.key }}/config"
-    regexp: "^lxc.include *=.*/bitraf-config$"
-    line: "lxc.include = /var/lib/lxc/{{ i.key }}/bitraf-config"
+    regexp: "^lxc.include *=.*/config-bitraf$"
+    line: "lxc.include = /var/lib/lxc/{{ i.key }}/config-bitraf"
+
+- name: "include file: config-machine"
+  register: include_machine
+  lineinfile:
+    path: "/var/lib/lxc/{{ i.key }}/config"
+    regexp: "^lxc.include *=.*/config-machine$"
+    line: "lxc.include = /var/lib/lxc/{{ i.key }}/config-machine"
 
 - name: restart lxc container {{ i.key }}
-  when: i.value.state == 'started' and (lxc.changed or bitraf_config.changed and debian_config_1.changed and debian_config_2.changed)
+  when: i.value.state == 'started' and (lxc.changed or config_bitraf.changed or config_machine.changed or include_bitraf.changed or include_machine.changed)
   lxc_container:
     name: "{{ i.key }}"
     state: restarted

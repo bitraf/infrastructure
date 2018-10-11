@@ -27,3 +27,14 @@
     import_role: name=lxc-host
     tags: lxc-host
     become: yes
+
+  - name: "Install machine specific config: {{ item }}"
+    tags:
+     - lxc-host
+     - lxc-host-config
+    become: yes
+    with_items:
+      - marvin
+    copy:
+      dest: "/var/lib/lxc/{{ item }}/config-machine"
+      src: "var/lib/lxc/{{ item }}/config-machine"

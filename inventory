@@ -1,2 +1,5 @@
 bite ansible_host=bite.bitraf.no
 marvin ansible_host=2001:840:4b0b:1337:e8d9:2ff:fea1:7189
+
+[lxc-guest]
+marvin

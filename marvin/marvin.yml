@@ -2,15 +2,61 @@
 - hosts: marvin
   vars_files:
     - ../vars/users.yml
+    - ../vars/postfix.yml
+  handlers:
+    - name: systemctl restart smbd
+      become: yes
+      systemd:
+        name: smbd
+        state: restarted
   tasks:
     - name: lxc-guest
       import_role: name=lxc-guest
       tags: lxc-guest
+      become: true
 
     - name: packages
       import_role: name=packages
       tags: packages
+      become: true
+
+    - name: postfix-satellite
+      import_role: name=postfix-satellite
+      tags: postfix-satellite
+      become: true
 
     - name: superusers
       import_role: name=superusers
       tags: superusers
+      become: true
+
+    - tags: samba
+      become: yes
+      block:
+        - name: Install packages
+          apt:
+            name: "{{ item }}"
+            state: present
+          with_items:
+            - samba
+
+        - name: adduser dropbox
+          user:
+            name: dropbox
+            state: present
+            home: /dropbox
+            shell: /bin/false
+            system: yes
+
+        - name: chown dropbox:dropbox /dropbox
+          file:
+            path: /dropbox
+            owner: dropbox
+            group: dropbox
+            mode: 0700
+
+        - name: smb.conf
+          notify: systemctl restart smbd
+          copy:
+            dest: /etc/samba/smb.conf
+            src: etc/samba/smb.conf
