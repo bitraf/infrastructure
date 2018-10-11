@@ -7,7 +7,5 @@
     - network
     - packages
     - postgresql-server
-  tasks:
-    - name: Running superusers
-      import_role: name=superusers
-      tags: superusers
+    - lusers
+    - superusers

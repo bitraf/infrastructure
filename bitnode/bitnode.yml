@@ -1,5 +1,8 @@
 - hosts:
     - bitnode
+  roles:
+    - lusers
+    - superusers
   vars_files:
     - ../vars/users.yml
   vars:
@@ -33,9 +36,6 @@
           apt:
             name: "{{ item }}"
             install_recommends: false
-    - import_role: name=superusers
-      tags: superusers
-      become: true
     - import_tasks: network.yml
       tags: network
       become: true
