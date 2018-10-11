@@ -23,6 +23,11 @@
     when: blacklist_uas.changed
     shell: /usr/sbin/update-initramfs -u -k all
 
+  - name: lusers
+    import_role: name=lusers
+    tags: lusers
+    become: yes
+
   - name: superusers
     import_role: name=superusers
     tags: superusers
