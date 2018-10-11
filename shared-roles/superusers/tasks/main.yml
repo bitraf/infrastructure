@@ -1,5 +1,5 @@
 ---
-- name: superuser accounts
+- name: "superuser accounts"
   tags: superusers
   become: yes
   user:
@@ -10,17 +10,30 @@
   with_items:
     - "{{ superusers }}"
 
-- name: superuser authorized_keys
-  tags: superusers
+- name: "superuser authorized_keys, exclusively managed by Ansible"
+  tags:
+   - superusers
+   - keys
+  become: yes
+  copy:
+    dest: "/home/{{ item.username }}/.ssh/authorized_keys"
+    content: "{{ users[item.username].authorized_keys if item.state == 'present' else '' }}"
+  when: superusers_ssh_key_exclusive
+  with_items: "{{ superusers }}"
+
+- name: "superuser authorized_keys, shared management with Ansible"
+  tags:
+   - superusers
+   - keys
   become: yes
   authorized_key:
     user: "{{ item.username }}"
     state: "{{ item.state }}"
     key: "{{ users[item.username].authorized_keys }}"
-  with_items:
-    - "{{ superusers }}"
+  with_items: "{{ superusers }}"
+  when: not superusers_ssh_key_exclusive
 
-- name: Allow 'sudo' group to have passwordless sudo
+- name: "Allow 'sudo' group to have passwordless sudo"
   tags: superusers
   become: yes
   lineinfile:

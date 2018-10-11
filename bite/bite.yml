@@ -3,10 +3,10 @@
   roles:
     - network
     - packages
-    - users
     - postfix-satellite
   vars_files:
     - ../vars/postfix.yml
+    - ../vars/users.yml
   tasks:
   # The disk array doesn't work nicely with the UAS driver.
   - name: /etc/modprobe.d/blacklist_uas.conf
@@ -22,6 +22,11 @@
     become: True
     when: blacklist_uas.changed
     shell: /usr/sbin/update-initramfs -u -k all
+
+  - name: superusers
+    import_role: name=superusers
+    tags: superusers
+    become: yes
 
   - name: lxc-hosts
     import_role: name=lxc-host
