@@ -40,7 +40,6 @@
     - tmux
     - tree
     - vim
-    - zabbix-agent
     - munin-node
     - sysstat
     - nmap
