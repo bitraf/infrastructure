@@ -1,5 +1,12 @@
 bite ansible_host=bite.bitraf.no
+bitnode ansible_host=bitnode.bitraf.no
+bomba ansible_host=bomba.bitraf.no
+iot ansible_host=iot2.bitraf.no
 marvin ansible_host=2001:840:4b0b:1337:e8d9:2ff:fea1:7189
+unifi ansible_host=unifi.local
+
+[mosquitto-servers]
+bomba
 
 [lxc-guest]
 marvin

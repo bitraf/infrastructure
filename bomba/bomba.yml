@@ -1,11 +1,12 @@
 ---
 - hosts: bomba
+  roles:
+    - superusers
+    - lusers
+  vars_files:
+    - ../vars/bitraf_passwords.yml
+    - ../vars/users.yml
   tasks:
-  - name: Role superusers
-    tags: superusers
-    import_role:
-      name: superusers
-
   - name: Role mosquitto-server
     tags: mosquitto-server
     become: yes
@@ -17,11 +18,3 @@
     become: yes
     import_role:
       name: hivemq-mqtt-web-client
-
-  vars_files:
-    - ../vars/users.yml
-    - ../vars/bitraf_passwords.yml
-  vars:
-    superusers:
-      - username: trygvis
-        state: present
