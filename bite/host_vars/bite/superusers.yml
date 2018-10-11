@@ -1,0 +1,18 @@
+superusers_ssh_key_exclusive: yes
+superusers:
+  - username: eliasbakken
+    state: present
+  - username: mastensg
+    state: present
+  - username: trygvis
+    state: present
+  - username: tingo
+    state: present
+  - username: royk
+    state: absent
+  - username: odinho
+    state: absent
+  - username: haavares
+    state: present
+  - username: mattis
+    state: present
