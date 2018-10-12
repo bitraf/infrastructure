@@ -20,6 +20,11 @@
       when: item not in superusers
       shell: "gpasswd --delete {{ item }} sudo"
 
+    - name: Revoke systemd-journal
+      with_items: "{{ getent_group['systemd-journal'][2].split(',') }}"
+      when: item not in superusers
+      shell: "gpasswd --delete {{ item }} systemd-journal"
+
     - name: "Allow 'sudo' group to have passwordless sudo"
       lineinfile:
         dest: /etc/sudoers
