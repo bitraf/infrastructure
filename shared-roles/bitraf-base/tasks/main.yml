@@ -1,0 +1,29 @@
+- become: true
+  tags: bitraf-base
+  block:
+    - name: /etc/localtime
+      file:
+        src: /usr/share/zoneinfo/Europe/Oslo
+        dest: /etc/localtime
+        state: link
+        force: yes
+      notify: reconfigure tzdata
+
+    - name: remove ~root/.ssh/authorized_keys
+      file:
+        path: ~root/.ssh/authorized_keys
+        state: absent
+
+    - name: /etc/hosts
+      when: bitraf_base_fix_hosts
+      copy:
+        dest: /etc/hosts
+        content: |
+          127.0.0.1	localhost
+          127.0.1.1	{{ ansible_hostname }}.bitraf.no {{ ansible_hostname }}
+
+          # The following lines are desirable for IPv6 capable hosts
+          ::1     localhost ip6-localhost ip6-loopback
+          ff02::1 ip6-allnodes
+          ff02::2 ip6-allrouters
+

@@ -1,5 +1,7 @@
 ---
 - hosts: marvin
+  roles:
+    - bitraf-base
   vars_files:
     - ../vars/users.yml
     - ../vars/postfix.yml

@@ -3,6 +3,7 @@
   roles:
     - network
     - packages
+    - bitraf-base
     - postfix-satellite
   vars_files:
     - ../vars/postfix.yml
