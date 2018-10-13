@@ -1,7 +1,10 @@
 - become: true
-  tags: bitraf-base
+  tags:
+    - bitraf-base
+    - bitraf-base-misc
   block:
     - name: /etc/localtime
+      when: bitraf_base__etc_localtime
       file:
         src: /usr/share/zoneinfo/Europe/Oslo
         dest: /etc/localtime
@@ -10,12 +13,13 @@
       notify: reconfigure tzdata
 
     - name: remove ~root/.ssh/authorized_keys
+      when: bitraf_base__remove_root_authorized_keys
       file:
         path: ~root/.ssh/authorized_keys
         state: absent
 
     - name: /etc/hosts
-      when: bitraf_base_fix_hosts
+      when: bitraf_base__fix_hosts
       copy:
         dest: /etc/hosts
         content: |
@@ -27,3 +31,16 @@
           ff02::1 ip6-allnodes
           ff02::2 ip6-allrouters
 
+- become: true
+  tags:
+    - bitraf-base
+    - bitraf-base-syslog
+  when: bitraf_base__syslog
+  block:
+    - name:
+      with_items:
+        - rsyslog
+      apt:
+        name: "{{ item }}"
+        state: present
+        install_recommends: no

@@ -12,4 +12,5 @@ bomba
 marvin
 
 [lxc-guest:vars]
-bitraf_base_fix_hosts=True
+bitraf_base__fix_hosts=True
+bitraf_base__syslog=True
