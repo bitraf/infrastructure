@@ -31,6 +31,14 @@
           ff02::1 ip6-allnodes
           ff02::2 ip6-allrouters
 
+    - name: /etc/aliases
+      when: bitraf_base__fix_aliases
+      notify: postalias /etc/aliases
+      lineinfile:
+        path: /etc/aliases
+        regexp: "^root:"
+        line: "root: itavdelingen@bitraf.no"
+
 - become: true
   tags:
     - bitraf-base
