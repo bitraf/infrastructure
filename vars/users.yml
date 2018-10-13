@@ -14,6 +14,7 @@ users:
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPX+sVfRvl0+KxsDlbIutyB/Es3exTwNfDVHwi9orwz3 trygvis@birgitte
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJAzB6JB/hZ87M6ozsd7lgKxgOacEOZZRxa4ucs11lqq trygvis@conflatorio
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFJWlDmgPIwkUgljVKiNr2wfHGfz4VVoPvuDLJfMD9LM trygvis@arius-v2
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPKXVnzqo+JTVNrt3p0LGeH59DPMc9WkVMXO3wpAyTH6 trygvis@akili
   tingo:
     authorized_keys: |
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKKM/xmF+qTf6Wc9zXbMA9Mx3qrq6YXHuFKQVStTQS1W tingo@bitraf
