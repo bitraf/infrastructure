@@ -1,19 +1,5 @@
-# Generate hwaddr with
-#  echo $(od -vN 6 -An -tx1 /dev/urandom) |tr ' ' :
-# Note that the last bit of the first byte can't be set! Keep that byte even!
-# After you boot the container you'll get the IPv6 address
 lxc_host_containers:
   marvin:
     state: started
-    hwaddr: ea:d9:02:a1:71:89
-    ipv4:
-      address: 10.13.37.200
-      netmask: 24
-      gateway: 10.13.37.1
   mediawiki:
-    state: stopped
-    hwaddr: 38:04:cc:3f:7b:c0
-    ipv4:
-      address: 10.13.37.201
-      netmask: 24
-      gateway: 10.13.37.1
+    state: started

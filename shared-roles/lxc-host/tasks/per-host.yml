@@ -1,6 +1,8 @@
 - debug:
     msg: "LXC HOST: {{ i.key }}"
 
+#- debug: var=lan
+
 #- name: Check if LXC container is missing
 #  shell: lxc-ls --filter "^{{ i.key }}$"
 #  register: container
@@ -13,7 +15,7 @@
     name: "{{ i.key }}"
     state: "{{ i.value.state }}"
     template: debian
-    template_options: -r stretch --packages git,etckeeper,python
+    template_options: -r stretch --packages git,etckeeper,python,sudo
     backing_store: zfs
     zfs_root: pool0/lxc
   register: lxc
@@ -39,9 +41,9 @@
   copy:
     dest: "/var/lib/lxc/{{ i.key }}/rootfs/root/.ssh/authorized_keys"
     content: |
-      {% for user in users %}
-      {% if user.authorized_keys is not none %}
-      {{ user.authorized_keys }}
+      {% for user in superusers %}
+      {% if users[user].authorized_keys is not none %}
+      {{ users[user].authorized_keys }}
       {% endif %}
       {% endfor %}
 
@@ -53,19 +55,12 @@
       lxc.network.type = veth
       lxc.network.link = br0
       lxc.network.flags = up
-      lxc.network.hwaddr = {{ i.value.hwaddr }}
-      lxc.network.ipv4 = {{ i.value.ipv4.address }}/{{ i.value.ipv4.netmask }}
-      lxc.network.ipv4.gateway = {{ i.value.ipv4.gateway }}
+      lxc.network.hwaddr = {{ lan.hwaddr }}
+      lxc.network.ipv4 = {{ lan.ipv4.address }}/{{ lan.ipv4.netmask }}
+      lxc.network.ipv4.gateway = {{ lan.ipv4.gateway }}
       # 0 = trace, 1 = debug, 2 = info, 3 = notice, 4 = warn, 5 = error, 6 = critical, 7 = alert, and 8 = fatal.
       lxc.loglevel = 1
       lxc.logfile = /var/lib/lxc/{{ i.key }}/{{ i.key }}.log
-
-- name: config-machine
-  register: config_machine
-  copy:
-    dest: "/var/lib/lxc/{{ i.key }}/config-machine"
-    content: ""
-    force: no
 
 - name: "include file: config-bitraf"
   register: include_bitraf
@@ -74,15 +69,33 @@
     regexp: "^lxc.include *=.*/config-bitraf$"
     line: "lxc.include = /var/lib/lxc/{{ i.key }}/config-bitraf"
 
-- name: "include file: config-machine"
-  register: include_machine
+- name: "include file: config.d"
+  register: include_config_d
   lineinfile:
     path: "/var/lib/lxc/{{ i.key }}/config"
-    regexp: "^lxc.include *=.*/config-machine$"
-    line: "lxc.include = /var/lib/lxc/{{ i.key }}/config-machine"
+    regexp: "^lxc.include *=.*/conf.d/$"
+    line: "lxc.include = /var/lib/lxc/{{ i.key }}/conf.d/"
 
-- name: restart lxc container {{ i.key }}
-  when: i.value.state == 'started' and (lxc.changed or config_bitraf.changed or config_machine.changed or include_bitraf.changed or include_machine.changed)
+- name: "mkdir conf.d"
+  file:
+    path: "/var/lib/lxc/{{ i.key }}/conf.d"
+    state: "directory"
+
+- name: "fill conf.d"
+  register: fill_config_d
+  with_fileglob: "lxc-host/{{ i.key }}/*"
+  loop_control:
+    loop_var: file
+  copy:
+    dest: "/var/lib/lxc/{{ i.key }}/conf.d"
+    src: "{{ file }}"
+
+- name: "restart lxc container {{ i.key }}"
+  when: i.value.state == 'started' and (
+            lxc.changed or 
+            config_bitraf.changed or 
+            include_config_d.changed or 
+            fill_config_d.changed)
   lxc_container:
     name: "{{ i.key }}"
     state: restarted
