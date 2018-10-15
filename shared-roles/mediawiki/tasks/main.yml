@@ -71,7 +71,15 @@
     - mediawiki-config
     - update-password
   block:
+    - file:
+        path: /etc/mediawiki
+        state: directory
     - name: LocalSettings.php
       template:
-        dest: /opt/mediawiki/mediawiki/
+        dest: /etc/mediawiki
         src: "{{ mediawiki__local_settings }}"
+    - file:
+        dest: /opt/mediawiki/mediawiki/LocalSettings.php
+        src: /etc/mediawiki/LocalSettings.php
+        state: link
+        force: yes

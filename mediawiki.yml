@@ -21,3 +21,13 @@
       mediawiki__wgDBname: "{{ mediawiki.db.name }}"
       mediawiki__wgDBuser: "{{ mediawiki.db.user }}"
       mediawiki__wgDBpassword: "{{ mediawiki.db.password }}"
+
+  tasks:
+    - name: Clone Bitraf's skin
+      tags:
+        - mediawiki
+        - bitraf-skin
+      become: yes
+      git:
+        repo: https://github.com/bitraf/mediawiki-skin-bitraf
+        dest: /opt/mediawiki/mediawiki/skins/Bitraf

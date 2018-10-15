@@ -27,10 +27,12 @@ $wgMetaNamespace = "Bitraf";
 ## For more information on customizing the URLs
 ## (like /w/index.php/Page_title to /wiki/Page_title) please see:
 ## https://www.mediawiki.org/wiki/Manual:Short_URL
-$wgScriptPath = "/wiki2";
+$wgScriptPath = "/w2";
 
 ## The protocol and server name to use in fully-qualified URLs
-$wgServer = "https://${_SERVER['HTTP_HOST']}";
+# This is the ideal pattern, but some tuning from Nginx is required.
+# $wgServer = "https://${_SERVER['HTTP_HOST']}";
+$wgServer = "https://bitraf.no";
 
 ## The URL path to static resources (images, scripts, etc.)
 $wgResourceBasePath = $wgScriptPath;
@@ -125,7 +127,7 @@ $wgDefaultSkin = "bitraf";
 
 # Enabled skins.
 # The following skins were automatically enabled:
-#wfLoadSkin( 'Bitraf' );
+wfLoadSkin( 'Bitraf' );
 #wfLoadSkin( 'CologneBlue' );
 #wfLoadSkin( 'Modern' );
 wfLoadSkin( 'MonoBook' );
@@ -144,7 +146,7 @@ $wgGroupPermissions['*']['edit'] = false;
 
 $wgShowSQLErrors = true;
 
-$wgArticlePath = '/wiki/$1';
+$wgArticlePath = '/wiki2/$1';
 
 
 #
