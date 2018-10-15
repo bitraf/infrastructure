@@ -1,0 +1,61 @@
+- become: yes
+  tags:
+    - mediawiki
+    - mediawiki-packages
+  block:
+    - name: packages
+      with_items:
+          - composer
+          - php-apcu
+          - php-gd
+          - php-intl
+          - php-mbstring
+          - php-pgsql
+          - php-xml
+          - php-zip
+      apt:
+        name: "{{ item }}"
+        install_recommends: no
+
+- become: yes
+  tags:
+    - mediawiki
+    - mediawiki-clone
+  block:
+    - name: mkdir /opt/mediawiki
+      file:
+        path: /opt/mediawiki
+        state: directory
+
+    - name: mkdir /opt/mediawiki/mediawiki
+      file:
+        path: /opt/mediawiki/mediawiki
+        state: directory
+        owner: www-data
+
+    - name: git clone
+      become_user: www-data
+      git:
+        repo: https://github.com/bitraf/mediawiki
+        dest: /opt/mediawiki/mediawiki
+        version: 1.31.1
+
+- become: yes
+  tags:
+    - mediawiki
+    - mediawiki-composer
+  block:
+    - name: mkdir /var/www/.composer
+      file:
+        path: /var/www/.composer
+        state: directory
+        group: www-data
+        owner: www-data
+
+    - name: run composer
+      become_user: www-data
+      vars:
+        ansible_ssh_pipelining: true
+      composer:
+        command: install
+        working_dir: /opt/mediawiki/mediawiki

@@ -12,7 +12,7 @@
     - bitraf-base
     - superusers
     - lusers
-    - postgresql-server
+    - postgresql-server-base
     - postfix-satellite
     - p2k16
   tasks:

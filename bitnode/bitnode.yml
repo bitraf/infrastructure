@@ -3,17 +3,14 @@
   roles:
     - lusers
     - superusers
+    - role: mediawiki-database
+      credentials:
+        username: mediawiki
+        password: "{{ mediawiki.db.password }}"
   vars_files:
-    - ../vars/users.yml
-  vars:
-    int_link: br0
-    int_ipv4: 10.13.39.1
-    lxc_containers:
-      mw:
-        state: started
-        mac: 00:13:39:00:00:02
-        ipv4:
-          address: 10.13.39.2
+    - ../group_vars/all/users.yml
+    - ../group_vars/all/mediawiki.yml
+    - ../group_vars/all/host_database.yml
   handlers:
     - name: systemctl restart systemd-networkd
       become: true
@@ -39,7 +36,12 @@
     - import_tasks: network.yml
       tags: network
       become: true
-    - name: LXC containers
-      import_tasks: lxc-containers.yml
-      tags: lxc-containers
-      become: true
+      vars:
+        int_link: br0
+        int_ipv4: "{{ host_database.bitnode.interfaces.br0.ipv4 }}"
+        int_ipv6: "{{ host_database.bitnode.interfaces.br0.ipv6 }}"
+
+    - name: lxc-hosts
+      import_role: name=lxc-host
+      tags: lxc-host
+      become: yes

@@ -1,6 +1,17 @@
 - hosts: mediawiki
+  vars:
+    lan: "{{ host_database | json_query(ansible_hostname + '.interfaces | * | [?role==`lan`]') | first }}"
   roles:
     - bitraf-base
     - packages
     - lusers
     - superusers
+    - postfix-satellite
+    - postgresql-server-base
+    - role: nginx
+      nginx__template:
+        - sites-enabled/default
+        - sites-enabled/mediawiki
+      ipv4: "{{ lan.ipv4.address }}"
+      ipv6: "[::]"
+    - mediawiki

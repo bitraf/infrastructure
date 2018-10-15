@@ -1,0 +1,37 @@
+# vim: filetype=jinja
+
+server {
+  listen {{ipv4}}:80 default_server;
+{% if ipv6 is defined %}
+  listen {{ipv6}}:80 default_server;
+{% endif %}
+  server_name _;
+
+  root /opt/mediawiki/mediawiki/;
+
+  index index.php;
+
+#  access_log /var/log/nginx/access.log;
+#  error_log /var/log/nginx/error.log;
+
+  location ~ \.ht {
+    deny all;
+  }
+
+  location / {
+    try_files $uri $uri/ @rewrite;
+  }
+
+  location @rewrite {
+    rewrite ^/(.*)$ /index.php;
+  }
+
+  location ^~ /maintenance/ {
+    return 403;
+  }
+
+  location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+  }
+}

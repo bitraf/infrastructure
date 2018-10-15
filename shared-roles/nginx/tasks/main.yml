@@ -1,0 +1,31 @@
+- become: yes
+  tags:
+    - nginx
+  block:
+    - name: packages
+      with_items:
+        - nginx
+      apt:
+        name: "{{ item }}"
+        install_recommends: no
+
+- become: yes
+  tags:
+    - nginx
+    - nginx-config
+  block:
+    - name: "fill /etc/nginx"
+      with_items: "{{ nginx__copy }}"
+      when: item is defined and item
+      notify: systemctl reload nginx
+      copy:
+        dest: "/etc/nginx/{{ item }}"
+        src: "nginx/{{ ansible_hostname }}/{{ item }}"
+
+    - name: "fill /etc/nginx"
+      with_items: "{{ nginx__template }}"
+      when: item is defined and item
+      notify: systemctl reload nginx
+      template:
+        dest: "/etc/nginx/{{ item }}"
+        src: "nginx/{{ ansible_hostname }}/{{ item }}"

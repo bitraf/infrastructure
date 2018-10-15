@@ -1,0 +1,3 @@
+lxc_host_containers:
+  mediawiki:
+    state: started

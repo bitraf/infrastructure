@@ -3,3 +3,6 @@ lxc_host_containers:
     state: started
   mediawiki:
     state: started
+
+lxc_host__zfs_root: pool0/lxc
+lxc_host__backing_store: zfs

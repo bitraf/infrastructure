@@ -2,7 +2,7 @@
 - name: postgresql-server
   become: yes
   tags:
-    - postgresql-server
+    - postgresql-server-base
   block:
     - name: Install PostgreSQL APT key
       tags: pg
@@ -21,7 +21,9 @@
 - meta: flush_handlers
 
 - become: yes
-  tags: pg
+  tags:
+    - postgresql-server-base
+    - postgresql-server-base-packages
   block:
     - name: packages
       apt:
