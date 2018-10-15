@@ -8,6 +8,7 @@
   roles:
     - network
     - packages
+    - bitraf-base
     - lusers
     - superusers
     - postfix-satellite

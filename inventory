@@ -10,3 +10,7 @@ bomba
 
 [lxc-guest]
 marvin
+
+[lxc-guest:vars]
+bitraf_base__fix_hosts=True
+bitraf_base__syslog=True

@@ -9,7 +9,9 @@
   roles:
     - network
     - packages
+    - bitraf-base
     - superusers
+    - lusers
     - postgresql-server
     - postfix-satellite
     - p2k16

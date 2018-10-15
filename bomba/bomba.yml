@@ -1,6 +1,7 @@
 ---
 - hosts: bomba
   roles:
+    - bitraf-base
     - superusers
     - lusers
   vars_files:

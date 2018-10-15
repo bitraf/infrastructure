@@ -1,0 +1,7 @@
+bitraf_base__etc_localtime: yes
+bitraf_base__remove_root_authorized_keys: yes
+bitraf_base__fix_aliases: yes
+
+# These mostly applies to LXC hosts
+bitraf_base__fix_hosts: no
+bitraf_base__syslog: no

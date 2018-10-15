@@ -6,6 +6,7 @@
   roles:
     - network
     - packages
-    - postgresql-server
+    - bitraf-base
     - lusers
     - superusers
+    - postgresql-server

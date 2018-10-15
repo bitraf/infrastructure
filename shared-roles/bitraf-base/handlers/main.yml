@@ -1,0 +1,7 @@
+- name: reconfigure tzdata
+  become: yes
+  shell: dpkg-reconfigure -f noninteractive tzdata
+
+- name: postalias /etc/aliases
+  become: yes
+  shell: "[ -x /usr/sbin/postalias ] && /usr/sbin/postalias /etc/aliases"
