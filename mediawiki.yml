@@ -3,6 +3,7 @@
     lan: "{{ host_database | json_query(ansible_hostname + '.interfaces | * | [?role==`lan`]') | first }}"
   roles:
     - bitraf-base
+    - lxc-guest
     - packages
     - lusers
     - superusers

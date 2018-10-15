@@ -35,6 +35,7 @@
 
     - name: git clone
       become_user: www-data
+      notify: systemc restart nginx
       git:
         repo: https://github.com/bitraf/mediawiki
         dest: /opt/mediawiki/mediawiki
@@ -45,15 +46,19 @@
     - mediawiki
     - mediawiki-composer
   block:
-    - name: mkdir /var/www/.composer
+    - name: mkdirs
+      with_items:
+        - /var/www/.ansible
+        - /var/www/.composer
       file:
-        path: /var/www/.composer
+        path: "{{ item }}"
         state: directory
         group: www-data
         owner: www-data
 
     - name: run composer
       become_user: www-data
+      notify: systemc restart nginx
       vars:
         ansible_ssh_pipelining: true
       composer:

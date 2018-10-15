@@ -9,6 +9,8 @@
   systemd:
     name: systemd-networkd
     state: started
+    enabled: yes
+    masked: no
 
 - name: /etc/systemd/network/10-br0.netdev
   notify: systemctl restart systemd-networkd

@@ -23,6 +23,8 @@ host_database:
           address: 10.13.37.200
           netmask: 24
           gateway: 10.13.37.1
+        ipv6:
+          address: 2a01:7e01:e001:e1:3a04:ccff:fe3f:7bc0
   mediawiki:
     interfaces:
       eth0:

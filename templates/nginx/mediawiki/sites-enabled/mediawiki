@@ -7,7 +7,8 @@ server {
 {% endif %}
   server_name _;
 
-  root /opt/mediawiki/mediawiki/;
+#  root /opt/mediawiki/mediawiki/;
+  root /var/www/html/;
 
   index index.php;
 
@@ -22,6 +23,11 @@ server {
     try_files $uri $uri/ @rewrite;
   }
 
+  location /wiki2 {
+    alias /opt/mediawiki/mediawiki/
+    try_files $uri $uri/ @rewrite;
+  }
+
   location @rewrite {
     rewrite ^/(.*)$ /index.php;
   }
@@ -31,7 +37,7 @@ server {
   }
 
   location ~ \.php$ {
-		include snippets/fastcgi-php.conf;
-		fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+    include snippets/fastcgi-php.conf;
+    fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
   }
 }
