@@ -25,13 +25,13 @@
         encrypted: yes
     - name: pg db mediawiki
       postgresql_db:
-        name: mediawiki
+        name: "{{ credentials.database }}"
         encoding: utf-8
-        owner: mediawiki
+        owner: "{{ credentials.username }}"
     - postgresql_privs:
-        database: mediawiki
+        database: "{{ credentials.database }}"
         state: present
         privs: USAGE
         type: schema
         objs: public
-        roles: mediawiki
+        roles: "{{ credentials.username }}"

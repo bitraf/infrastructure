@@ -7,7 +7,7 @@ host_database:
   bitnode:
     interfaces:
       br0:
-        role: wan
+        role: lan
         ipv4:
           address: 10.13.39.1
           netmask: 24

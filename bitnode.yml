@@ -5,14 +5,9 @@
     - superusers
     - role: mediawiki-database
       credentials:
-        username: mediawiki
+        database: "{{ mediawiki.db.name }}"
+        username: "{{ mediawiki.db.user }}"
         password: "{{ mediawiki.db.password }}"
-  vars_files:
-    - ../group_vars/all/users.yml
-    - ../group_vars/all/mediawiki.yml
-    - ../group_vars/all/host_database.yml
-    - ../host_vars/bitnode/lxc.yml
-    - ../host_vars/bitnode/users.yml
   handlers:
     - name: systemctl restart systemd-networkd
       become: true
@@ -35,7 +30,7 @@
           apt:
             name: "{{ item }}"
             install_recommends: false
-    - import_tasks: network.yml
+    - import_tasks: bitnode-network.yml
       tags: network
       become: true
       vars:

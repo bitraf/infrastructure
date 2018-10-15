@@ -1,6 +1,7 @@
 - hosts: mediawiki
   vars:
     lan: "{{ host_database | json_query(ansible_hostname + '.interfaces | * | [?role==`lan`]') | first }}"
+    db: "{{ host_database | json_query(mediawiki.db.host + '.interfaces | * | [?role==`lan`]') | first }}"
   roles:
     - bitraf-base
     - lxc-guest
@@ -8,11 +9,15 @@
     - lusers
     - superusers
     - postfix-satellite
-    - postgresql-server-base
     - role: nginx
       nginx__template:
         - sites-enabled/default
         - sites-enabled/mediawiki
-      ipv4: "{{ lan.ipv4.address }}"
+      ipv4: "*"
       ipv6: "[::]"
-    - mediawiki
+    - role: mediawiki
+      mediawiki__local_settings: mediawiki/LocalSettings.php
+      mediawiki__wgDBserver: "{{ db.ipv4.address }}"
+      mediawiki__wgDBname: "{{ mediawiki.db.name }}"
+      mediawiki__wgDBuser: "{{ mediawiki.db.user }}"
+      mediawiki__wgDBpassword: "{{ mediawiki.db.password }}"

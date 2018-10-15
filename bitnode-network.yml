@@ -63,7 +63,9 @@
     sysctl_file: /etc/sysctl.d/99-bitraf-network.conf
 
 - name: install NAT
-  tags: nat
+  tags:
+    - nat
+    - ufw
   blockinfile:
     insertbefore: "# Don't delete these required lines, otherwise there will be errors"
     path: /etc/ufw/before.rules
@@ -80,6 +82,7 @@
       COMMIT
 
 - name: install /etc/default/ufw
+  tags: ufw
   copy:
     dest: /etc/default/ufw
     content: |
@@ -128,3 +131,10 @@
       # nf_conntrack_tftp, nf_nat_tftp: TFTP support (server side)
       IPT_MODULES="nf_conntrack_ftp nf_nat_ftp nf_conntrack_netbios_ns"
 
+- name: "Allow port 5432 from 10.13.39.0/14 rule"
+  tags: ufw
+  ufw:
+    rule: allow
+    port: 5432
+    proto: tcp
+    src: 10.13.39.1/24

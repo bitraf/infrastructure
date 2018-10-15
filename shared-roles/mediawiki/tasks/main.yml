@@ -64,3 +64,14 @@
       composer:
         command: install
         working_dir: /opt/mediawiki/mediawiki
+
+- become: yes
+  tags:
+    - mediawiki
+    - mediawiki-config
+    - update-password
+  block:
+    - name: LocalSettings.php
+      template:
+        dest: /opt/mediawiki/mediawiki/
+        src: "{{ mediawiki__local_settings }}"
