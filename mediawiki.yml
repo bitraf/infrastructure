@@ -1,0 +1,6 @@
+- hosts: mediawiki
+  roles:
+    - bitraf-base
+    - packages
+    - lusers
+    - superusers

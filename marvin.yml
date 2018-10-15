@@ -2,9 +2,6 @@
 - hosts: marvin
   roles:
     - bitraf-base
-  vars_files:
-    - ../vars/users.yml
-    - ../vars/postfix.yml
   handlers:
     - name: systemctl restart smbd
       become: yes
@@ -61,4 +58,4 @@
           notify: systemctl restart smbd
           copy:
             dest: /etc/samba/smb.conf
-            src: etc/samba/smb.conf
+            src: marvin/etc/samba/smb.conf

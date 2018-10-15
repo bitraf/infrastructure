@@ -8,4 +8,6 @@
 - include_tasks: per-host.yml
   vars:
     i: "{{ item }}"
+    host: "{{ host_database[item.key] }}"
+    lan: "{{ host_database | json_query(item.key + '.interfaces | * | [?role==`lan`]') | first }}"
   with_dict: "{{ lxc_host_containers }}"

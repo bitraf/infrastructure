@@ -6,6 +6,7 @@
     - bitraf-base
     - postfix-satellite
   vars_files:
+    - ../group_vars/all/host_database.yml
     - ../vars/postfix.yml
     - ../vars/users.yml
   tasks:
@@ -39,13 +40,13 @@
     tags: lxc-host
     become: yes
 
-  - name: "Install machine specific config: {{ item }}"
-    tags:
-     - lxc-host
-     - lxc-host-config
-    become: yes
-    with_items:
-      - marvin
-    copy:
-      dest: "/var/lib/lxc/{{ item }}/config-machine"
-      src: "var/lib/lxc/{{ item }}/config-machine"
+#  - name: "Install machine specific config: {{ item }}"
+#    tags:
+#     - lxc-host
+#     - lxc-host-config
+#    become: yes
+#    with_items:
+##      - marvin
+#    copy:
+#      dest: "/var/lib/lxc/{{ item }}/config-machine"
+#      src: "var/lib/lxc/{{ item }}/config-machine"

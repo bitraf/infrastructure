@@ -31,8 +31,12 @@
           ff02::1 ip6-allnodes
           ff02::2 ip6-allrouters
 
+    - name: stat /etc/aliases
+      register: etc_aliases
+      stat:
+        path: /etc/aliases
     - name: /etc/aliases
-      when: bitraf_base__fix_aliases
+      when: bitraf_base__fix_aliases and etc_aliases.stat.exists
       notify: postalias /etc/aliases
       lineinfile:
         path: /etc/aliases

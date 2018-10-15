@@ -17,7 +17,7 @@
 
     - name: Revoke sudo
       with_items: "{{ getent_group['sudo'][2].split(',') }}"
-      when: item not in superusers
+      when: (item|length) > 0 and (item not in superusers)
       shell: "gpasswd --delete {{ item }} sudo"
 
     - name: Revoke systemd-journal
