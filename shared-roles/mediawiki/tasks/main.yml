@@ -34,12 +34,14 @@
         owner: www-data
 
     - name: git clone
+      become: yes
       become_user: www-data
-      notify: systemc restart nginx
+      vars:
+        ansible_ssh_pipelining: true
       git:
         repo: https://github.com/bitraf/mediawiki
         dest: /opt/mediawiki/mediawiki
-        version: 1.31.1
+        version: "{{ mediawiki__version }}"
 
 - become: yes
   tags:
@@ -56,13 +58,26 @@
         group: www-data
         owner: www-data
 
+    - name: Create composer.local.json
+      when: mediawiki__composer_require is defined
+      vars:
+        content: |
+          {{ '{ "require": {' }}
+          {% for k, v in mediawiki__composer_require.items() %}
+            "{{ k }}": "{{ v }}"{% if not loop.last %},{% endif %}
+          {% endfor %}
+          {{ '} }' }}
+      copy:
+        dest: /opt/mediawiki/mediawiki/composer.local.json
+        content: "{{ content | to_nice_json }}"
+
     - name: run composer
+      become: yes
       become_user: www-data
-      notify: systemc restart nginx
       vars:
         ansible_ssh_pipelining: true
       composer:
-        command: install
+        command: update
         working_dir: /opt/mediawiki/mediawiki
 
 - become: yes

@@ -32,11 +32,46 @@
         repo: https://github.com/bitraf/mediawiki-skin-bitraf
         dest: /opt/mediawiki/mediawiki/skins/Bitraf
 
-    - name: Install p2k12 auth
+    - name: "Extension: googleAnalytics"
+      tags:
+        - mediawiki
+        - mediawiki-extensions
+      become: yes
+      with_items:
+        - repo: https://github.com/mediawiki4intranet/Wikilog.git
+          dest: Wikilog
+          version: bc4da58b79f5fac3f03d3a3228f54ce609d77cc5
+        - repo: https://github.com/wikimedia/mediawiki-extensions-googleAnalytics
+          dest: googleAnalytics
+          version: REL1_31
+        - repo: https://github.com/wikimedia/mediawiki-extensions-CharInsert
+          dest: CharInsert
+          version: REL1_31
+      git:
+        repo: "{{ item.repo }}"
+        dest: "/opt/mediawiki/mediawiki/extensions/{{ item.dest }}"
+        version: "{{ item.version }}"
+
+    - name: Install local extensions
+      become: yes
+      tags:
+        - mediawiki-extensions
+      with_items:
+        - extensions/GoogleTagManager
+      file:
+        path: "/opt/mediawiki/mediawiki/{{ item }}"
+        state: directory
+
+    - name: Install local extensions
       become: yes
       tags:
         - mediawiki-config
+        - mediawiki-extensions
         - p2k12-auth
+      with_items:
+        - p2k12-auth.php
+        - GoogleTagManager/GoogleTagManager.i18n.php
+        - GoogleTagManager/GoogleTagManager.php
       copy:
-        dest: /opt/mediawiki/mediawiki/extensions/p2k12-auth.php
-        src: mediawiki/p2k12-auth.php
+        dest: "/opt/mediawiki/mediawiki/extensions/{{ item }}"
+        src: "mediawiki/{{ item }}"
