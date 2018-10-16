@@ -1,6 +1,42 @@
 - hosts: mediawiki
+  vars:
+    lan: "{{ host_database | json_query(ansible_hostname + '.interfaces | * | [?role==`lan`]') | first }}"
+    db: "{{ host_database | json_query(mediawiki.db.host + '.interfaces | * | [?role==`lan`]') | first }}"
   roles:
     - bitraf-base
+    - lxc-guest
     - packages
     - lusers
     - superusers
+    - postfix-satellite
+    - role: nginx
+      nginx__template:
+        - sites-enabled/default
+        - sites-enabled/mediawiki
+      ipv4: "*"
+      ipv6: "[::]"
+    - role: mediawiki
+      mediawiki__local_settings: mediawiki/LocalSettings.php
+      mediawiki__wgDBserver: "{{ db.ipv4.address }}"
+      mediawiki__wgDBname: "{{ mediawiki.db.name }}"
+      mediawiki__wgDBuser: "{{ mediawiki.db.user }}"
+      mediawiki__wgDBpassword: "{{ mediawiki.db.password }}"
+
+  tasks:
+    - name: Clone Bitraf's skin
+      tags:
+        - mediawiki
+        - bitraf-skin
+      become: yes
+      git:
+        repo: https://github.com/bitraf/mediawiki-skin-bitraf
+        dest: /opt/mediawiki/mediawiki/skins/Bitraf
+
+    - name: Install p2k12 auth
+      become: yes
+      tags:
+        - mediawiki-config
+        - p2k12-auth
+      copy:
+        dest: /opt/mediawiki/mediawiki/extensions/p2k12-auth.php
+        src: mediawiki/p2k12-auth.php

@@ -43,6 +43,12 @@
         regexp: "^root:"
         line: "root: itavdelingen@bitraf.no"
 
+    - name: Fix vim
+      copy:
+        dest: /etc/vim/vimrc.local
+        content: |
+         set mouse=
+
 - become: true
   tags:
     - bitraf-base

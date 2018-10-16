@@ -4,6 +4,16 @@
 # After you boot the container you'll get the IPv6 address
 
 host_database:
+  bitnode:
+    interfaces:
+      br0:
+        role: lan
+        ipv4:
+          address: 10.13.39.1
+          netmask: 24
+        ipv6:
+          address: 2a01:7e01:e001:e1::1
+          netmask: 64
   marvin:
     interfaces:
       eth0:
@@ -13,12 +23,14 @@ host_database:
           address: 10.13.37.200
           netmask: 24
           gateway: 10.13.37.1
+        ipv6:
+          address: 2a01:7e01:e001:e1:3a04:ccff:fe3f:7bc0
   mediawiki:
     interfaces:
-      lan:
+      eth0:
         hwaddr: 38:04:cc:3f:7b:c0
         role: lan
         ipv4:
-          address: 10.13.37.201
+          address: 10.13.39.2
           netmask: 24
-          gateway: 10.13.37.1
+          gateway: 10.13.39.1

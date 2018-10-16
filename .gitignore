@@ -2,5 +2,7 @@
 *.retry
 *.swp
 
+test.yml
+
 vault-password
 vault-password.asc

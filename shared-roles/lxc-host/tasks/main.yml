@@ -1,13 +1,68 @@
 - name: Install packages
+  tags:
+    - lxc-host
+    - lxc-host-packages
+    - radvd
+  become: yes
   apt:
     name: "{{ item }}"
     install_recommends: no
   with_items:
     - python-lxc
+    - radvd
 
-- include_tasks: per-host.yml
+#- debug:
+#    msg: "item={{ item }}, host={{ host }}, lan={{ lan }}"
+#  tags:
+#    - lxc-host
+#  with_dict: "{{ lxc_host_containers }}"
+#  vars:
+#    i: "{{ item }}"
+#    host: "{{ host_database[item.key] }}"
+#    lan: "{{ host_database | json_query(item.key + '.interfaces | * | [?role==`lan`]') | first }}"
+
+- name: Configure sysctl
+  copy:
+    dest: /etc/sysctl.d/99-lxc-host.conf
+    content: |
+      net.ipv6.conf.all.disable_ipv6=0
+      net.ipv6.conf.all.forwarding=1
+  notify: restart sysctl
+
+- name: Configure radvd
+  vars:
+    # TODO: should query for host with role='lan'
+    ipv6: "{{ host_database[ansible_hostname].interfaces.br0.ipv6 }}"
+  notify: restart radvd
+  copy:
+    dest: /etc/radvd.conf
+    content: |
+      interface br0
+      {
+         AdvSendAdvert on;
+         MinRtrAdvInterval 5;
+         MaxRtrAdvInterval 10;
+         MinDelayBetweenRAs 1;
+
+         AdvDefaultPreference medium;
+         AdvLinkMTU 1500;
+
+         prefix {{ ipv6.address }}/{{ ipv6.netmask }}
+         {
+              AdvOnLink on;
+              AdvAutonomous on;
+
+              AdvValidLifetime 14400;
+              AdvPreferredLifetime 3600;
+              AdvRouterAddr on;
+         };
+      };
+
+- tags:
+    - lxc-host
+  with_dict: "{{ lxc_host_containers }}"
   vars:
     i: "{{ item }}"
     host: "{{ host_database[item.key] }}"
     lan: "{{ host_database | json_query(item.key + '.interfaces | * | [?role==`lan`]') | first }}"
-  with_dict: "{{ lxc_host_containers }}"
+  include_tasks: per-host.yml

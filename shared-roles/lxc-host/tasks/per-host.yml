@@ -16,8 +16,8 @@
     state: "{{ i.value.state }}"
     template: debian
     template_options: -r stretch --packages git,etckeeper,python,sudo
-    backing_store: zfs
-    zfs_root: pool0/lxc
+    backing_store: "{{ lxc_host__backing_store }}"
+    zfs_root: "{{ lxc_host__zfs_root|default('') }}"
   register: lxc
 
 - name: Connection info

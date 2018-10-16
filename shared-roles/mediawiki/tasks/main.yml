@@ -1,0 +1,85 @@
+- become: yes
+  tags:
+    - mediawiki
+    - mediawiki-packages
+  block:
+    - name: packages
+      with_items:
+          - composer
+          - php-apcu
+          - php-gd
+          - php-intl
+          - php-mbstring
+          - php-pgsql
+          - php-xml
+          - php-zip
+      apt:
+        name: "{{ item }}"
+        install_recommends: no
+
+- become: yes
+  tags:
+    - mediawiki
+    - mediawiki-clone
+  block:
+    - name: mkdir /opt/mediawiki
+      file:
+        path: /opt/mediawiki
+        state: directory
+
+    - name: mkdir /opt/mediawiki/mediawiki
+      file:
+        path: /opt/mediawiki/mediawiki
+        state: directory
+        owner: www-data
+
+    - name: git clone
+      become_user: www-data
+      notify: systemc restart nginx
+      git:
+        repo: https://github.com/bitraf/mediawiki
+        dest: /opt/mediawiki/mediawiki
+        version: 1.31.1
+
+- become: yes
+  tags:
+    - mediawiki
+    - mediawiki-composer
+  block:
+    - name: mkdirs
+      with_items:
+        - /var/www/.ansible
+        - /var/www/.composer
+      file:
+        path: "{{ item }}"
+        state: directory
+        group: www-data
+        owner: www-data
+
+    - name: run composer
+      become_user: www-data
+      notify: systemc restart nginx
+      vars:
+        ansible_ssh_pipelining: true
+      composer:
+        command: install
+        working_dir: /opt/mediawiki/mediawiki
+
+- become: yes
+  tags:
+    - mediawiki
+    - mediawiki-config
+    - update-password
+  block:
+    - file:
+        path: /etc/mediawiki
+        state: directory
+    - name: LocalSettings.php
+      template:
+        dest: /etc/mediawiki
+        src: "{{ mediawiki__local_settings }}"
+    - file:
+        dest: /opt/mediawiki/mediawiki/LocalSettings.php
+        src: /etc/mediawiki/LocalSettings.php
+        state: link
+        force: yes

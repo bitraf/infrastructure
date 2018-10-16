@@ -1,0 +1,37 @@
+- tags:
+    - mediawiki-database
+    - packages
+  become: yes
+  block:
+    - name: packages
+      become:
+      with_items:
+        - python-psycopg2 # required for the next block
+      apt:
+        name: "{{ item }}"
+        install_recommends: no
+
+- tags: mediawiki-database
+  become: yes
+  become_user: postgres
+  vars:
+    ansible_ssh_pipelining: true
+  block:
+    - name: pg user mediawiki
+      tags: update-password
+      postgresql_user:
+        name: "{{ credentials.username }}"
+        password: "{{ credentials.password }}"
+        encrypted: yes
+    - name: pg db mediawiki
+      postgresql_db:
+        name: "{{ credentials.database }}"
+        encoding: utf-8
+        owner: "{{ credentials.username }}"
+    - postgresql_privs:
+        database: "{{ credentials.database }}"
+        state: present
+        privs: USAGE
+        type: schema
+        objs: public
+        roles: "{{ credentials.username }}"

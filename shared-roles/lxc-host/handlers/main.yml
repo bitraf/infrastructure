@@ -1,0 +1,8 @@
+- name: restart sysctl
+  service:
+    name: systemd-sysctl.service
+    state: restarted
+- name: restart radvd
+  service:
+    name: radvd.service
+    state: restarted
