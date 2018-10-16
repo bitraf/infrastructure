@@ -138,8 +138,8 @@ wfLoadSkin( 'Vector' );
 # End of automatically generated settings.
 # Add more configuration options below.
 
-#require_once('extensions/p2k12-auth.php');
-#$wgAuth = new p2k12Auth();
+require_once('extensions/p2k12-auth.php');
+$wgAuth = new p2k12Auth();
 
 $wgGroupPermissions['*']['createaccount'] = false;
 $wgGroupPermissions['*']['edit'] = false;
@@ -215,3 +215,6 @@ $wgGroupPermissions['bot']['noanalytics'] = true;
 
 # TODO: enable require_once( 'extensions/Wikilog/Wikilog.php' );
 # TODO: enable Wikilog::setupBlogNamespace( 100 );
+
+$wgShowExceptionDetails = true;
+$wgShowDBErrorBacktrace = true;

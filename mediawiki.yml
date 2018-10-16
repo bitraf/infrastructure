@@ -31,3 +31,12 @@
       git:
         repo: https://github.com/bitraf/mediawiki-skin-bitraf
         dest: /opt/mediawiki/mediawiki/skins/Bitraf
+
+    - name: Install p2k12 auth
+      become: yes
+      tags:
+        - mediawiki-config
+        - p2k12-auth
+      copy:
+        dest: /opt/mediawiki/mediawiki/extensions/p2k12-auth.php
+        src: mediawiki/p2k12-auth.php

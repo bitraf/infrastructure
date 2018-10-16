@@ -11,39 +11,7 @@ server {
 
   root /var/www/html;
 
-#  index index.php;
-
-#  location /wiki2/ {
-#    rewrite ^ /w2/index.php;
-#  }
-#
-#  location /w2 {
-#    alias /opt/mediawiki/mediawiki;
-#
-#    try_files $uri $uri/ @w2;
-#
-#    location ~ /images/ { expires 30d; }
-#    location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ { expires 30d; }
-#
-#    location ~ \.php$ {
-#      include snippets/fastcgi-php.conf;
-#      fastcgi_param SCRIPT_FILENAME $request_filename;
-#      fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
-#    }
-#  }
-#
-#  location /w2/cache/ { return 404; }
-#  location /w2/includes/ { return 404; }
-#  location /w2/languages/ { return 404; }
-#  location /w2/maintenance/ { return 404; }
-#  location /w2/serialized/ { return 404; }
-#  location /w2/tests/ { return 404; }
-#
-#  location @w2 {
-#    rewrite /w2/(.*)$ /w2/index.php?/$1 last;
-#  }
-# From https://www.mediawiki.org/wiki/Manual:Short_URL/Nginx
-
+  # From https://www.mediawiki.org/wiki/Manual:Short_URL/Nginx
   location /w2 {
     alias /opt/mediawiki/mediawiki;
 
@@ -52,45 +20,46 @@ server {
       fastcgi_param SCRIPT_FILENAME $request_filename;
       fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
     }
+
+    # Images
+    location /w2/images {
+      # Separate location for images/ so .php execution won't apply
+    }
+    location /w2/images/deleted {
+      # Deny access to deleted images folder
+      deny all;
+    }
+    # MediaWiki assets (usually images)
+    location ~ ^/w2/resources/(assets|lib|src) {
+      try_files $uri 404;
+      add_header Cache-Control "public";
+      expires 7d;
+    }
+    # Assets, scripts and styles from skins and extensions
+    location ~ ^/w2/(skins|extensions)/.+\.(css|js|gif|jpg|jpeg|png|svg)$ {
+      try_files $uri 404;
+      add_header Cache-Control "public";
+      expires 7d;
+    }
+
+    # Uncomment the following code if you wish to use the installer/updater
+    # installer/updater
+    #location /w2/mw-config/ {
+    #  # Do this inside of a location so it can be negated
+    #  location ~ \.php$ {
+    #    include /etc/nginx/fastcgi_params;
+    #    fastcgi_param SCRIPT_FILENAME $document_root/w2/mw-config/$fastcgi_script_name;
+    #    fastcgi_pass 127.0.0.1:9000; # or whatever port your PHP-FPM listens on
+    #  }
+    #}
   }
 
-  # Images
-  location /w2/images {
-    # Separate location for images/ so .php execution won't apply
-  }
-  location /w2/images/deleted {
-    # Deny access to deleted images folder
-    deny all;
-  }
-  # MediaWiki assets (usually images)
-  location ~ ^/w2/resources/(assets|lib|src) {
-    try_files $uri 404;
-    add_header Cache-Control "public";
-    expires 7d;
-  }
-  # Assets, scripts and styles from skins and extensions
-  location ~ ^/w2/(skins|extensions)/.+\.(css|js|gif|jpg|jpeg|png|svg)$ {
-    try_files $uri 404;
-    add_header Cache-Control "public";
-    expires 7d;
-  }
   # Favicon
   location = /favicon.ico {
     alias /w2/images/6/64/Favicon.ico;
     add_header Cache-Control "public";
     expires 7d;
   }
-
-  # Uncomment the following code if you wish to use the installer/updater
-  # installer/updater
-  #location /w2/mw-config/ {
-  #  # Do this inside of a location so it can be negated
-  #  location ~ \.php$ {
-  #    include /etc/nginx/fastcgi_params;
-  #    fastcgi_param SCRIPT_FILENAME $document_root/w2/mw-config/$fastcgi_script_name;
-  #    fastcgi_pass 127.0.0.1:9000; # or whatever port your PHP-FPM listens on
-  #  }
-  #}
 
   # Handling for the article path (pretty URLs)
   location /wiki2/ {
@@ -109,9 +78,10 @@ server {
   # Allow robots.txt in case you have one
   location = /robots.txt {
   }
+
   # Explicit access to the root website, redirect to main page (adapt as needed)
   location = / {
-    return 301 https://www.example.com/wiki2/Main_page;
+    return 301 https://bitraf.no;
   }
 
   # Every other entry point will be disallowed.
