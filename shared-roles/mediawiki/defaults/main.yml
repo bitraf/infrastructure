@@ -1,1 +1,2 @@
 mediawiki__enable_local_composer: no
+mediawiki__force_update: no

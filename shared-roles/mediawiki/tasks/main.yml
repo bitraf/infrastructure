@@ -20,6 +20,18 @@
 - become: yes
   tags:
     - mediawiki
+    - mediawiki-php
+  block:
+    - name: increase maximum file size (for uploads) to 20M
+      ini_file:
+        path: /etc/php/7.0/fpm/php.ini
+        section: PHP
+        option: post_max_size
+        value: 20M
+
+- become: yes
+  tags:
+    - mediawiki
     - mediawiki-clone
   block:
     - name: mkdir /opt/mediawiki
@@ -42,6 +54,8 @@
         repo: https://github.com/bitraf/mediawiki
         dest: /opt/mediawiki/mediawiki
         version: "{{ mediawiki__version }}"
+        update: "{{ 'yes' if mediawiki__force_update else 'no' }}"
+        force: "{{ 'yes' if mediawiki__force_update else 'no' }}"
 
 - become: yes
   tags:
