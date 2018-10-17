@@ -13,6 +13,8 @@
       nginx__template:
         - sites-enabled/default
         - sites-enabled/mediawiki
+      w: w2
+      wiki: wiki2
       ipv4: "*"
       ipv6: "[::]"
     - role: mediawiki
