@@ -118,6 +118,9 @@ $wgRightsUrl = "";
 $wgRightsText = "";
 $wgRightsIcon = "";
 
+# TODO: use Bitraf's favicon.
+$wgFavicon = "https://www.mediawiki.org/static/images/project-logos/mediawikiwiki.png";
+
 # Path to the GNU diff3 utility. Used for conflict resolution.
 $wgDiff3 = "/usr/bin/diff3";
 
@@ -218,5 +221,5 @@ Wikilog::setupBlogNamespace( 100 );
 
 enableSemantics("bitraf.no");
 
-$wgShowExceptionDetails = true;
-$wgShowDBErrorBacktrace = true;
+# $wgShowExceptionDetails = true;
+# $wgShowDBErrorBacktrace = true;
