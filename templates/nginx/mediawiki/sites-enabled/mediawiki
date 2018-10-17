@@ -21,6 +21,10 @@ server {
       fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
     }
 
+    location ~ /w2/? {
+      return 301 /w2/index.php;
+    }
+
     # Images
     location /w2/images {
       # Separate location for images/ so .php execution won't apply
