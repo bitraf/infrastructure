@@ -91,7 +91,7 @@ $wgPingback = true;
 ## If you use ImageMagick (or any other shell command) on a
 ## Linux server, this will need to be set to the name of an
 ## available UTF-8 locale
-$wgShellLocale = "en_US.UTF-8";
+$wgShellLocale = "C.UTF-8";
 
 ## Set $wgCacheDirectory to a writable directory on the web server
 ## to make your wiki go slightly faster. The directory should not
@@ -117,6 +117,9 @@ $wgRightsPage = ""; # Set to the title of a wiki page that describes your licens
 $wgRightsUrl = "";
 $wgRightsText = "";
 $wgRightsIcon = "";
+
+# TODO: use Bitraf's favicon.
+$wgFavicon = "https://www.mediawiki.org/static/images/project-logos/mediawikiwiki.png";
 
 # Path to the GNU diff3 utility. Used for conflict resolution.
 $wgDiff3 = "/usr/bin/diff3";
@@ -168,7 +171,7 @@ $wgDefaultUserOptions['wikieditor-preview'] = 1;
 $wgDefaultUserOptions['wikieditor-publish'] = 1;
 
 # CharInsert
-#TODO: enable wfLoadExtension('CharInsert');
+wfLoadExtension('CharInsert');
 
 # Spam-hjelp
 wfLoadExtension('Nuke');
@@ -191,7 +194,7 @@ $wgGroupPermissions['bureaucrat']['interwiki'] = true;
 wfLoadExtension( 'ParserFunctions' );
 $wgPFEnableStringFunctions = true;
 # added 2018-02-01 by tingo (Torfinn Ingolfsen)
-# TODO: enable require_once "$IP/extensions/googleAnalytics/googleAnalytics.php";
+require_once "$IP/extensions/googleAnalytics/googleAnalytics.php";
 // Add HTML code for any additional web analytics (can be used alone or with $wgGoogleAnalyticsAccount)
 $wgGoogleAnalyticsOtherCode = '<script type="text/javascript" src="https://analytics.example.com/tracking.js"></script>';
 
@@ -211,10 +214,12 @@ $wgGroupPermissions['bot']['noanalytics'] = true;
 //$wgGroupPermissions['user']['noanalytics'] = true;
 
 ##GOOGLE TAG MANAGER - BL's konto
-# TODO: enable require_once "$IP/extensions/GoogleTagManager/GoogleTagManager.php";
+require_once "$IP/extensions/GoogleTagManager/GoogleTagManager.php";
 
-# TODO: enable require_once( 'extensions/Wikilog/Wikilog.php' );
-# TODO: enable Wikilog::setupBlogNamespace( 100 );
+require_once( 'extensions/Wikilog/Wikilog.php' );
+Wikilog::setupBlogNamespace( 100 );
 
-$wgShowExceptionDetails = true;
-$wgShowDBErrorBacktrace = true;
+enableSemantics("bitraf.no");
+
+# $wgShowExceptionDetails = true;
+# $wgShowDBErrorBacktrace = true;
