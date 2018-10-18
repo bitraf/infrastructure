@@ -1,3 +1,7 @@
+- name: systemd daemon-reload
+  become: yes
+  systemd:
+    daemon_reload: true
 - name: service restart php-fpm
   become: yes
   service:

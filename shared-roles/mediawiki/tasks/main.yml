@@ -104,17 +104,44 @@
   tags:
     - mediawiki
     - mediawiki-config
-    - update-password
   block:
     - file:
         path: /etc/mediawiki
         state: directory
-    - name: LocalSettings.php
-      template:
-        dest: /etc/mediawiki
-        src: "{{ mediawiki__local_settings }}"
     - file:
         dest: /opt/mediawiki/mediawiki/LocalSettings.php
         src: /etc/mediawiki/LocalSettings.php
         state: link
         force: yes
+
+    - name: mediawiki systemd timer
+      notify: systemd daemon-reload
+      copy:
+        src: "{{ item }}"
+        dest: "/etc/systemd/system/{{ item }}"
+      with_items:
+        - mediawiki-jobqueue.service
+        - mediawiki-jobqueue.timer
+
+- meta: flush_handlers
+
+- become: yes
+  tags:
+    - mediawiki
+    - mediawiki-config
+  block:
+    - systemd:
+        enabled: true
+        state: started
+        name: mediawiki-jobqueue.timer
+
+- become: yes
+  tags:
+    - mediawiki
+    - mediawiki-config
+    - update-password
+  block:
+    - name: LocalSettings.php
+      template:
+        dest: /etc/mediawiki
+        src: "{{ mediawiki__local_settings }}"
