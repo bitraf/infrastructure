@@ -2,3 +2,10 @@
   systemd:
     name: nginx
     state: restarted
+
+- name: service restart php-fpm
+  become: yes
+  service:
+    name: php7.0-fpm
+    state: restarted
+
