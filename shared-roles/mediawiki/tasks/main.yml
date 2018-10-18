@@ -23,11 +23,17 @@
     - mediawiki-php
   block:
     - name: increase maximum file size (for uploads) to 20M
+      notify: service restart php-fpm
       ini_file:
         path: /etc/php/7.0/fpm/php.ini
         section: PHP
-        option: post_max_size
-        value: 20M
+        option: "{{ item.option }}"
+        value: "{{ item.value }}"
+      with_items:
+        - option: upload_max_filesize
+          value: 20M
+        - option: post_max_size
+          value: 20M
 
 - become: yes
   tags:
