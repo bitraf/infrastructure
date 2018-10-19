@@ -219,6 +219,8 @@ require_once "$IP/extensions/GoogleTagManager/GoogleTagManager.php";
 require_once( 'extensions/Wikilog/Wikilog.php' );
 Wikilog::setupBlogNamespace( 100 );
 
+// --- Semantic mediawiki
+$smwgShowFactbox = SMW_FACTBOX_NONEMPTY;
 enableSemantics("bitraf.no");
 
 # $wgShowExceptionDetails = true;

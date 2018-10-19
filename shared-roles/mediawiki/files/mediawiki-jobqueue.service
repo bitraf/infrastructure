@@ -1,0 +1,12 @@
+[Unit]
+Description=MediaWiki job runner
+
+[Service]
+WorkingDirectory=/opt/mediawiki/mediawiki/maintenance
+ExecStart=/usr/bin/php runJobs.php --maxjobs 100
+User=www-data
+Group=www-data
+StandardOutput=journal
+
+Nice=10
+OOMScoreAdjust=500
