@@ -40,14 +40,17 @@
         - mediawiki-extensions
       become: yes
       with_items:
-        - repo: https://github.com/mediawiki4intranet/Wikilog.git
+        - repo: https://github.com/bitraf/Wikilog.git
           dest: Wikilog
-          version: bc4da58b79f5fac3f03d3a3228f54ce609d77cc5
+          version: e6c86ee98ffc68eb4cd68e376afdedee15e10fd8
         - repo: https://github.com/wikimedia/mediawiki-extensions-googleAnalytics
           dest: googleAnalytics
           version: REL1_31
         - repo: https://github.com/wikimedia/mediawiki-extensions-CharInsert
           dest: CharInsert
+          version: REL1_31
+        - repo: https://github.com/wikimedia/mediawiki-extensions-Scribunto
+          dest: Scribunto
           version: REL1_31
       git:
         repo: "{{ item.repo }}"
