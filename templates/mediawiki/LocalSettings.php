@@ -81,7 +81,7 @@ $wgFileExtensions[] = 'ods';
 $wgFileExtensions[] = 'gz';
 
 # InstantCommons allows wiki to use images from https://commons.wikimedia.org
-$wgUseInstantCommons = false;
+$wgUseInstantCommons = true;
 
 # Periodically send a pingback to https://www.mediawiki.org/ with basic data
 # about this MediaWiki instance. The Wikimedia Foundation shares this data
@@ -222,6 +222,10 @@ Wikilog::setupBlogNamespace( 100 );
 // --- Semantic mediawiki
 $smwgShowFactbox = SMW_FACTBOX_NONEMPTY;
 enableSemantics("bitraf.no");
+
+// --- Scribunto
+wfLoadExtension("Scribunto");
+#$wgScribuntoDefaultEngine = "luastandalone";
 
 # $wgShowExceptionDetails = true;
 # $wgShowDBErrorBacktrace = true;
