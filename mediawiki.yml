@@ -52,6 +52,9 @@
         - repo: https://github.com/wikimedia/mediawiki-extensions-Scribunto
           dest: Scribunto
           version: REL1_31
+        - repo: https://github.com/wikimedia/mediawiki-extensions-CodeEditor
+          dest: CodeEditor
+          version: REL1_31
       git:
         repo: "{{ item.repo }}"
         dest: "/opt/mediawiki/mediawiki/extensions/{{ item.dest }}"
