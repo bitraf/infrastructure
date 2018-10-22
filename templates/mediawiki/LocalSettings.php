@@ -81,7 +81,7 @@ $wgFileExtensions[] = 'ods';
 $wgFileExtensions[] = 'gz';
 
 # InstantCommons allows wiki to use images from https://commons.wikimedia.org
-$wgUseInstantCommons = true;
+$wgUseInstantCommons = false;
 
 # Periodically send a pingback to https://www.mediawiki.org/ with basic data
 # about this MediaWiki instance. The Wikimedia Foundation shares this data
@@ -229,3 +229,10 @@ wfLoadExtension("Scribunto");
 
 # $wgShowExceptionDetails = true;
 # $wgShowDBErrorBacktrace = true;
+
+wfLoadExtension("SemanticScribunto");
+
+// --- CodeEditor
+wfLoadExtension( 'CodeEditor' );
+$wgDefaultUserOptions['usebetatoolbar'] = 1; // user option provided by WikiEditor extension
+$wgScribuntoUseCodeEditor = true;
