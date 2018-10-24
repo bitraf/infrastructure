@@ -21,17 +21,16 @@ server {
       fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
     }
 
-    location ~ /{{ w }}/? {
+    location ~ /{{ w }}/?$ {
       return 301 /{{ w }}/index.php;
     }
 
     # Images
-    location /{{ w }}/images {
-      # Separate location for images/ so .php execution won't apply
-    }
-    location /{{ w }}/images/deleted {
-      # Deny access to deleted images folder
+    location ~ ^/{{ w }}/images/deleted {
       deny all;
+    }
+    location ~ ^/{{ w }}/images {
+      # Separate location for images/ so .php execution won't apply
     }
     # MediaWiki assets (usually images)
     location ~ ^/{{ w }}/resources/(assets|lib|src) {
