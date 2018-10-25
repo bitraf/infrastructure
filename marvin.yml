@@ -2,6 +2,7 @@
 - hosts: marvin
   roles:
     - bitraf-base
+    - minio-bin
   handlers:
     - name: systemctl restart smbd
       become: yes

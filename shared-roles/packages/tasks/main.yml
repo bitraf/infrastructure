@@ -15,6 +15,20 @@
       deb     http://ftp.no.debian.org/debian/ stretch-updates main contrib non-free
       deb-src http://ftp.no.debian.org/debian/ stretch-updates main contrib non-free
 
+      {{ '' if packages__enable_backports else '#' }}deb     http://ftp.no.debian.org/debian/ stretch-backports main contrib non-free
+      {{ '' if packages__enable_backports else '#' }}deb-src http://ftp.no.debian.org/debian/ stretch-backports main contrib non-free
+
+- name: Enable backports repository by default
+  when: packages__enable_backports
+  copy:
+    dest: /etc/apt/preferences.d/bitraf-packages
+    content: |
+      Package: *
+      Pin: release a=stretch-backports
+      Pin-Priority: 500
+
+- meta: flush_handlers
+
 - name: install debian packages
   tags: packages
   become: yes

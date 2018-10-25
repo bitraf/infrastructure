@@ -1,3 +1,4 @@
+packages__enable_backports: yes
 packages_packages:
   - git
   - etckeeper
