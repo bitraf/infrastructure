@@ -1,0 +1,17 @@
+- become: yes
+  tags:
+    - minio-bin
+  block:
+    - name: packages
+      apt:
+        name: "{{ item }}"
+        install_recommends: no
+      with_items:
+        - golang
+        - git
+        - make
+
+    - git:
+        repo: https://github.com/minio/minio
+        dest: /tmp/minio
+        accept_hostkey: yes
