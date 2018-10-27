@@ -80,7 +80,7 @@ topic read bitraf/currentsensor/+
 topic write bitraf/currentsensor/+
 
 # https://github.com/bitraf/machineaccess
-topic read bitraf/machineaccess/#
+topic read bitraf/tool/#
 
 # OpenHAB
 user bitraf-openhab
@@ -105,12 +105,27 @@ topic readwrite bitraf/openbutton/+/led
 topic write bitraf/guestlogin/arriving
 topic readwrite fbp
 
+# Tools
+# Dedicated user for each tool device
+#user bitraf-tool-lock
+# topic read bitraf/tool/+/unlock
+# topic read bitraf/tool/+/lock
+# topic write bitraf/tool/+/islocked
+
+# p2k16, can manage doors and locks
 user bitraf-p2k16-web
 topic write /bitraf/door/+/open
+topic write bitraf/tool/+/unlock
+topic write bitraf/tool/+/lock
+topic write /public/#
 
 user bitraf-p2k16-web-staging
 topic readwrite bitraf/bitraf-p2k16-web-staging/#
+topic write bitraf/tool/+/unlock
+topic write bitraf/tool/+/lock
+topic write /public/#
 
+# Misc sensors
 user bitraf-button-1
 topic write bitraf/button/1/#
 topic write bitraf/temperature/1/#
@@ -134,7 +149,3 @@ topic write bitraf/nexa/1/cmd/#
 user bitraf-hotbot
 topic write bitraf/octoprint/hotbot/#
 
-# https://github.com/bitraf/machineaccess
-user bitraf-p2k16-web
-topic write bitraf/machineaccess/+/lock
-topic write bitraf/machineaccess/+/unlock
