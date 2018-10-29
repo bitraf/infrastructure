@@ -106,11 +106,11 @@ topic write bitraf/guestlogin/arriving
 topic readwrite fbp
 
 # Tools
-# Dedicated user for each tool device
-#user bitraf-tool-lock
-# topic read bitraf/tool/+/unlock
-# topic read bitraf/tool/+/lock
-# topic write bitraf/tool/+/islocked
+# One dedicated user for all tool devices
+user bitraf-tool-lock
+topic read      bitraf/tool/+/unlock
+topic read      bitraf/tool/+/lock
+topic write     bitraf/tool/+/islocked
 
 # p2k16, can manage doors and locks
 user bitraf-p2k16-web
