@@ -9,8 +9,7 @@
     - network
     - packages
     - bitraf-base
-    - lusers
-    - superusers
+    # superusers and lusers are maintained in ../all.yml
     - postfix-satellite
     - unifi
   tasks:
