@@ -2,7 +2,13 @@
 - hosts: marvin
   roles:
     - bitraf-base
-    - minio-bin
+    - role: minio-bin
+      minio_bin__build_mc: yes
+      minio_bin__build_minio: yes
+    - minio-server
+    - role: nginx
+      nginx__template:
+        - sites-enabled/default
   handlers:
     - name: systemctl restart smbd
       become: yes

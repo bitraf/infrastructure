@@ -1,0 +1,34 @@
+- become: yes
+  tags:
+    - minio-server
+  block:
+    - file:
+        dest: /etc/minio
+        state: directory
+
+    - copy:
+        dest: /etc/minio/env
+        content: |
+          MINIO_ACCESS_KEY={{ minio__access_key }}
+          MINIO_SECRET_KEY={{ minio__secret_key }}
+
+    - name: Install systemd service
+      notify: systemd restart minio
+      copy:
+        dest: /etc/systemd/system/minio.service
+        content: |
+          [Unit]
+          After=network.target
+
+          [Service]
+          ExecStart=/usr/local/bin/minio server --config-dir /etc/minio /dropbox/minio
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: systemd enable minio
+      become: yes
+      systemd:
+        service: minio
+        state: restarted
+        enabled: yes

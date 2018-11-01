@@ -8,6 +8,9 @@
         database: "{{ mediawiki.db.name }}"
         username: "{{ mediawiki.db.user }}"
         password: "{{ mediawiki.db.password }}"
+    - role: minio-bin
+      minio_bin__build_mc: yes
+    - postgresql-wal-g
   handlers:
     - name: systemctl restart systemd-networkd
       become: true
