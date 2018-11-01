@@ -1,0 +1,5 @@
+- name: systemd restart minio
+  become: yes
+  systemd:
+    service: minio
+    state: restarted
