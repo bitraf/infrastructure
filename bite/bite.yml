@@ -5,6 +5,7 @@
     - packages
     - bitraf-base
     - postfix-satellite
+    # superusers and lusers are maintained in ../all.yml
   vars_files:
     - ../group_vars/all/host_database.yml
     - ../vars/postfix.yml
@@ -24,16 +25,6 @@
     become: True
     when: blacklist_uas.changed
     shell: /usr/sbin/update-initramfs -u -k all
-
-  - name: lusers
-    import_role: name=lusers
-    tags: lusers
-    become: yes
-
-  - name: superusers
-    import_role: name=superusers
-    tags: superusers
-    become: yes
 
   - name: lxc-hosts
     import_role: name=lxc-host

@@ -7,6 +7,5 @@
     - network
     - packages
     - bitraf-base
-    - lusers
-    - superusers
+    # superusers and lusers are maintained in ../all.yml
     - postgresql-server
