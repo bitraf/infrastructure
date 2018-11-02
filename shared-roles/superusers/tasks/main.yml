@@ -1,33 +1,32 @@
 ---
 - tags: superusers
-  become: yes
-  vars:
-    usernames: "{{ users|dict2items|map(attribute='key')|list }}"
   block:
-    - name: getent group sudo
+    - name: getent passwd
+      getent:
+        database: passwd
+
+    - name: getent group
       getent:
         database: group
 
-    - name: Grant sudo
-      with_items: "{{ superusers }}"
-      user:
-        name: "{{ item }}"
-        groups: sudo,systemd-journal
-        append: yes
+# NOTE: Accounts are added by the luser module.
+- tags: superusers
+  vars:
+    usernames: "{{ users|dict2items|map(attribute='key')|list }}"
+    unix_groups:
+      - sudo
+      - systemd-journal
+  with_items:
+  - "{{ unix_groups }}"
+  loop_control:
+    loop_var: group
+  include_tasks: adjust-group.yml
 
-    - name: Revoke sudo
-      with_items: "{{ getent_group['sudo'][2].split(',') }}"
-      when: (item|length) > 0 and (item not in superusers)
-      shell: "gpasswd --delete {{ item }} sudo"
-
-    - name: Revoke systemd-journal
-      with_items: "{{ getent_group['systemd-journal'][2].split(',') }}"
-      when: (item|length) > 0 and (item not in superusers)
-      shell: "gpasswd --delete {{ item }} systemd-journal"
-
-    - name: "Allow 'sudo' group to have passwordless sudo"
-      lineinfile:
-        dest: /etc/sudoers
-        state: present
-        regexp: '^%sudo'
-        line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+- name: "Allow 'sudo' group to have passwordless sudo"
+  tags: superusers
+  become: yes
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%sudo'
+    line: '%sudo ALL=(ALL) NOPASSWD: ALL'
