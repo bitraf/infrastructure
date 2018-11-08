@@ -1,6 +1,13 @@
 bitraf infrastructure
 =====================
 
+Python requirements
+-------------------
+
+Install dependencies:
+
+    pip3 install --user -r requirements.txt
+
 ansible-vault settings
 ----------------------
 
