@@ -11,6 +11,7 @@
     - role: minio-bin
       minio_bin__build_mc: yes
     - postgresql-wal-g
+    - lxc-host
   handlers:
     - name: systemctl restart systemd-networkd
       become: true
@@ -40,8 +41,3 @@
         int_link: br0
         int_ipv4: "{{ host_database.bitnode.interfaces.br0.ipv4 }}"
         int_ipv6: "{{ host_database.bitnode.interfaces.br0.ipv6 }}"
-
-    - name: lxc-hosts
-      import_role: name=lxc-host
-      tags: lxc-host
-      become: yes
