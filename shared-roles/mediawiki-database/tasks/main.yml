@@ -19,6 +19,7 @@
   block:
     - name: pg user mediawiki
       tags: update-password
+      no_log: yes
       postgresql_user:
         name: "{{ credentials.username }}"
         password: "{{ credentials.password }}"
