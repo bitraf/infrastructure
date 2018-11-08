@@ -1,4 +1,3 @@
-#mediawiki__repo: https://github.com/bitraf/mediawiki
 mediawiki__version: REL1_32
 mediawiki__composer_require:
   mediawiki/parser-hooks: ~1
