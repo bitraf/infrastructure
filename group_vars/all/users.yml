@@ -5,9 +5,10 @@ users:
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEVoE61UreMtgITTsdSoX2UzBmeLJitKsXRhia7EmJP0
   mastensg:
     authorized_keys: |
-      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICOayiImJKc7Qfmp2i33QNreBZ+zatorDVP3IUEPXlch mastensg@reed
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINu7CM1afBuVkmNeMkSItLSBkgPiGbLH12ThN8ajZh1U mastensg@hui
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG5f5N7gkHczXgr5LeMdU7dTBrrOsvId6ug/3mH7NZwS mastensg@miller
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMrG2u1KzUoj9YUPaqF5RLjt4685PYMsH93MPykHVMB3 mastensg@munkres
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICOayiImJKc7Qfmp2i33QNreBZ+zatorDVP3IUEPXlch mastensg@reed
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH5wp6WRmSE/UBGPYLy1ylVHDa+wUo96UGUCopgaSH/n mastensg@taylor
   trygvis:
     authorized_keys: |
