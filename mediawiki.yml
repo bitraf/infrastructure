@@ -13,8 +13,8 @@
       nginx__template:
         - sites-enabled/default
         - sites-enabled/mediawiki
-      w: w2
-      wiki: wiki2
+      w: w
+      wiki: wiki
       ipv4: "*"
       ipv6: "[::]"
     - role: mediawiki
@@ -25,44 +25,32 @@
       mediawiki__wgDBpassword: "{{ mediawiki.db.password }}"
 
   tasks:
-    - name: Clone Bitraf's skin
+    - name: Install skins from git
       tags:
         - mediawiki
-        - bitraf-skin
+        - mediawiki-skins
       become: yes
+      with_dict: "{{ mediawiki__skins_git_repos }}"
       git:
-        repo: https://github.com/bitraf/mediawiki-skin-bitraf
-        dest: /opt/mediawiki/mediawiki/skins/Bitraf
+        repo: "{{ item.value.repo }}"
+        dest: "/opt/mediawiki/mediawiki/skins/{{ item.key }}"
+#        version: "{{ item.value.version if version in item.value else None }}"
 
-    - name: "Extension: googleAnalytics"
+    - name: Install Extensions from git
       tags:
         - mediawiki
         - mediawiki-extensions
       become: yes
-      with_items:
-        - repo: https://github.com/bitraf/Wikilog.git
-          dest: Wikilog
-          version: 9d0ac18c96902b52b56a8037f8dbeeb53cb3110f
-        - repo: https://github.com/wikimedia/mediawiki-extensions-googleAnalytics
-          dest: googleAnalytics
-          version: REL1_31
-        - repo: https://github.com/wikimedia/mediawiki-extensions-CharInsert
-          dest: CharInsert
-          version: REL1_31
-        - repo: https://github.com/wikimedia/mediawiki-extensions-Scribunto
-          dest: Scribunto
-          version: REL1_31
-        - repo: https://github.com/wikimedia/mediawiki-extensions-CodeEditor
-          dest: CodeEditor
-          version: REL1_31
+      with_dict: "{{ mediawiki__extensions_git_repos }}"
       git:
-        repo: "{{ item.repo }}"
-        dest: "/opt/mediawiki/mediawiki/extensions/{{ item.dest }}"
-        version: "{{ item.version }}"
+        repo: "{{ item.value.repo }}"
+        dest: "/opt/mediawiki/mediawiki/extensions/{{ item.key }}"
+        version: "{{ item.value.version }}"
 
-    - name: Install local extensions
+    - name: Install local extensions (mkdir)
       become: yes
       tags:
+        - mediawiki
         - mediawiki-extensions
       with_items:
         - extensions/GoogleTagManager
@@ -70,12 +58,11 @@
         path: "/opt/mediawiki/mediawiki/{{ item }}"
         state: directory
 
-    - name: Install local extensions
+    - name: Install local extensions (copy)
       become: yes
       tags:
-        - mediawiki-config
+        - mediawiki
         - mediawiki-extensions
-        - p2k12-auth
       with_items:
         - p2k12-auth.php
         - GoogleTagManager/GoogleTagManager.i18n.php

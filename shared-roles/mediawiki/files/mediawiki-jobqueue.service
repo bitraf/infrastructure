@@ -3,7 +3,8 @@ Description=MediaWiki job runner
 
 [Service]
 WorkingDirectory=/opt/mediawiki/mediawiki/maintenance
-ExecStart=/usr/bin/php runJobs.php --maxjobs 100
+# 900 is 15 minutes, this task is triggered every 15 minutes
+ExecStart=/usr/bin/php runJobs.php --conf ../LocalSettings.php --maxtime=800 --wait
 User=www-data
 Group=www-data
 StandardOutput=journal

@@ -27,7 +27,7 @@ $wgMetaNamespace = "Bitraf";
 ## For more information on customizing the URLs
 ## (like /w/index.php/Page_title to /wiki/Page_title) please see:
 ## https://www.mediawiki.org/wiki/Manual:Short_URL
-$wgScriptPath = "/w2";
+$wgScriptPath = "/w";
 
 ## The protocol and server name to use in fully-qualified URLs
 # This is the ideal pattern, but some tuning from Nginx is required.
@@ -137,11 +137,13 @@ wfLoadSkin( 'MonoBook' );
 wfLoadSkin( 'Timeless' );
 wfLoadSkin( 'Vector' );
 
+wfLoadExtension( 'Cite' );
+wfLoadExtension( 'ParserFunctions' );
 
 # End of automatically generated settings.
 # Add more configuration options below.
 
-require_once('extensions/p2k12-auth.php');
+require_once "$IP/extensions/p2k12-auth.php";
 $wgAuth = new p2k12Auth();
 
 $wgGroupPermissions['*']['createaccount'] = false;
@@ -149,7 +151,7 @@ $wgGroupPermissions['*']['edit'] = false;
 
 $wgShowSQLErrors = true;
 
-$wgArticlePath = '/wiki2/$1';
+$wgArticlePath = '/wiki/$1';
 
 
 #
@@ -216,9 +218,6 @@ $wgGroupPermissions['bot']['noanalytics'] = true;
 ##GOOGLE TAG MANAGER - BL's konto
 require_once "$IP/extensions/GoogleTagManager/GoogleTagManager.php";
 
-require_once( 'extensions/Wikilog/Wikilog.php' );
-Wikilog::setupBlogNamespace( 100 );
-
 // --- Semantic mediawiki
 $smwgShowFactbox = SMW_FACTBOX_NONEMPTY;
 enableSemantics("bitraf.no");
@@ -236,3 +235,7 @@ wfLoadExtension("SemanticScribunto");
 wfLoadExtension( 'CodeEditor' );
 $wgDefaultUserOptions['usebetatoolbar'] = 1; // user option provided by WikiEditor extension
 $wgScribuntoUseCodeEditor = true;
+$wgDebugLogFile = "/var/log/nginx/mediawiki.log";
+
+$wgShowExceptionDetails = true;
+$wgShowDBErrorBacktrace = true;

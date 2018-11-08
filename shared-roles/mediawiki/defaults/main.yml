@@ -1,2 +1,3 @@
+mediawiki__repo: https://gerrit.wikimedia.org/r/p/mediawiki/core.git
 mediawiki__enable_local_composer: no
 mediawiki__force_update: no
