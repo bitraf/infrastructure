@@ -137,11 +137,13 @@ wfLoadSkin( 'MonoBook' );
 wfLoadSkin( 'Timeless' );
 wfLoadSkin( 'Vector' );
 
+wfLoadExtension( 'Cite' );
+wfLoadExtension( 'ParserFunctions' );
 
 # End of automatically generated settings.
 # Add more configuration options below.
 
-require_once('extensions/p2k12-auth.php');
+require_once "$IP/extensions/p2k12-auth.php";
 $wgAuth = new p2k12Auth();
 
 $wgGroupPermissions['*']['createaccount'] = false;
@@ -216,7 +218,7 @@ $wgGroupPermissions['bot']['noanalytics'] = true;
 ##GOOGLE TAG MANAGER - BL's konto
 require_once "$IP/extensions/GoogleTagManager/GoogleTagManager.php";
 
-require_once( 'extensions/Wikilog/Wikilog.php' );
+require_once "$IP/extensions/Wikilog/Wikilog.php";
 Wikilog::setupBlogNamespace( 100 );
 
 // --- Semantic mediawiki
@@ -236,3 +238,7 @@ wfLoadExtension("SemanticScribunto");
 wfLoadExtension( 'CodeEditor' );
 $wgDefaultUserOptions['usebetatoolbar'] = 1; // user option provided by WikiEditor extension
 $wgScribuntoUseCodeEditor = true;
+$wgDebugLogFile = "/var/log/nginx/mediawiki.log";
+
+$wgShowExceptionDetails = true;
+$wgShowDBErrorBacktrace = true;

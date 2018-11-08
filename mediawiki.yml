@@ -34,7 +34,7 @@
         repo: https://github.com/bitraf/mediawiki-skin-bitraf
         dest: /opt/mediawiki/mediawiki/skins/Bitraf
 
-    - name: "Extension: googleAnalytics"
+    - name: "Extensions"
       tags:
         - mediawiki
         - mediawiki-extensions
