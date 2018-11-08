@@ -1,0 +1,79 @@
+- become: yes
+  tags:
+    - wordpress
+  block:
+    - name: "mkdir {{install_path}}/log"
+      file:
+        path: "{{install_path}}/log"
+        state: directory
+
+    - name: create host file
+      template: "src={{ domain }}.conf dest=/etc/apache2/sites-available/{{ domain }}.conf"
+
+    - name: "a2ensite {{ domain }}"
+      command: "a2ensite {{ domain }}"
+      args:
+        creates: "/etc/apache2/sites-enabled/{{ domain }}.conf"
+      notify:
+        - restart apache2
+
+    - name: a2dissite 000-default.conf
+      command: a2dissite 000-default
+      notify:
+        - restart apache2
+
+    - name: Download WordPress
+      get_url: url=http://wordpress.org/wordpress-{{ wp_version }}.tar.gz dest={{install_path}}/wordpress-{{ wp_version }}.tar.gz
+               checksum="{{ wp_checksum }}"
+
+    - name: Extract archive
+      command: chdir={{install_path}} /bin/tar xvf wordpress-{{ wp_version }}.tar.gz creates={{install_path}}/wordpress
+
+    - name: "mkdir {{install_path}}/wordpress"
+      file:
+        path: "{{install_path}}/wordpress"
+        state: directory
+        owner: www-data
+
+    - name: Fetch random salts for WordPress config
+      local_action: command curl https://api.wordpress.org/secret-key/1.1/salt/
+      register: "wp_salt"
+      become: no
+      become_method: sudo
+
+    - name: Copy WordPress config file
+      template: src=wp-config.php dest={{install_path}}/wordpress
+
+
+    - name: Start php-fpm Service
+      service: name=php7.0-fpm.service state=started enabled=yes
+
+    - name: Install plugins
+      unarchive:
+        src: "https://downloads.wordpress.org/plugin/{{item}}"
+        dest: "{{install_path}}/wordpress/wp-content/plugins/"
+        remote_src: yes
+      with_items:
+        - wordpress-importer.0.6.4.zip
+
+    - name: Install Ocean WP
+      unarchive:
+        src: "https://downloads.wordpress.org/theme/oceanwp.1.5.31.zip"
+        dest: "{{install_path}}/wordpress/wp-content/themes/"
+        remote_src: yes
+
+    - name: remove Akismet
+      file:
+        path: "{{install_path}}/wordpress/wp-content/plugins/akismet"
+        state: absent
+
+    - name: remove Hello dolly
+      file:
+        path: "{{install_path}}/wordpress/wp-content/plugins/hello.php"
+        state: absent
+
+    - name: Change ownership of WordPress installation
+      file: "path={{install_path}}/wordpress/ owner=elias group=elias state=directory recurse=yes setype=httpd_sys_content_t"
+
+    - name: Set file permissions
+      file: "path={{install_path}}/wordpress/wp-content/ owner=www-data group=www-data recurse=yes"

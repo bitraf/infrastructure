@@ -1,0 +1,40 @@
+- become: true
+  tags: mysql
+  block:
+
+    - name: Configure mariadb.cnf
+      copy:
+        dest: /etc/mysql/mariadb.cnf
+        content: |
+          [client-server]
+          # Import all .cnf files from configuration directory
+          !includedir /etc/mysql/conf.d/
+          !includedir /etc/mysql/mariadb.conf.d/
+
+          [mysqld]
+          max_allowed_packet = 1M
+          thread_stack = 128K
+          max_connections = 75
+          table_open_cache = 32M
+          key_buffer_size = 32M
+          bind-address = 192.168.1.5
+
+      notify: restart mysql
+
+    - name: Create a new database with name 'wordpress'
+      mysql_db:
+        name: wordpress
+        state: present
+
+    - name: Create a new database with name 'wordpress'
+      mysql_db:
+        name: wordpress_test
+        state: present
+
+    - name: Grant privileges for wordpress
+      mysql_user:
+        name: wordpressuser
+        password: ""
+        priv: 'wordpress.*:ALL'
+        host: "{{host_database.wordpress.interfaces.eth0.ipv4.address}}"
+        state: present
