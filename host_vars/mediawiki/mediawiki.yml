@@ -1,7 +1,26 @@
-mediawiki__version: 1.31.1+bitraf
+#mediawiki__repo: https://github.com/bitraf/mediawiki
+mediawiki__version: REL1_32
 mediawiki__composer_require:
   mediawiki/parser-hooks: ~1
   mediawiki/validator: ~2
   mediawiki/semantic-media-wiki: ~3.0
   mediawiki/semantic-scribunto: 2.0.0
-  monolog/monolog: 1.23.0
+  monolog/monolog: 1.22.1
+
+mediawiki__skins_git_repos:
+  Bitraf:
+    repo: https://github.com/bitraf/mediawiki-skin-bitraf
+
+mediawiki__extensions_git_repos:
+  googleAnalytics:
+    repo: https://github.com/wikimedia/mediawiki-extensions-googleAnalytics
+    version: REL1_32
+  CharInsert:
+    repo: https://github.com/wikimedia/mediawiki-extensions-CharInsert
+    version: REL1_32
+  Scribunto:
+    repo: https://github.com/wikimedia/mediawiki-extensions-Scribunto
+    version: REL1_32
+  CodeEditor:
+    repo: https://github.com/wikimedia/mediawiki-extensions-CodeEditor
+    version: REL1_32

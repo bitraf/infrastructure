@@ -27,7 +27,7 @@ $wgMetaNamespace = "Bitraf";
 ## For more information on customizing the URLs
 ## (like /w/index.php/Page_title to /wiki/Page_title) please see:
 ## https://www.mediawiki.org/wiki/Manual:Short_URL
-$wgScriptPath = "/w2";
+$wgScriptPath = "/w";
 
 ## The protocol and server name to use in fully-qualified URLs
 # This is the ideal pattern, but some tuning from Nginx is required.
@@ -151,7 +151,7 @@ $wgGroupPermissions['*']['edit'] = false;
 
 $wgShowSQLErrors = true;
 
-$wgArticlePath = '/wiki2/$1';
+$wgArticlePath = '/wiki/$1';
 
 
 #
@@ -217,9 +217,6 @@ $wgGroupPermissions['bot']['noanalytics'] = true;
 
 ##GOOGLE TAG MANAGER - BL's konto
 require_once "$IP/extensions/GoogleTagManager/GoogleTagManager.php";
-
-require_once "$IP/extensions/Wikilog/Wikilog.php";
-Wikilog::setupBlogNamespace( 100 );
 
 // --- Semantic mediawiki
 $smwgShowFactbox = SMW_FACTBOX_NONEMPTY;

@@ -57,11 +57,12 @@
       vars:
         ansible_ssh_pipelining: true
       git:
-        repo: https://github.com/bitraf/mediawiki
+        repo: "{{ mediawiki__repo }}"
         dest: /opt/mediawiki/mediawiki
         version: "{{ mediawiki__version }}"
         update: "{{ 'yes' if mediawiki__force_update else 'no' }}"
         force: "{{ 'yes' if mediawiki__force_update else 'no' }}"
+        track_submodules: yes
 
 - become: yes
   tags:
