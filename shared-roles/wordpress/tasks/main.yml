@@ -1,0 +1,82 @@
+- become: yes
+  tags:
+    - wordpress
+  block:
+    - file:
+        path: "{{ wordpress__install_path }}"
+        state: directory
+        owner: "{{ wordpress__user }}"
+        group: "{{ wordpress__group }}"
+
+    - name: Install
+      unarchive:
+        src: "http://wordpress.org/wordpress-{{ wordpress__version }}.tar.gz"
+        dest: "{{ wordpress__install_path }}"
+        remote_src: yes
+
+    - name: "mkdir {{ wordpress__install_path }}/wordpress"
+      file:
+        path: "{{ wordpress__install_path }}/wordpress"
+        state: directory
+        owner: "{{ wordpress__user }}"
+
+    - name: Fetch random salts for WordPress config
+      local_action: command curl https://api.wordpress.org/secret-key/1.1/salt/
+      register: "wordpress__salt"
+      become: no
+
+    - name: Copy WordPress config file
+      template:
+        src: wp-config.php
+        dest: "{{ wordpress__install_path }}/wordpress"
+
+    - name: Start php-fpm Service
+      service:
+        name: php7.0-fpm.service
+        state: started
+        enabled: yes
+
+#    - name: Install plugins
+#      unarchive:
+#        src: "https://downloads.wordpress.org/plugin/{{item}}"
+#        dest: "{{wordpress__install_path}}/wordpress/wp-content/plugins/"
+#        remote_src: yes
+#      with_items:
+#        - wordpress-importer.0.6.4.zip
+#
+#    - name: Install Ocean WP
+#      unarchive:
+#        src: "https://downloads.wordpress.org/theme/oceanwp.1.5.31.zip"
+#        dest: "{{wordpress__install_path}}/wordpress/wp-content/themes/"
+#        remote_src: yes
+#
+#    - name: remove Akismet
+#      file:
+#        path: "{{wordpress__install_path}}/wordpress/wp-content/plugins/akismet"
+#        state: absent
+#
+#    - name: remove Hello dolly
+#      file:
+#        path: "{{wordpress__install_path}}/wordpress/wp-content/plugins/hello.php"
+#        state: absent
+
+    - name: Change ownership of WordPress installation
+      file:
+        path: "{{ wordpress__install_path }}/wordpress/"
+        owner: "{{ wordpress__user }}"
+        group: "{{ wordpress__group }}"
+        state: directory
+        recurse: yes
+#        setype: httpd_sys_content_t
+
+    - name: "mkdir {{ wordpress__install_path }}/log"
+      file:
+        path: "{{ wordpress__install_path }}/log"
+        state: directory
+
+    - name: Set file permissions
+      file:
+        path: "{{ wordpress__install_path }}/wordpress/wp-content/"
+        owner: www-data
+        group: www-data
+        recurse: yes

@@ -1,0 +1,6 @@
+- hosts:
+    - wordpress
+  roles:
+    - packages
+    - wordpress
+    - nginx

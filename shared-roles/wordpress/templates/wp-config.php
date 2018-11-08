@@ -1,19 +1,17 @@
 <?php
 
-
-
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', '{{ wp_db_name }}');
+define('DB_NAME', '{{ wordpress__db_name }}');
 
 /** MySQL database username */
-define('DB_USER', '{{ wp_db_user }}');
+define('DB_USER', '{{ wordpress__db_user }}');
 
 /** MySQL database password */
-define('DB_PASSWORD', '{{ wp_db_password }}');
+define('DB_PASSWORD', '{{ wordpress__db_password }}');
 
 /** MySQL hostname */
-define('DB_HOST', '{{ wp_db_host }}');
+define('DB_HOST', '{{ wordpress__db_host }}');
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');
@@ -31,7 +29,7 @@ define('DB_COLLATE', '');
  * @since 2.6.0
  */
 
-{{ wp_salt.stdout }}
+{{ wordpress__salt.stdout }}
 
 //define('FORCE_SSL_ADMIN', true);
 $_SERVER['HTTPS'] = 'on';

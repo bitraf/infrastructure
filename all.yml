@@ -1,7 +1,5 @@
 - hosts:
     - all !bomba
-  vars_files:
-    - vars/users.yml
   roles:
     - bitraf-base
     - lusers
