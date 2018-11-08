@@ -50,6 +50,7 @@
 
 - name: "Configure postfix: sasl_passwd"
   tags: postfix-satellite-config
+  no_log: yes
   lineinfile:
     dest: /etc/postfix/sasl_passwd
     line: "{{ item.host }} {{ item.username }}:{{ item.password }}"

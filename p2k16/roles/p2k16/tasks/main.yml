@@ -165,6 +165,7 @@
         - systemd
         - update-password
       notify: p2k16 restart
+      no_log: yes
       template:
         dest: "{{ environment_conf }}"
         src: etc/p2k16/environment.conf.j2
@@ -174,6 +175,7 @@
         - systemd
         - update-password
       notify: p2k16 restart
+      no_log: yes
       template:
         dest: "/etc/p2k16/flyway.conf"
         src: etc/p2k16/flyway.conf.j2
@@ -207,6 +209,7 @@
         - /opt/p2k16/.psql_history
     - name: p2k16 config - ~/.pg_service.conf
       tags: update-password
+      no_log: yes
       copy:
         dest: /opt/p2k16/.pg_service.conf
         owner: p2k16

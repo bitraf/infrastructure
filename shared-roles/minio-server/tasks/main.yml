@@ -2,11 +2,14 @@
   tags:
     - minio-server
   block:
-    - file:
+    - name: /etc/minio directory
+      file:
         dest: /etc/minio
         state: directory
 
-    - copy:
+    - name: environment file
+      no_log: yes
+      copy:
         dest: /etc/minio/env
         content: |
           MINIO_ACCESS_KEY={{ minio__access_key }}
