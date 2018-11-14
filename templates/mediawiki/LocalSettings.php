@@ -28,6 +28,7 @@ $wgMetaNamespace = "Bitraf";
 ## (like /w/index.php/Page_title to /wiki/Page_title) please see:
 ## https://www.mediawiki.org/wiki/Manual:Short_URL
 $wgScriptPath = "/w";
+$wgArticlePath = '/wiki/$1';
 
 ## The protocol and server name to use in fully-qualified URLs
 # This is the ideal pattern, but some tuning from Nginx is required.
@@ -39,7 +40,7 @@ $wgResourceBasePath = $wgScriptPath;
 
 ## The URL path to the logo.  Make sure you change this from the default,
 ## or else you'll overwrite your logo when you upgrade!
-$wgLogo = "$wgResourceBasePath/resources/assets/wiki.png";
+$wgLogo = "https://bitraf.no/images/bitraf.png";
 
 ## UPO means: this is also a user preference option
 
@@ -139,6 +140,7 @@ wfLoadSkin( 'Vector' );
 
 wfLoadExtension( 'Cite' );
 wfLoadExtension( 'ParserFunctions' );
+$wgPFEnableStringFunctions = true;
 
 # End of automatically generated settings.
 # Add more configuration options below.
@@ -150,8 +152,6 @@ $wgGroupPermissions['*']['createaccount'] = false;
 $wgGroupPermissions['*']['edit'] = false;
 
 $wgShowSQLErrors = true;
-
-$wgArticlePath = '/wiki/$1';
 
 
 #
@@ -172,16 +172,14 @@ $wgDefaultUserOptions['wikieditor-preview'] = 1;
 # Displays the Publish and Cancel buttons on the top right side
 $wgDefaultUserOptions['wikieditor-publish'] = 1;
 
+$wgUseCategoryBrowser = true;
+
 # CharInsert
 wfLoadExtension('CharInsert');
 
 # Spam-hjelp
 wfLoadExtension('Nuke');
 wfLoadExtension('Renameuser');
-
-#http://www.mediawiki.org/wiki/Extension:Cite/Cite.php
-# Add <references/> and <ref>
-wfLoadExtension( 'Cite' );
 
 # enable selected user groups to edit the interwiki table
 # https://www.mediawiki.org/wiki/Extension:Interwiki
@@ -190,11 +188,6 @@ wfLoadExtension( 'Interwiki' );
 $wgGroupPermissions['sysop']['interwiki'] = true;
 $wgGroupPermissions['bureaucrat']['interwiki'] = true;
 
-#2017-09-11: lagt til av Torfinn I.
-#https://www.mediawiki.org/wiki/Extension:ParserFunctions
-# add #if and other parser functions
-wfLoadExtension( 'ParserFunctions' );
-$wgPFEnableStringFunctions = true;
 # added 2018-02-01 by tingo (Torfinn Ingolfsen)
 require_once "$IP/extensions/googleAnalytics/googleAnalytics.php";
 // Add HTML code for any additional web analytics (can be used alone or with $wgGoogleAnalyticsAccount)
