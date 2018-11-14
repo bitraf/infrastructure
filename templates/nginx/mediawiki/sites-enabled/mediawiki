@@ -11,6 +11,8 @@ server {
 
   root /var/www/html;
 
+  client_max_body_size 21M;
+
   # From https://www.mediawiki.org/wiki/Manual:Short_URL/Nginx
   location /{{ w }} {
     alias /opt/mediawiki/mediawiki;
