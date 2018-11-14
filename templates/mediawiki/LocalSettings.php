@@ -215,12 +215,11 @@ require_once "$IP/extensions/GoogleTagManager/GoogleTagManager.php";
 $smwgShowFactbox = SMW_FACTBOX_NONEMPTY;
 enableSemantics("bitraf.no");
 
+wfLoadExtension("SemanticResultFormats");
+
 // --- Scribunto
 wfLoadExtension("Scribunto");
 #$wgScribuntoDefaultEngine = "luastandalone";
-
-# $wgShowExceptionDetails = true;
-# $wgShowDBErrorBacktrace = true;
 
 wfLoadExtension("SemanticScribunto");
 
