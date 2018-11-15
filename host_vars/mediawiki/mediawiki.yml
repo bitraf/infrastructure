@@ -3,6 +3,7 @@ mediawiki__composer_require:
   mediawiki/parser-hooks: ~1
   mediawiki/validator: ~2
   mediawiki/semantic-media-wiki: ~3.0
+  mediawiki/semantic-result-formats: ~3.0
   mediawiki/semantic-scribunto: 2.0.0
   monolog/monolog: 1.22.1
 
