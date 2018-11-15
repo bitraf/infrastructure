@@ -3,10 +3,11 @@
     - nginx
   block:
     - name: packages
-      with_items:
-        - nginx
+      vars:
+        items:
+          - nginx
       apt:
-        name: "{{ item }}"
+        name: "{{ items }}"
         install_recommends: no
 
 - become: yes

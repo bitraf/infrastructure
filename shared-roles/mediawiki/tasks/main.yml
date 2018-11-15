@@ -4,7 +4,8 @@
     - mediawiki-packages
   block:
     - name: packages
-      with_items:
+      vars:
+        items:
           - composer
           - php-apcu
           - php-gd
@@ -14,7 +15,7 @@
           - php-xml
           - php-zip
       apt:
-        name: "{{ item }}"
+        name: "{{ items }}"
         install_recommends: no
 
 - become: yes
@@ -73,6 +74,7 @@
       with_items:
         - /var/www/.ansible
         - /var/www/.composer
+        - /opt/mediawiki/mediawiki/images/
       file:
         path: "{{ item }}"
         state: directory
