@@ -141,6 +141,10 @@ wfLoadSkin( 'Vector' );
 wfLoadExtension( 'Cite' );
 wfLoadExtension( 'ParserFunctions' );
 $wgPFEnableStringFunctions = true;
+wfLoadExtension( 'InputBox' );
+wfLoadExtension( 'TemplateData' );
+wfLoadExtension( 'Variables' );
+require_once "$IP/extensions/Arrays/Arrays.php";
 
 # End of automatically generated settings.
 # Add more configuration options below.
@@ -150,9 +154,6 @@ $wgAuth = new p2k12Auth();
 
 $wgGroupPermissions['*']['createaccount'] = false;
 $wgGroupPermissions['*']['edit'] = false;
-
-$wgShowSQLErrors = true;
-
 
 #
 # WikiEditor
@@ -229,5 +230,6 @@ $wgDefaultUserOptions['usebetatoolbar'] = 1; // user option provided by WikiEdit
 $wgScribuntoUseCodeEditor = true;
 $wgDebugLogFile = "/var/log/nginx/mediawiki.log";
 
+$wgShowSQLErrors = true;
 $wgShowExceptionDetails = true;
 $wgShowDBErrorBacktrace = true;
