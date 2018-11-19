@@ -211,6 +211,10 @@ $wgGroupPermissions['bot']['noanalytics'] = true;
 
 ##GOOGLE TAG MANAGER - BL's konto
 require_once "$IP/extensions/GoogleTagManager/GoogleTagManager.php";
+{% if wgGoogleAnalyticsAccount is defined and wgGoogleTagManagerContainerID is defined %}
+$wgGoogleAnalyticsAccount = "{{ wgGoogleAnalyticsAccount }}";
+$wgGoogleTagManagerContainerID = "{{ wgGoogleTagManagerContainerID }}";
+{% endif %}
 
 // --- Semantic mediawiki
 $smwgShowFactbox = SMW_FACTBOX_NONEMPTY;
