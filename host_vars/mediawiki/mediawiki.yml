@@ -14,13 +14,22 @@ mediawiki__skins_git_repos:
 mediawiki__extensions_git_repos:
   googleAnalytics:
     repo: https://github.com/wikimedia/mediawiki-extensions-googleAnalytics
-    version: REL1_32
+    version: "{{ mediawiki__version }}"
   CharInsert:
     repo: https://github.com/wikimedia/mediawiki-extensions-CharInsert
-    version: REL1_32
+    version: "{{ mediawiki__version }}"
   Scribunto:
     repo: https://github.com/wikimedia/mediawiki-extensions-Scribunto
-    version: REL1_32
+    version: "{{ mediawiki__version }}"
   CodeEditor:
     repo: https://github.com/wikimedia/mediawiki-extensions-CodeEditor
-    version: REL1_32
+    version: "{{ mediawiki__version }}"
+  TemplateData:
+    repo: https://github.com/wikimedia/mediawiki-extensions-TemplateData
+    version: "{{ mediawiki__version }}"
+  Variables:
+    repo: https://github.com/wikimedia/mediawiki-extensions-Variables
+    version: "{{ mediawiki__version }}"
+  Arrays:
+    repo: https://github.com/wikimedia/mediawiki-extensions-Arrays
+    version: "{{ mediawiki__version }}"
