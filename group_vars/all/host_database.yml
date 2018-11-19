@@ -6,7 +6,13 @@
 host_database:
   bitnode:
     interfaces:
-      br0:
+      eth0:
+        role: wan
+        ipv4:
+          address: 85.90.244.199
+        ipv6:
+          address: 2a01:7e01::f03c:91ff:fe67:e271
+      int0:
         role: lan
         ipv4:
           address: 10.13.39.1

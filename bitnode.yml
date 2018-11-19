@@ -10,7 +10,7 @@
         password: "{{ mediawiki.db.password }}"
     - role: minio-bin
       minio_bin__build_mc: yes
-    - postgresql-wal-g
+    - mariadb-base
     - lxc-host
   handlers:
     - name: systemctl restart systemd-networkd
@@ -41,3 +41,31 @@
         int_link: br0
         int_ipv4: "{{ host_database.bitnode.interfaces.br0.ipv4 }}"
         int_ipv6: "{{ host_database.bitnode.interfaces.br0.ipv6 }}"
+
+    - tags:
+        - mariadb
+        - wordpress
+        - update-password
+      become: yes
+      vars:
+        client_hostname: wordpress
+        db_name: "{{ wordpress.db.name }}"
+        db_user: "{{ wordpress.db.user }}"
+        db_password: "{{ wordpress.db.password }}"
+        client_if: "{{ host_database | json_query(client_hostname + '.interfaces | * | [?role==`lan`]') | first }}"
+      block:
+        # - debug: var=db_name
+        # - debug: var=db_user
+        # - debug: var=db_password
+        # - debug: var=client_if
+        - mysql_db:
+            name: "{{ db_name }}"
+            state: present
+
+        - name: Grant privileges for wordpress
+          mysql_user:
+            name: "{{ db_user }}"
+            password: "{{ db_password }}"
+            priv: "{{ db_name }}.*:ALL"
+            host: "{{ client_if.ipv4.address }}"
+            state: present

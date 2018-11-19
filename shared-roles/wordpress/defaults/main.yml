@@ -5,22 +5,3 @@ wordpress__group: www-data
 # Which version of WordPress to deploy
 wordpress__version: 4.9.8
 wordpress__checksum: "sha1:0945bab959cba127531dceb2c4fed81770812b4f"
-
-# These are the WordPress database settings
-wordpress__db_name: wordpress
-wordpress__db_user: wordpressuser
-wordpress__db_password: ""
-
-# You shouldn't need to change this.
-wordpress__db_host: db.bitraf.no
-wordpress__db_port: 3306
-
-# Disable All Updates
-# By default automatic updates are enabled, set this value to true to disable all automatic updates
-auto_up_disable: false
-
-#Define Core Update Level
-#true  = Development, minor, and major updates are all enabled
-#false = Development, minor, and major updates are all disabled
-#minor = Minor updates are enabled, development, and major updates are disabled
-core_update_level: true

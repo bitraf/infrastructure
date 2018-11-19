@@ -1,6 +1,51 @@
 - become: yes
   tags:
     - wordpress
+    - wordpress-packages
+  block:
+    - name: packages
+      vars:
+        items:
+          - php-apcu
+          - php-fpm
+          - php-gd
+          - php-intl
+          - php-mbstring
+          - php-xml
+          - php-zip
+          - php-mysql
+      apt:
+        name: "{{ items }}"
+        install_recommends: no
+
+- become: yes
+  tags:
+    - wordpress
+    - wordpress-php
+  block:
+    - name: Configure PHP settings
+      notify: service restart php-fpm
+      ini_file:
+        path: /etc/php/7.0/fpm/php.ini
+        section: "{{ item.section }}"
+        option: "{{ item.option }}"
+        value: "{{ item.value }}"
+      with_items:
+        - section: PHP
+          option: upload_max_filesize
+          value: 20M
+        - section: PHP
+          option: post_max_size
+          value: 20M
+        - section: mail function
+          option: mail.log
+          value: syslog
+        - section: mail function
+          option: sendmail_path
+          value: /usr/sbin/sendmail
+- become: yes
+  tags:
+    - wordpress
   block:
     - file:
         path: "{{ wordpress__install_path }}"
@@ -35,30 +80,6 @@
         name: php7.0-fpm.service
         state: started
         enabled: yes
-
-#    - name: Install plugins
-#      unarchive:
-#        src: "https://downloads.wordpress.org/plugin/{{item}}"
-#        dest: "{{wordpress__install_path}}/wordpress/wp-content/plugins/"
-#        remote_src: yes
-#      with_items:
-#        - wordpress-importer.0.6.4.zip
-#
-#    - name: Install Ocean WP
-#      unarchive:
-#        src: "https://downloads.wordpress.org/theme/oceanwp.1.5.31.zip"
-#        dest: "{{wordpress__install_path}}/wordpress/wp-content/themes/"
-#        remote_src: yes
-#
-#    - name: remove Akismet
-#      file:
-#        path: "{{wordpress__install_path}}/wordpress/wp-content/plugins/akismet"
-#        state: absent
-#
-#    - name: remove Hello dolly
-#      file:
-#        path: "{{wordpress__install_path}}/wordpress/wp-content/plugins/hello.php"
-#        state: absent
 
     - name: Change ownership of WordPress installation
       file:

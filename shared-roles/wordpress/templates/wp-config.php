@@ -33,8 +33,10 @@ define('DB_COLLATE', '');
 
 //define('FORCE_SSL_ADMIN', true);
 $_SERVER['HTTPS'] = 'on';
-//define( 'WP_HOME', 'https://test.iagent.no' );
-//define( 'WP_SITEURL', 'https://test.iagent.no' );
+//define( 'WP_HOME', 'https://bitraf.no' );
+//define( 'WP_SITEURL', 'https://bitraf.no' );
+
+$_SERVER["REQUEST_URI"] = "/wp" . $_SERVER["REQUEST_URI"];
 
 /**#@-*/
 
