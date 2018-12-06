@@ -10,6 +10,7 @@
           - php-fpm
           - php-gd
           - php-intl
+          - php-ldap
           - php-mbstring
           - php-xml
           - php-zip
@@ -37,12 +38,6 @@
         - section: PHP
           option: post_max_size
           value: 20M
-        - section: mail function
-          option: mail.log
-          value: syslog
-        - section: mail function
-          option: sendmail_path
-          value: /usr/sbin/sendmail
 - become: yes
   tags:
     - wordpress
