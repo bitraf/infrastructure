@@ -10,10 +10,18 @@
   apt:
     update_cache: yes
 
-- name: p2k16 restart
+- name: systemd restart p2k16
+  listen: p2k16 restart
   become: yes
   systemd:
     name: "p2k16@{{ p2k16.domain_name }}.service"
+    state: restarted
+
+- name: systemd restart p2k16-ldap
+  listen: p2k16 restart
+  become: yes
+  systemd:
+    name: "p2k16-ldap@{{ p2k16.domain_name }}.service"
     state: restarted
 
 - name: flyway migrate
