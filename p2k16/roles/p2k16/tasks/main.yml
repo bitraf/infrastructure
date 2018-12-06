@@ -133,6 +133,7 @@
         encrypted: yes
     - name: p2k16-web
       tags: update-password
+      notify: p2k16 restart
       postgresql_user:
         name: p2k16-web
         password: "{{ p2k16_secret.db_password_web }}"
@@ -252,14 +253,16 @@
         install_recommends: no
       vars:
         items:
-        - python3
-        - virtualenv
-        - nodejs
-        - unzip
-        - openjdk-8-jre
-        - mosquitto-clients
-        - python-certbot
-        - python-certbot-nginx
+          - python3
+          - virtualenv
+          - nodejs
+          - unzip
+          - openjdk-8-jre
+          - mosquitto-clients
+          - python-certbot
+          - python-certbot-nginx
+          - gcc # For twisted
+          - python3-dev # For twisted
 
     - name: p2k16 git
       tags: p2k16-pull
@@ -269,7 +272,7 @@
       git:
         repo: 'https://github.com/bitraf/p2k16'
         dest: /opt/p2k16/src
-        version: "{{ p2k16_git_version }}"
+        version: "{{ p2k16__git_version }}"
       register: git_checkout
 
     - name: Update GIT_REVISION
@@ -289,6 +292,17 @@
         virtualenv_python: python3
         extra_args: --trusted-host github.com --process-dependency-links
 
+    # This is a hack for now. Will have to be removed when an updated
+    # ldaptor is published. pip+git sucks.
+    - name: p2k16 pip (ldaptor)
+      notify: p2k16 restart
+      tags: p2k16-pull
+      pip:
+        name: "git+https://github.com/twisted/ldaptor.git#egg=ldaptor"
+        editable: true
+        virtualenv: /opt/p2k16/env
+        virtualenv_python: python3
+
     - name: p2k16 install bower
       notify: p2k16 restart
       npm:
@@ -302,16 +316,18 @@
         path: /opt/p2k16/src/web
         relative_execpath: /opt/p2k16/node_modules/.bin
 
-    - name: systemd unit
+    - name: p2k16 systemd unit
       tags: systemd
       copy:
         src: etc/systemd/system/p2k16@.service
         dest: /etc/systemd/system/p2k16@.service
 
-    - name: enable systemd unit
+    - name: enable p2k16 systemd unit
       tags: systemd
       systemd:
         name: "p2k16@{{ p2k16.domain_name }}.service"
         daemon_reload: yes
         enabled: yes
         state: started
+
+- import_tasks: ldap.yml

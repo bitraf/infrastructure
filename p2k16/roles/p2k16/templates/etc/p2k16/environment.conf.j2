@@ -4,6 +4,7 @@ MQTT_USERNAME={{ p2k16.mqtt_username }}
 MQTT_PASSWORD={{ bitraf_passwords.mqtt[p2k16.mqtt_username].password }}
 MQTT_PREFIX={{ p2k16.mqtt_prefix }}
 MQTT_PREFIX_TOOL={{ p2k16.mqtt_prefix_tool }}
+LDAP_DB=dbname=p2k16 user=p2k16-web password={{ p2k16_secret.db_password_web }} host=localhost
 SQLALCHEMY_DATABASE_URI=postgresql://p2k16-web:{{ p2k16_secret.db_password_web }}@localhost/p2k16
 SECRET_KEY={{ p2k16_secret.flask_secret_key }}
 STRIPE_WEBHOOK_SECRET={{ p2k16_secret.stripe_webhook_secret }}

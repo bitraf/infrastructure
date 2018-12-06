@@ -2,3 +2,8 @@
 - name: restart postgresql
   become: yes
   service: name=postgresql@{{ pwe_major }}-{{ pwe_instance}} state=restarted
+
+- name: systemctl daemon-reload
+  become: yes
+  systemd:
+    daemon_reload: yes

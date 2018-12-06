@@ -1,6 +1,9 @@
 - become: yes
+  tags: postgresql-wal-e
   block:
     - name: Packages for WAL-E
+      # Don't want to remove packages other might want installed
+      when: postgresql_wal_e__state == 'present'
       apt:
         name: "{{ items }}"
         install_recommends: no
@@ -12,16 +15,45 @@
     - name: pip
       become: yes
       become_user: postgres
-      pip:
-        name: "{{ items }}"
-        virtualenv: "{{ pwe_venv }}"
-        virtualenv_python: python3
       vars:
         ansible_ssh_pipelining: true
         items:
           - wal-e
           - envdir
+      pip:
+        name: "{{ items }}"
+        virtualenv: "{{ pwe_venv }}"
+        virtualenv_python: python3
 
+- become: yes
+  tags: postgresql-wal-e
+  when: postgresql_wal_e__state == 'absent'
+  block:
+    - stat:
+        path: /etc/systemd/system/postgresql-base-backup@.timer
+      register: postgresql_base_backup_timer
+    - name: Disable systemd timer for backup
+      when: postgresql_base_backup_timer.stat.exists
+      systemd:
+        enabled: no
+        name: postgresql-base-backup@{{ pwe_major }}-{{ pwe_instance }}.timer
+    - name: rmdir
+      notify:
+        - restart postgresql
+        - systemctl daemon-reload
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /etc/wal-e/{{ pwe_major }}-{{ pwe_instance }}-env.d
+        - /etc/postgresql/{{ pwe_major }}/{{ pwe_instance }}/conf.d/bitraf-backup.conf
+        - /etc/systemd/system/postgresql-base-backup@.service
+        - /etc/systemd/system/postgresql-base-backup@.timer
+
+- become: yes
+  tags: postgresql-wal-e
+  when: postgresql_wal_e__state == 'present'
+  block:
     - name: Config dir
       file:
         path: /etc/wal-e/{{ pwe_major }}-{{ pwe_instance }}-env.d

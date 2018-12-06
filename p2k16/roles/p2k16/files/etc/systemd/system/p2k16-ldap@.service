@@ -2,14 +2,17 @@
 After=network.target postgresql.service
 
 [Service]
-ExecStart=/opt/p2k16/src/infrastructure/run-p2k16
+ExecStart=/opt/p2k16/src/infrastructure/run-p2k16-ldap
 WorkingDirectory=/opt/p2k16
 KillMode=process
 Restart=on-failure
+RestartSec=30
 User=p2k16
 Group=p2k16
 Environment=P2K16_CONFIG=/opt/p2k16/src/infrastructure/config-%i.yaml
 EnvironmentFile=/etc/p2k16/%i.conf
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+NoNewPrivileges=yes
 
 [Install]
 WantedBy=multi-user.target
