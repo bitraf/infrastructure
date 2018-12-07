@@ -22,6 +22,8 @@
 #    lan: "{{ host_database | json_query(item.key + '.interfaces | * | [?role==`lan`]') | first }}"
 
 - name: Configure sysctl
+  tags:
+    - lxc-host
   copy:
     dest: /etc/sysctl.d/99-lxc-host.conf
     content: |
@@ -30,6 +32,9 @@
   notify: restart sysctl
 
 - name: Configure radvd
+  tags:
+    - lxc-host
+    - radvd
   vars:
     # TODO: should query for host with role='lan'
     ipv6: "{{ host_database[ansible_hostname].interfaces.br0.ipv6 }}"
@@ -58,8 +63,7 @@
          };
       };
 
-- tags:
-    - lxc-host
+- tags: lxc-host
   with_dict: "{{ lxc_host_containers }}"
   vars:
     i: "{{ item }}"

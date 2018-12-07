@@ -1,4 +1,5 @@
-- debug:
+- tags: lxc-host
+  debug:
     msg: "LXC HOST: {{ i.key }}"
 
 #- debug: var=lan
@@ -10,92 +11,95 @@
 #- debug:
 #    msg: "TEST: {{ users|map(attribute='authorized_keys')|list }}"
 
-- name: Create container
-  lxc_container:
-    name: "{{ i.key }}"
-    state: "{{ i.value.state }}"
-    template: debian
-    template_options: -r stretch --packages git,etckeeper,python,sudo
-    backing_store: "{{ lxc_host__backing_store }}"
-    zfs_root: "{{ lxc_host__zfs_root|default('') }}"
-  register: lxc
+- tags: lxc-host
+  become: yes
+  block:
+    - name: Create container
+      register: lxc
+      lxc_container:
+        name: "{{ i.key }}"
+        state: "{{ i.value.state }}"
+        template: debian
+        template_options: -r stretch --packages git,etckeeper,python,sudo
+        backing_store: "{{ lxc_host__backing_store }}"
+        zfs_root: "{{ lxc_host__zfs_root|default('') }}"
 
-- name: Connection info
-  when: lxc.changed
-  debug:
-    msg: "Container created! All keys for superusers are installed for
-      root user, so remember to add 'ansible_user=root' when running the
-      play for the host the first time."
+    - name: Connection info
+      when: lxc.changed
+      debug:
+        msg: "Container created! All keys for superusers are installed for
+          root user, so remember to add 'ansible_user=root' when running the
+          play for the host the first time."
 
-- name: Create /root/.ssh
-  when: lxc.changed
-  file:
-    path: "/var/lib/lxc/{{ i.key }}/rootfs/root/.ssh"
-    state: directory
-    mode: 0600
-    owner: root
-    group: root
+    - name: Create /root/.ssh
+      when: lxc.changed
+      file:
+        path: "/var/lib/lxc/{{ i.key }}/rootfs/root/.ssh"
+        state: directory
+        mode: 0600
+        owner: root
+        group: root
 
-- name: Fill authorized_keys
-  when: lxc.changed
-  copy:
-    dest: "/var/lib/lxc/{{ i.key }}/rootfs/root/.ssh/authorized_keys"
-    content: |
-      {% for user in superusers %}
-      {% if users[user].authorized_keys is not none %}
-      {{ users[user].authorized_keys }}
-      {% endif %}
-      {% endfor %}
+    - name: Fill authorized_keys
+      when: lxc.changed
+      copy:
+        dest: "/var/lib/lxc/{{ i.key }}/rootfs/root/.ssh/authorized_keys"
+        content: |
+          {% for user in superusers %}
+          {% if users[user].authorized_keys is not none %}
+          {{ users[user].authorized_keys }}
+          {% endif %}
+          {% endfor %}
 
-- name: config-bitraf
-  register: config_bitraf
-  copy:
-    dest: "/var/lib/lxc/{{ i.key }}/config-bitraf"
-    content: |
-      lxc.network.type = veth
-      lxc.network.link = br0
-      lxc.network.flags = up
-      lxc.network.hwaddr = {{ lan.hwaddr }}
-      lxc.network.ipv4 = {{ lan.ipv4.address }}/{{ lan.ipv4.netmask }}
-      lxc.network.ipv4.gateway = {{ lan.ipv4.gateway }}
-      # 0 = trace, 1 = debug, 2 = info, 3 = notice, 4 = warn, 5 = error, 6 = critical, 7 = alert, and 8 = fatal.
-      lxc.loglevel = 1
-      lxc.logfile = /var/lib/lxc/{{ i.key }}/{{ i.key }}.log
+    - name: config-bitraf
+      register: config_bitraf
+      copy:
+        dest: "/var/lib/lxc/{{ i.key }}/config-bitraf"
+        content: |
+          lxc.network.type = veth
+          lxc.network.link = br0
+          lxc.network.flags = up
+          lxc.network.hwaddr = {{ lan.hwaddr }}
+          lxc.network.ipv4 = {{ lan.ipv4.address }}/{{ lan.ipv4.netmask }}
+          lxc.network.ipv4.gateway = {{ lan.ipv4.gateway }}
+          # 0 = trace, 1 = debug, 2 = info, 3 = notice, 4 = warn, 5 = error, 6 = critical, 7 = alert, and 8 = fatal.
+          lxc.loglevel = 1
+          lxc.logfile = /var/lib/lxc/{{ i.key }}/{{ i.key }}.log
 
-- name: "include file: config-bitraf"
-  register: include_bitraf
-  lineinfile:
-    path: "/var/lib/lxc/{{ i.key }}/config"
-    regexp: "^lxc.include *=.*/config-bitraf$"
-    line: "lxc.include = /var/lib/lxc/{{ i.key }}/config-bitraf"
+    - name: "include file: config-bitraf"
+      register: include_bitraf
+      lineinfile:
+        path: "/var/lib/lxc/{{ i.key }}/config"
+        regexp: "^lxc.include *=.*/config-bitraf$"
+        line: "lxc.include = /var/lib/lxc/{{ i.key }}/config-bitraf"
 
-- name: "include file: config.d"
-  register: include_config_d
-  lineinfile:
-    path: "/var/lib/lxc/{{ i.key }}/config"
-    regexp: "^lxc.include *=.*/conf.d/$"
-    line: "lxc.include = /var/lib/lxc/{{ i.key }}/conf.d/"
+    - name: "include file: config.d"
+      register: include_config_d
+      lineinfile:
+        path: "/var/lib/lxc/{{ i.key }}/config"
+        regexp: "^lxc.include *=.*/conf.d/$"
+        line: "lxc.include = /var/lib/lxc/{{ i.key }}/conf.d/"
 
-- name: "mkdir conf.d"
-  file:
-    path: "/var/lib/lxc/{{ i.key }}/conf.d"
-    state: "directory"
+    - name: "mkdir conf.d"
+      file:
+        path: "/var/lib/lxc/{{ i.key }}/conf.d"
+        state: "directory"
 
-- name: "fill conf.d"
-  register: fill_config_d
-  with_fileglob: "lxc-host/{{ i.key }}/*"
-  loop_control:
-    loop_var: file
-  copy:
-    dest: "/var/lib/lxc/{{ i.key }}/conf.d"
-    src: "{{ file }}"
+    - name: "fill conf.d"
+      register: fill_config_d
+      with_fileglob: "lxc-host/{{ i.key }}/*"
+      loop_control:
+        loop_var: file
+      copy:
+        dest: "/var/lib/lxc/{{ i.key }}/conf.d"
+        src: "{{ file }}"
 
-- name: "restart lxc container {{ i.key }}"
-  when: i.value.state == 'started' and (
-            lxc.changed or 
-            config_bitraf.changed or 
-            include_config_d.changed or 
-            fill_config_d.changed)
-  lxc_container:
-    name: "{{ i.key }}"
-    state: restarted
+    - name: "restart lxc container {{ i.key }}"
+      when: i.value.state == 'started' and (
+                lxc.changed or 
+                config_bitraf.changed or 
+                include_config_d.changed or 
+                fill_config_d.changed)
+      lxc_container:
+        name: "{{ i.key }}"
+        state: restarted

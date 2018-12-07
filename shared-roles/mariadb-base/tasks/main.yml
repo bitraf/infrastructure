@@ -1,0 +1,38 @@
+- become: true
+  tags:
+    - mariadb
+    - packages
+  vars:
+    items:
+      - mariadb-server
+      - python-pymysql
+  apt:
+    name: "{{ items }}"
+    install_recommends: no
+    state: present
+
+- become: true
+  tags: mariadb
+  vars:
+    q: "{{ ansible_hostname + '.interfaces | * | [?role==`lan`]' }}"
+    host: "{{ host_database | json_query(q) | first }}"
+  block:
+    # - debug: var=q
+    # - debug: var=host
+    - name: Configure mariadb.cnf
+      notify: restart mysql
+      copy:
+        dest: /etc/mysql/conf.d/99-bitraf.cnf
+        content: |
+          [client-server]
+          # Import all .cnf files from configuration directory
+          !includedir /etc/mysql/conf.d/
+          !includedir /etc/mysql/mariadb.conf.d/
+
+          [mysqld]
+          max_allowed_packet = 1M
+          thread_stack = 128K
+          max_connections = 75
+          table_open_cache = 32M
+          key_buffer_size = 32M
+          bind-address = {{ host.ipv4.address }}

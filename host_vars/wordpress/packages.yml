@@ -1,0 +1,23 @@
+packages_packages:
+  - aptitude
+  - apt-utils
+  - ca-certificates
+  - curl
+  - etckeeper
+  - git
+  - htop
+  - iperf
+  - iputils-ping
+  - less
+  - ltrace
+  - man-db
+  - needrestart
+  - screen
+  - sudo
+  - systemd-cron
+  - telnet
+  - tmux
+  - vim-nox
+
+  # Wordpress specific
+  - mariadb-client

@@ -1,0 +1,7 @@
+wordpress__install_path: /opt/wordpress
+wordpress__user: www-data
+wordpress__group: www-data
+
+# Which version of WordPress to deploy
+wordpress__version: 4.9.8
+wordpress__checksum: "sha1:0945bab959cba127531dceb2c4fed81770812b4f"

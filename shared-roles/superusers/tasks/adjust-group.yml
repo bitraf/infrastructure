@@ -8,11 +8,13 @@
     - debug: var=to_remove
 
     - name: gpasswd --add
+      when: (item|length) > 0
       with_items: "{{ to_add }}"
       become: yes
       shell: "gpasswd --add {{ item }} {{ group }}"
 
     - name: gpasswd --delete
+      when: (item|length) > 0
       with_items: "{{ to_remove }}"
       become: yes
       shell: "gpasswd --delete {{ item }} {{ group }}"

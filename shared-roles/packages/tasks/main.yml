@@ -33,6 +33,5 @@
   tags: packages
   become: yes
   apt:
-    name: "{{ item }}"
+    name: "{{ packages_packages }}"
     install_recommends: no
-  with_items: "{{ packages_packages }}"

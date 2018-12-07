@@ -1,3 +1,7 @@
 lxc_host_containers:
   mediawiki:
     state: started
+  mysql:
+    state: started
+  wordpress:
+    state: started

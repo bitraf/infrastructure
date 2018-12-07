@@ -1,0 +1,16 @@
+- hosts:
+    - wordpress
+  vars:
+    db: "{{ host_database | json_query(wordpress.db.host + '.interfaces | * | [?role==`lan`]') | first }}"
+    wordpress__db_name: "{{ wordpress.db.name }}"
+    wordpress__db_user: "{{ wordpress.db.user }}"
+    wordpress__db_password: "{{ wordpress.db.password }}"
+    wordpress__db_host: "{{ db.ipv4.address }}"
+    wordpress__db_port: 3306
+    nginx__template:
+      - sites-enabled/default
+  roles:
+    - packages
+    - postfix-satellite
+    - nginx
+    - wordpress
