@@ -219,7 +219,7 @@ $wgGoogleTagManagerContainerID = "{{ wgGoogleTagManagerContainerID }}";
 
 // --- Semantic mediawiki
 $smwgShowFactbox = SMW_FACTBOX_NONEMPTY;
-enableSemantics("bitraf.no");
+enableSemantics("https://bitraf.no/wiki/Special:URIResolver/", true);
 
 wfLoadExtension("SemanticResultFormats");
 
