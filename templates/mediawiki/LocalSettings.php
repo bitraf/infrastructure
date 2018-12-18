@@ -80,6 +80,7 @@ $wgFileExtensions[] = 'pdf';
 $wgFileExtensions[] = 'odt';
 $wgFileExtensions[] = 'ods';
 $wgFileExtensions[] = 'gz';
+$wgFileExtensions[] = 'svg';
 
 # InstantCommons allows wiki to use images from https://commons.wikimedia.org
 $wgUseInstantCommons = false;
@@ -218,7 +219,7 @@ $wgGoogleTagManagerContainerID = "{{ wgGoogleTagManagerContainerID }}";
 
 // --- Semantic mediawiki
 $smwgShowFactbox = SMW_FACTBOX_NONEMPTY;
-enableSemantics("bitraf.no");
+enableSemantics("https://bitraf.no/wiki/Special:URIResolver/", true);
 
 wfLoadExtension("SemanticResultFormats");
 
