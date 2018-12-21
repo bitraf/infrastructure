@@ -30,7 +30,8 @@ Letsencrypt / HTTPS
 
     certbot run --installer nginx -d p2k16.bitraf.no \
       --authenticator webroot \
-      --webroot /var/www/p2k16.bitraf.no
+      --webroot /var/www/p2k16.bitraf.no \
+      --post-hook 'systemctl reload nginx'
 
 https://github.com/certbot/certbot/issues/5405#issuecomment-356498627
 
