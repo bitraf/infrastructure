@@ -35,6 +35,7 @@
         name: "{{ user }}"
         group: "{{ group }}"
         system: yes
+        shell: /bin/bash
 
     - file:
         path: "{{ item }}"
