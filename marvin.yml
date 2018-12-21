@@ -4,13 +4,12 @@
     - bitraf-base
     - lusers
     - superusers
-    - role: minio-bin
-      minio_bin__build_mc: yes
-      minio_bin__build_minio: yes
+    - minio-bin
     - minio-server
     - role: nginx
       nginx__template:
         - sites-enabled/default
+      ipv6: "{{ host_database.marvin.interfaces.eth0.ipv6.address }}"
   handlers:
     - name: systemctl restart smbd
       become: yes

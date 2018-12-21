@@ -1,1 +1,4 @@
-minio__version: RELEASE.2018-10-25T01-27-03Z
+minio_bin__minio_state: present
+minio_bin__mc_state: present
+
+minio_server__data: /minio

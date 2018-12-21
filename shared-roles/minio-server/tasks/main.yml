@@ -1,16 +1,18 @@
 - become: yes
   tags:
     - minio-server
+  vars:
+    env_path: /etc/minio/env
   block:
     - name: /etc/minio directory
       file:
-        dest: /etc/minio
+        dest: "{{ env_path | dirname }}"
         state: directory
 
     - name: environment file
       no_log: yes
       copy:
-        dest: /etc/minio/env
+        dest: "{{ env_path }}"
         content: |
           MINIO_ACCESS_KEY={{ minio__access_key }}
           MINIO_SECRET_KEY={{ minio__secret_key }}
@@ -24,7 +26,8 @@
           After=network.target
 
           [Service]
-          ExecStart=/usr/local/bin/minio server --config-dir /etc/minio /dropbox/minio
+          ExecStart=/usr/local/bin/minio server --config-dir /etc/minio {{ minio_server__data }}
+          EnvironmentFile={{ env_path }}
 
           [Install]
           WantedBy=multi-user.target
@@ -35,3 +38,4 @@
         service: minio
         state: restarted
         enabled: yes
+        daemon_reload: yes

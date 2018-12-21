@@ -1,1 +1,2 @@
 lxc_host__backing_store: dir
+lxc_host__radvd_state: absent

@@ -1,4 +1,11 @@
-minio__mc_version: RELEASE.2018-10-18T00-40-05Z
-minio__mc_sha1: 57e2700c4c65d767b37fd7b998222d2c837da750
-minio__minio_version: RELEASE.2018-10-25T01-27-03Z
-minio__minio_sha1: 184c1127e7c20e5685974303642293e378684b22
+minio_bin__minio_path: /usr/local/bin/minio
+minio_bin__minio_state: absent
+minio_bin__minio_version: RELEASE.2018-12-19T23-46-24Z
+minio_bin__minio_sha1: 0895a7270432350c9f5e3e6b0d3f8a049d786076
+
+minio_bin__mc_path: /usr/local/bin/mc
+minio_bin__mc_state: absent
+minio_bin__mc_version: RELEASE.2018-12-19T22-58-03Z
+minio_bin__mc_sha1: d13f5b335ab813cc21e6e7c1dc04a2ea858e6d95
+
+_minio_bin__platform: linux-{{ "amd64" if ansible_architecture == "x86_64" else "arm" }}
