@@ -2,6 +2,5 @@ minio_bin__minio_state: present
 minio_bin__mc_state: present
 
 minio_server__data: /minio
-
-minio__access_key: "{{ bitraf_passwords.minio.admin.access }}"
-minio__secret_key: "{{ bitraf_passwords.minio.admin.secret }}"
+minio_server__access_key: "{{ bitraf_passwords.minio.admin.access }}"
+minio_server__secret_key: "{{ bitraf_passwords.minio.admin.secret }}"

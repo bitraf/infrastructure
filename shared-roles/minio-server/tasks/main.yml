@@ -14,8 +14,8 @@
       copy:
         dest: "{{ env_path }}"
         content: |
-          MINIO_ACCESS_KEY={{ minio__access_key }}
-          MINIO_SECRET_KEY={{ minio__secret_key }}
+          MINIO_ACCESS_KEY={{ minio_server__access_key }}
+          MINIO_SECRET_KEY={{ minio_server__secret_key }}
 
     - name: Install systemd service
       notify: systemd restart minio
