@@ -2,14 +2,13 @@
   tags:
     - lxc-host
     - lxc-host-packages
-    - radvd
   become: yes
   apt:
-    name: "{{ item }}"
+    name: "{{ items }}"
     install_recommends: no
-  with_items:
-    - python-lxc
-    - radvd
+  vars:
+    items:
+      - radvd
 
 #- debug:
 #    msg: "item={{ item }}, host={{ host }}, lan={{ lan }}"
@@ -31,10 +30,23 @@
       net.ipv6.conf.all.forwarding=1
   notify: restart sysctl
 
+- name: Install radvd
+  tags:
+    - lxc-host
+    - lxc-host-radvd
+  when: lxc_host__radvd_state == 'present'
+  apt:
+    name: "{{ items }}"
+    install_recommends: no
+  vars:
+    items:
+      - radvd
+
 - name: Configure radvd
   tags:
     - lxc-host
-    - radvd
+    - lxc-host-radvd
+  when: lxc_host__radvd_state == 'present'
   vars:
     # TODO: should query for host with role='lan'
     ipv6: "{{ host_database[ansible_hostname].interfaces.br0.ipv6 }}"

@@ -1,23 +1,33 @@
 - become: yes
-  tags:
-    - minio-bin
-  when: minio_bin__build_mc
-  block:
-    - get_url:
-        url: "https://dl.minio.io/client/mc/release/linux-amd64/archive/mc.{{ minio__mc_version }}"
-        checksum: "sha1:{{ minio__mc_sha1 }}"
-        dest: /usr/local/bin/mc
-        remote_src: yes
-        mode: u=rwx,go=rx
+  tags: minio-bin
+  when: minio_bin__minio_state == 'present'
+  get_url:
+    url: "https://dl.minio.io/server/minio/release/{{ _minio_bin__platform }}/archive/minio.{{ minio_bin__minio_version }}"
+    checksum: "sha1:{{ minio_bin__minio_sha1 }}"
+    dest: "{{ minio_bin__minio_path }}"
+    remote_src: yes
+    mode: u=rwx,go=rx
 
 - become: yes
-  tags:
-    - minio-bin
-  when: minio_bin__build_minio
-  block:
-    - get_url:
-        url: "https://dl.minio.io/server/minio/release/linux-amd64/archive/minio.{{ minio__minio_version }}"
-        checksum: "sha1:{{ minio__minio_sha1 }}"
-        dest: /usr/local/bin/minio
-        remote_src: yes
-        mode: u=rwx,go=rx
+  tags: minio-bin
+  when: minio_bin__minio_state != 'present'
+  file:
+    path: "{{ minio_bin__minio_path }}"
+    state: absent
+
+- become: yes
+  tags: minio-bin
+  when: minio_bin__mc_state == 'present'
+  get_url:
+    url: "https://dl.minio.io/client/mc/release/{{ _minio_bin__platform }}/archive/mc.{{ minio_bin__mc_version }}"
+    checksum: "sha1:{{ minio_bin__mc_sha1 }}"
+    dest: "{{ minio_bin__mc_path }}"
+    remote_src: yes
+    mode: u=rwx,go=rx
+
+- become: yes
+  tags: minio-bin
+  when: minio_bin__mc_state != 'present'
+  file:
+    path: "{{ minio_bin__mc_path }}"
+    state: absent

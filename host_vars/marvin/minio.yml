@@ -1,1 +1,6 @@
-minio__version: RELEASE.2018-10-25T01-27-03Z
+minio_bin__minio_state: present
+minio_bin__mc_state: present
+
+minio_server__data: /minio
+minio_server__access_key: "{{ bitraf_passwords.minio.admin.access }}"
+minio_server__secret_key: "{{ bitraf_passwords.minio.admin.secret }}"

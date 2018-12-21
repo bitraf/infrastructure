@@ -1,19 +1,48 @@
 - become: yes
   tags:
     - minio-server
+  vars:
+    config_dir: /etc/minio
+    env_path: /etc/minio/env
+    user: "{{ minio_server__user }}"
+    group: "{{ minio_server__group }}"
   block:
     - name: /etc/minio directory
       file:
-        dest: /etc/minio
+        dest: "{{ env_path | dirname }}"
         state: directory
 
     - name: environment file
       no_log: yes
       copy:
-        dest: /etc/minio/env
+        dest: "{{ env_path }}"
         content: |
-          MINIO_ACCESS_KEY={{ minio__access_key }}
-          MINIO_SECRET_KEY={{ minio__secret_key }}
+          MINIO_ACCESS_KEY={{ minio_server__access_key }}
+          MINIO_SECRET_KEY={{ minio_server__secret_key }}
+
+    - file:
+        path: "{{ config_dir }}/certs"
+        owner: "{{ user }}"
+        group: "{{ group }}"
+        state: directory
+        recurse: yes
+
+    - group:
+        name: "{{ group }}"
+        system: yes
+
+    - user:
+        name: "{{ user }}"
+        group: "{{ group }}"
+        system: yes
+        shell: /bin/bash
+
+    - file:
+        path: "{{ item }}"
+        owner: "{{ user }}"
+        group: "{{ group }}"
+        state: directory
+      with_items: "{{ minio_server__data }}"
 
     - name: Install systemd service
       notify: systemd restart minio
@@ -24,10 +53,14 @@
           After=network.target
 
           [Service]
-          ExecStart=/usr/local/bin/minio server --config-dir /etc/minio /dropbox/minio
+          ExecStart=/usr/local/bin/minio server --config-dir {{ config_dir }} {{ minio_server__data | join(' ') }}
+          EnvironmentFile={{ env_path }}
+          User={{ user }}
+          Group={{ group }}
 
           [Install]
           WantedBy=multi-user.target
+# '
 
     - name: systemd enable minio
       become: yes
@@ -35,3 +68,4 @@
         service: minio
         state: restarted
         enabled: yes
+        daemon_reload: yes
