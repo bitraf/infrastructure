@@ -4,3 +4,4 @@ p2k16:
   mqtt_port: 1883
   mqtt_username: bitraf-p2k16-web-staging
   mqtt_prefix: bitraf/bitraf-p2k16-web-staging/door/
+  mqtt_prefix_tool: bitraf/tool
