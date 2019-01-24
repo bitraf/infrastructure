@@ -16,8 +16,7 @@
     unix_groups:
       - sudo
       - systemd-journal
-  with_items:
-  - "{{ unix_groups }}"
+  loop: "{{ unix_groups }}"
   loop_control:
     loop_var: group
   include_tasks: adjust-group.yml
