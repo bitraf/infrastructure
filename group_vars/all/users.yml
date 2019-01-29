@@ -19,7 +19,7 @@ users:
   tingo:
     authorized_keys: |
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKKM/xmF+qTf6Wc9zXbMA9Mx3qrq6YXHuFKQVStTQS1W tingo@bitraf
-      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEqbWRF5/kml5vWIKh7rMA0P2SogH23HgzG5i88XCaNh tingo@bsbox
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAq/8+H4A29KrV8SqvF6V7vU8r5f6sXStVroqLZmAeRx tingo@bitraf (bsbox)
   royk:
     authorized_keys: |
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJlXRj/vYaL3v/ynF4Z1Sc5up9b1hCdfSZv4bLzwLWYv roy@karlsbakk.net
