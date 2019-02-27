@@ -1,10 +1,12 @@
 lusers:
+  - drerik
   - eliasbakken
   - mastensg
   - tingo
   - trygvis
 
 superusers:
+  - drerik
   - eliasbakken
   - mastensg
   - tingo
