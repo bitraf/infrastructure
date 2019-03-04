@@ -56,3 +56,14 @@
         name: "{{ item }}"
         state: present
         install_recommends: no
+
+- become: true
+  tags:
+    - bitraf-base
+  block:
+    - name: install sudo
+      apt:
+        state: present
+        install_recommends: no
+        name:
+          - sudo
