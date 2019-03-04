@@ -1,0 +1,48 @@
+---
+- become: yes
+  tags: riemann-zyxel-gs1200
+  block:
+    - name: install system packages
+      apt:
+        install_recommends: no
+        name:
+          - python3
+      notify: restart riemann-zyxel-gs1200
+
+    # TODO: pip install
+    #- name: install ruby gems
+    #  gem:
+    #    user_install: no
+    #    version: "0.2.14"
+    #    name: riemann-zyxel-gs1200
+    #  notify: restart riemann-zyxel-gs1200
+
+    - name: make configuration directory
+      file:
+        path: /etc/riemann-zyxel-gs1200
+        state: directory
+
+    - name: install configuration files
+      copy:
+        src: "{{ item }}"
+        dest: "/{{ item }}"
+        mode: "u=rw,go="
+        backup: yes
+      with_items:
+        - etc/riemann-zyxel-gs1200/config.ini
+      notify: restart riemann-zyxel-gs1200
+
+    # TODO:
+    #- name: install systemd unit
+    #  copy:
+    #    src: etc/systemd/system/riemann-zyxel-gs1200.service
+    #    dest: /etc/systemd/system/riemann-zyxel-gs1200.service
+    #  notify: restart riemann-zyxel-gs1200
+
+    # TODO:
+    #- name: enable systemd unit
+    #  systemd:
+    #    name: "riemann-zyxel-gs1200.service"
+    #    daemon_reload: yes
+    #    enabled: yes
+    #    state: started

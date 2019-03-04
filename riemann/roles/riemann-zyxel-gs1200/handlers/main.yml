@@ -1,0 +1,11 @@
+---
+- name: update apt cache
+  become: yes
+  apt:
+    update_cache: yes
+
+- name: restart riemann-zyxel-gs1200
+  become: yes
+  systemd:
+    name: riemann-zyxel-gs1200
+    state: restarted
