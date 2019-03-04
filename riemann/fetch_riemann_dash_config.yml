@@ -1,0 +1,9 @@
+---
+- hosts:
+    - riemann
+  tasks:
+    - name: download
+      become: yes
+      fetch:
+        src: /etc/riemann-dash/config.json
+        dest: .

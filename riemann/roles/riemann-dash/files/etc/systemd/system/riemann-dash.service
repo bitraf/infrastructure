@@ -1,0 +1,11 @@
+[Unit]
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/riemann-dash config.rb
+WorkingDirectory=/etc/riemann-dash
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

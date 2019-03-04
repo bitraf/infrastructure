@@ -1,0 +1,19 @@
+---
+- hosts:
+    - riemann
+  vars_files:
+    - ../vars/bitraf_passwords.yml
+    - ../vars/postfix.yml
+    - ../vars/users.yml
+  roles:
+    - network
+    - packages
+    - bitraf-base
+    # superusers and lusers are maintained in ../all.yml
+    - postfix-satellite
+    - riemann
+    - riemann-dash
+  tasks:
+    - name: Unattended upgrades
+      import_role: name=unattended-upgrades
+      tags: unattended-upgrades

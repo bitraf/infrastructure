@@ -1,0 +1,15 @@
+# Managed by Ansible
+# The primary network interface
+auto ens3
+iface ens3 inet static
+        address 10.13.37.8
+        netmask 255.255.255.0
+        gateway 10.13.37.1
+
+auto ens10
+iface ens10 inet static
+  address 77.40.158.108
+  netmask 255.255.255.224
+iface ens10 inet6 static
+  address 2001:840:4b0b:1000:77:40:158:108/64
+  gateway 2001:840:4b0b:1000::1
