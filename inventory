@@ -1,10 +1,21 @@
 bite ansible_host=bite.bitraf.no
 bitnode ansible_host=bitnode.bitraf.no
 bomba ansible_host=bomba.bitraf.no
+boxy2 ansible_host=boxy2.local
+boxy3 ansible_host=boxy3.local
+boxy3-workshop ansible_host=boxy3-workshop.local
+boxy4 ansible_host=boxy4.local
+heim ansible_host=heim.bitraf.no
 iot ansible_host=iot2.bitraf.no
 marvin ansible_host=2001:840:4b0b:1337:e8d9:2ff:fea1:7189
 mediawiki ansible_host=2a01:7e01:e001:e1:3a04:ccff:fe3f:7bc0
 mysql ansible_host=2a01:7e01:e001:e1:c2f7:bcff:fe31:f3cb
+nuc ansible_host=nuc.local
+p2k16 ansible_host=p2k16.bitraf.no
+p2k16-staging ansible_host=p2k16-staging.bitraf.no
+radio ansible_host=radio.local
+riemann ansible_host=riemann.bitraf.no
+tv ansible_host=tv.local
 unifi ansible_host=unifi.local
 wordpress ansible_host=2a01:7e01:e001:e1:7aec:ccff:fea2:5c
 
