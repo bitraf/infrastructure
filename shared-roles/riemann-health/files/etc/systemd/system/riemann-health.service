@@ -1,0 +1,11 @@
+[Unit]
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/riemann-health -h riemann.bitraf.no
+WorkingDirectory=/tmp
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

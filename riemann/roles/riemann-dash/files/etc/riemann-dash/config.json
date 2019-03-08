@@ -1,0 +1,341 @@
+{
+  "server": "riemann.bitraf.no:5556",
+  "server_type": "ws",
+  "workspaces": [
+    {
+      "name": "helse",
+      "view": {
+        "type": "Balloon",
+        "weight": 1,
+        "id": "600691975533876a79deb3d3ca8838d9bd03cf2c",
+        "version": 175,
+        "child": {
+          "type": "VStack",
+          "weight": 1,
+          "id": "f86841d08cb2f5b8abd96800baa56dc679a37be0",
+          "version": 175,
+          "children": [
+            {
+              "type": "HStack",
+              "weight": 1,
+              "id": "9c7b581bbd16abb22caa9c47d4badbed607ed07a",
+              "version": 161,
+              "children": [
+                {
+                  "type": "VStack",
+                  "weight": 1,
+                  "id": "457d37482a30336f72bd277b36d1c0faed24cff2",
+                  "version": 156,
+                  "children": [
+                    {
+                      "type": "Grid",
+                      "weight": 1,
+                      "id": "4e540b869129e40ba834cf9aa8f339e3b3260e1f",
+                      "version": 17,
+                      "title": "helse",
+                      "query": "(service = \"cpu\") or\r\n(service = \"load\") or\r\n(service = \"memory\") or\r\n(service = \"disk /\") or\r\n(service = \"up\") or\r\nfalse",
+                      "max": "1",
+                      "rows": "",
+                      "cols": "",
+                      "row_sort": "lexical",
+                      "col_sort": "lexical",
+                      "description": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "HStack",
+              "weight": 1,
+              "id": "51061ae8f2bb99caf3623e5e245f476d364fa7e6",
+              "version": 4,
+              "children": [
+                {
+                  "type": "Flot",
+                  "weight": 1,
+                  "id": "3494f299f3ccdb10f1e93fd6259df474562d5029",
+                  "version": 6,
+                  "title": "minne",
+                  "query": "service = \"memory\"",
+                  "min": "0",
+                  "max": "1",
+                  "timeRange": 300,
+                  "graphType": "line",
+                  "stackMode": "false",
+                  "tooltips": "metric"
+                },
+                {
+                  "type": "Flot",
+                  "weight": 1,
+                  "id": "f0b5822ddd682c2125b163c93a98cd61aec2841e",
+                  "version": 4,
+                  "title": "prosessor",
+                  "query": "service = \"cpu\"",
+                  "min": "0",
+                  "max": "1",
+                  "timeRange": 300,
+                  "graphType": "line",
+                  "stackMode": "false",
+                  "tooltips": "metric"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "id": "2b346178cd4c6397d76d74e85c9623937bde40c7"
+    },
+    {
+      "name": "poe",
+      "view": {
+        "type": "Balloon",
+        "weight": 1,
+        "id": "7f76c1a3d084a20883a9e433f46cf827d3c7882d",
+        "version": 116,
+        "child": {
+          "type": "VStack",
+          "weight": 1,
+          "id": "fab5882d9eadf83cc3a06725589e7bbdd121f5c2",
+          "version": 116,
+          "children": [
+            {
+              "type": "HStack",
+              "weight": 0.25,
+              "id": "7ac881ecc732c5c48a13f70ad823eafe8c8e51b9",
+              "version": 19,
+              "children": [
+                {
+                  "type": "Grid",
+                  "weight": 1,
+                  "id": "7e8d051459ae2703e403a232677e0f324f8db328",
+                  "version": 7,
+                  "title": "system",
+                  "query": "tagged \"zyxel-gs1200\" and not (service ~= \"port .\")",
+                  "max": "60",
+                  "rows": "service",
+                  "cols": "host",
+                  "row_sort": "lexical",
+                  "col_sort": "lexical",
+                  "description": ""
+                },
+                {
+                  "type": "Flot",
+                  "weight": 1,
+                  "id": "17c6792660c50597427f5e2682d040dc827461a1",
+                  "version": 4,
+                  "title": "total real power",
+                  "query": "tagged \"zyxel-gs1200\" and (service = \"total real power\")",
+                  "min": "0",
+                  "max": "60",
+                  "timeRange": 300,
+                  "graphType": "line",
+                  "stackMode": "false",
+                  "tooltips": "metric"
+                }
+              ]
+            },
+            {
+              "type": "HStack",
+              "weight": 0.25,
+              "id": "48d0d042ea77921a1ebc119f437cc4754c85fad4",
+              "version": 24,
+              "children": [
+                {
+                  "type": "Grid",
+                  "weight": 1,
+                  "id": "a10b1728949c67b8c2fcdf68969de8214cb9b571",
+                  "version": 19,
+                  "title": "power",
+                  "query": "tagged \"zyxel-gs1200\" and service ~= \"port . power\"",
+                  "max": "20",
+                  "rows": "service",
+                  "cols": "host",
+                  "row_sort": "lexical",
+                  "col_sort": "lexical",
+                  "description": ""
+                },
+                {
+                  "type": "Flot",
+                  "weight": 1,
+                  "id": "3a1e54f6432eacaa1bd3d9116b37e9769094d747",
+                  "version": 6,
+                  "title": "power",
+                  "query": "tagged \"zyxel-gs1200\" and service ~= \"port . power\"",
+                  "min": "0",
+                  "max": "20",
+                  "timeRange": 300,
+                  "graphType": "line",
+                  "stackMode": "false",
+                  "tooltips": "metric"
+                }
+              ]
+            },
+            {
+              "type": "HStack",
+              "weight": 0.25,
+              "id": "1b53e77c6997c7bed4afb9d4781311d4b2ee7bd3",
+              "version": 20,
+              "children": [
+                {
+                  "type": "Grid",
+                  "weight": 1,
+                  "id": "fe17a2e439cdb8559a47855a6c568c601b949ff8",
+                  "version": 10,
+                  "title": "rx",
+                  "query": "tagged \"zyxel-gs1200\" and service ~= \"port . rx packets rate\"",
+                  "max": "10000",
+                  "rows": "service",
+                  "cols": "host",
+                  "row_sort": "lexical",
+                  "col_sort": "lexical",
+                  "description": ""
+                },
+                {
+                  "type": "Flot",
+                  "weight": 1,
+                  "id": "deb62dabb3eeb153fe898bd4abb3eb89ffc43117",
+                  "version": 7,
+                  "title": "rx",
+                  "query": "tagged \"zyxel-gs1200\" and service ~= \"port . rx packets rate\"",
+                  "min": "0",
+                  "max": "10000",
+                  "timeRange": 300,
+                  "graphType": "line",
+                  "stackMode": "false",
+                  "tooltips": "metric"
+                }
+              ]
+            },
+            {
+              "type": "HStack",
+              "weight": 0.25,
+              "id": "e71d8f89f1047835a5541467635a0694862a36bb",
+              "version": 19,
+              "children": [
+                {
+                  "type": "Grid",
+                  "weight": 1,
+                  "id": "71976dd41132dadb179f46e19cc8f9fd167e274e",
+                  "version": 7,
+                  "title": "tx",
+                  "query": "tagged \"zyxel-gs1200\" and service ~= \"port . tx packets rate\"",
+                  "max": "10000",
+                  "rows": "service",
+                  "cols": "host",
+                  "row_sort": "lexical",
+                  "col_sort": "lexical",
+                  "description": ""
+                },
+                {
+                  "type": "Flot",
+                  "weight": 1,
+                  "id": "4625fad2078d1d3c8984b108ed06cf5ba3e80e6c",
+                  "version": 3,
+                  "title": "tx",
+                  "query": "tagged \"zyxel-gs1200\" and service ~= \"port . tx packets rate\"",
+                  "min": "0",
+                  "max": "10000",
+                  "timeRange": 300,
+                  "graphType": "line",
+                  "stackMode": "false",
+                  "tooltips": "metric"
+                }
+              ]
+            },
+            {
+              "type": "HStack",
+              "weight": 0.25,
+              "id": "d3361f72838b2255692bbeecf278f14af0136c48",
+              "version": 11,
+              "children": [
+                {
+                  "type": "Grid",
+                  "weight": 1,
+                  "id": "f7592972f3e58417ccc293ed7e880f92b73f3812",
+                  "version": 8,
+                  "title": "link speed",
+                  "query": "tagged \"zyxel-gs1200\" and service ~= \"port . link speed\"",
+                  "max": "1000",
+                  "rows": "service",
+                  "cols": "host",
+                  "row_sort": "lexical",
+                  "col_sort": "lexical",
+                  "description": ""
+                },
+                {
+                  "type": "Flot",
+                  "weight": 1,
+                  "id": "14ee8bdbffb323631b4639f5ff91f7f3c80739f6",
+                  "version": 1,
+                  "title": "link speed",
+                  "query": "tagged \"zyxel-gs1200\" and service ~= \"port . link speed\"",
+                  "min": "0",
+                  "max": "1000",
+                  "timeRange": 300,
+                  "graphType": "line",
+                  "stackMode": "false",
+                  "tooltips": "metric"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "id": "86c72f275167c7715c2adea908de006fdff8e4e5"
+    },
+    {
+      "name": "riemann",
+      "view": {
+        "type": "Balloon",
+        "weight": 1,
+        "id": "e9da2999eaa1c77585ba75e541d09f17e425eadc",
+        "version": 3,
+        "child": {
+          "type": "VStack",
+          "weight": 1,
+          "id": "2ae25cb8c4dc57073cba7b5a6f2c2b8275daf2da",
+          "version": 3,
+          "children": [
+            {
+              "type": "Grid",
+              "weight": 1,
+              "id": "f16fc60bfa9ccc015f48e803e9de1f6e1d5f88ed",
+              "version": 3,
+              "title": "",
+              "query": "tagged \"riemann\"",
+              "max": "",
+              "rows": "service",
+              "cols": "host",
+              "row_sort": "lexical",
+              "col_sort": "lexical",
+              "description": ""
+            }
+          ]
+        }
+      },
+      "id": "64d95631befdcfde64bd9e85a5047c082662ccee"
+    },
+    {
+      "name": "?",
+      "view": {
+        "type": "Balloon",
+        "weight": 1,
+        "id": "767b5ea5bbcdbc78a3e1302dc3c1103ab35e073f",
+        "version": 0,
+        "child": {
+          "type": "VStack",
+          "weight": 1,
+          "id": "e0c68e406fd3d96122e1f5dc0b1d5619d75b00f2",
+          "version": 0,
+          "children": [
+            {
+              "type": "Help"
+            }
+          ]
+        }
+      },
+      "id": "cd622019a81ac7a24598d52cecb2127751000f4e"
+    }
+  ]
+}

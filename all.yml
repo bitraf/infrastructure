@@ -1,6 +1,17 @@
+# NOTE(mastensg): exclude hosts which have their own ansible directories.
 - hosts:
-    - all !bomba
+    - all
+    - !bomba !boxy2 !boxy3 !boxy3-workshop !boxy4
+    - !heim
+    - !p2k16
+    - !p2k16-staging
   roles:
     - bitraf-base
     - lusers
     - superusers
+
+# NOTE(mastensg): the riemann-health roles should not conflict with per-host
+# ansible playbooks.
+- hosts: all
+  roles:
+    - riemann-health

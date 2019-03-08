@@ -1,0 +1,39 @@
+---
+- become: yes
+  tags: riemann
+  vars:
+    riemann_version: "0.3.1"
+    riemann_deb_md5: "df9b12206327cafdfbb840a6591ddfef"
+    riemann_dir: "/opt/riemann"
+    riemann_deb_name: "riemann_{{riemann_version}}_all.deb"
+    riemann_deb_url: "https://github.com/riemann/riemann/releases/download/{{riemann_version}}/{{riemann_deb_name}}"
+    riemann_deb_path: "{{riemann_dir}}/{{riemann_deb_name}}"
+  block:
+    - name: system packages
+      apt:
+        install_recommends: no
+        name:
+          - openjdk-8-jre
+
+    - name: riemann directory
+      file:
+        state: directory
+        path: /opt/riemann
+
+    - name: download riemann package
+      get_url:
+        url: "{{riemann_deb_url}}"
+        dest: "{{riemann_deb_path}}"
+        checksum: "md5:{{riemann_deb_md5}}"
+
+    - name: install riemann package
+      apt:
+        deb: "{{riemann_deb_path}}"
+
+    - name: riemann configuration
+      tags: riemann-config
+      copy:
+        src: etc/riemann/riemann.config
+        dest: /etc/riemann/riemann.config
+        mode: "u=rw,go="
+      notify: reload riemann

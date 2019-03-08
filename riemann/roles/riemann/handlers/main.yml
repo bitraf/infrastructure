@@ -1,0 +1,11 @@
+---
+- name: update apt cache
+  become: yes
+  apt:
+    update_cache: yes
+
+- name: reload riemann
+  become: yes
+  systemd:
+    name: riemann
+    state: reloaded

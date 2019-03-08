@@ -1,0 +1,28 @@
+---
+- become: yes
+  tags: riemann-health
+  block:
+    - name: install system packages
+      apt:
+        install_recommends: no
+        name:
+          - ruby
+          - ruby-dev
+
+    - name: install ruby gems
+      gem:
+        user_install: no
+        version: "0.2.14"
+        name: riemann-tools
+
+    - name: install systemd unit
+      copy:
+        src: etc/systemd/system/riemann-health.service
+        dest: /etc/systemd/system/riemann-health.service
+
+    - name: enable systemd unit
+      systemd:
+        name: "riemann-health.service"
+        daemon_reload: yes
+        enabled: yes
+        state: started

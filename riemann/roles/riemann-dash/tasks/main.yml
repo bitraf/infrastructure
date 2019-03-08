@@ -1,0 +1,48 @@
+---
+- become: yes
+  tags: riemann-dash
+  block:
+    - name: install system packages
+      apt:
+        install_recommends: no
+        name:
+          - ruby
+          - ruby-dev
+          - ruby-ffi
+      notify: restart riemann-dash
+
+    - name: install ruby gems
+      gem:
+        user_install: no
+        version: "0.2.14"
+        name: riemann-dash
+      notify: restart riemann-dash
+
+    - name: make configuration directory
+      file:
+        path: /etc/riemann-dash
+        state: directory
+
+    - name: install configuration files
+      copy:
+        src: "{{ item }}"
+        dest: "/{{ item }}"
+        mode: "u=rw,go="
+        backup: yes
+      with_items:
+        - etc/riemann-dash/config.json
+        - etc/riemann-dash/config.rb
+      notify: restart riemann-dash
+
+    - name: install systemd unit
+      copy:
+        src: etc/systemd/system/riemann-dash.service
+        dest: /etc/systemd/system/riemann-dash.service
+      notify: restart riemann-dash
+
+    - name: enable systemd unit
+      systemd:
+        name: "riemann-dash.service"
+        daemon_reload: yes
+        enabled: yes
+        state: started

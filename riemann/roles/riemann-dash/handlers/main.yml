@@ -1,0 +1,11 @@
+---
+- name: update apt cache
+  become: yes
+  apt:
+    update_cache: yes
+
+- name: restart riemann-dash
+  become: yes
+  systemd:
+    name: riemann-dash
+    state: restarted
