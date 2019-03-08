@@ -1,4 +1,4 @@
-# Managed by Ansible
+# {{ ansible_managed }}
 # The primary network interface
 auto ens3
 iface ens3 inet static
