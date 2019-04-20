@@ -1,3 +1,4 @@
 docroot: "var/www/{{ p2k16.domain_name }}"
 environment_conf: "/etc/p2k16/{{ p2k16.domain_name }}.conf"
 flyway_version: "4.2.0"
+p2k16_git_version: master
