@@ -6,4 +6,5 @@
       become: yes
       fetch:
         src: /etc/riemann-dash/config.json
-        dest: .
+        dest: roles/riemann-dash/files/etc/riemann-dash/config.json
+        flat: yes
