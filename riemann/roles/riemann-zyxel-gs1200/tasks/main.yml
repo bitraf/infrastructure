@@ -1,0 +1,64 @@
+---
+- become: yes
+  tags: riemann-zyxel-gs1200
+  block:
+    - name: install system packages
+      apt:
+        install_recommends: no
+        name:
+          - python-setuptools
+          - python3
+          - python3-pip
+          - virtualenv
+      notify: restart riemann-zyxel-gs1200
+
+    - name: unprivileged user
+      user:
+        name: riemann-zyxel-gs1200
+        state: present
+
+    - name: application directory
+      file:
+        path: /opt/riemann-zyxel-gs1200
+        owner: riemann-zyxel-gs1200
+        group: riemann-zyxel-gs1200
+        state: directory
+
+    - name: python package
+      pip:
+        chdir: /opt/riemann-zyxel-gs1200
+        name: riemann-zyxel-gs1200
+        virtualenv: /opt/riemann-zyxel-gs1200/venv
+        virtualenv_python: /usr/bin/python3
+        state: latest
+      notify: restart riemann-zyxel-gs1200
+
+    - name: make configuration directory
+      file:
+        path: /etc/riemann-zyxel-gs1200
+        state: directory
+
+    - name: install configuration files
+      copy:
+        src: "{{ item }}"
+        dest: "/{{ item }}"
+        owner: riemann-zyxel-gs1200
+        group: riemann-zyxel-gs1200
+        mode: "u=rw,go="
+        backup: yes
+      with_items:
+        - etc/riemann-zyxel-gs1200/config.ini
+      notify: restart riemann-zyxel-gs1200
+
+    - name: systemd unit
+      copy:
+        src: etc/systemd/system/riemann-zyxel-gs1200.service
+        dest: /etc/systemd/system/riemann-zyxel-gs1200.service
+      notify: restart riemann-zyxel-gs1200
+
+    - name: enable and start
+      systemd:
+        name: "riemann-zyxel-gs1200.service"
+        daemon_reload: yes
+        enabled: yes
+        state: started
