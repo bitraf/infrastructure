@@ -266,7 +266,7 @@
       git:
         repo: 'https://github.com/bitraf/p2k16'
         dest: /opt/p2k16/src
-        version: master
+        version: "{{ p2k16_git_version }}"
       register: git_checkout
 
     - name: Update GIT_REVISION
