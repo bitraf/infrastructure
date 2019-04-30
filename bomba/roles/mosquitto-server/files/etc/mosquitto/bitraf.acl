@@ -121,8 +121,6 @@ topic write /public/#
 
 user bitraf-p2k16-web-staging
 topic readwrite bitraf/bitraf-p2k16-web-staging/#
-topic write bitraf/tool/+/unlock
-topic write bitraf/tool/+/lock
 topic write /public/#
 
 # Misc sensors
