@@ -2,24 +2,25 @@
   block:
     - name: Packages for WAL-E
       apt:
-        name: "{{ item }}"
+        name: "{{ items }}"
         install_recommends: no
-      with_items:
-        - pv
-        - lzop
+      vars:
+        items:
+          - pv
+          - lzop
 
     - name: pip
       become: yes
       become_user: postgres
-      vars:
-        ansible_ssh_pipelining: true
       pip:
-        name: "{{ item }}"
+        name: "{{ items }}"
         virtualenv: "{{ pwe_venv }}"
         virtualenv_python: python3
-      with_items:
-        - wal-e
-        - envdir
+      vars:
+        ansible_ssh_pipelining: true
+        items:
+          - wal-e
+          - envdir
 
     - name: Config dir
       file:
