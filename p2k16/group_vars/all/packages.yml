@@ -1,0 +1,23 @@
+packages__enable_backports: yes
+packages_packages:
+  # useful utilities and things
+  - aptitude
+  - bridge-utils
+  - debian-goodies
+  - etckeeper
+  - hdparm
+  - htop
+  - iperf
+  - ltrace
+  - man-db
+  - ncdu
+  - needrestart
+  - netcat-openbsd
+  - screen
+  - strace
+  - tmux
+  - tree
+  - vim
+  - sysstat
+  - nmap
+  - net-tools

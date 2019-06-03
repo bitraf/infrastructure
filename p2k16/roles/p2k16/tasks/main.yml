@@ -7,10 +7,11 @@
   block:
     - name: packages
       apt:
-        name: "{{ item }}"
+        name: "{{ items }}"
         install_recommends: no
-      with_items:
-        - apt-transport-https
+      vars:
+        items:
+          - apt-transport-https
 
     - name: Install NodeSource key
       tags: packages
@@ -85,10 +86,11 @@
   block:
     - name: Packages for www
       apt:
-        name: "{{ item }}"
+        name: "{{ items }}"
         install_recommends: no
-      with_items:
-        - nginx
+      vars:
+        items:
+          - nginx
 
     - name: no default nginx site
       notify: reload nginx
@@ -246,9 +248,10 @@
   block:
     - name: p2k16 packages
       apt:
-        name: "{{ item }}"
+        name: "{{ items }}"
         install_recommends: no
-      with_items:
+      vars:
+        items:
         - python3
         - virtualenv
         - nodejs

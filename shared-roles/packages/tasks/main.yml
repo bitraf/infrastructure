@@ -20,6 +20,7 @@
 
 - name: Enable backports repository by default
   when: packages__enable_backports
+  become: yes
   copy:
     dest: /etc/apt/preferences.d/bitraf-packages
     content: |

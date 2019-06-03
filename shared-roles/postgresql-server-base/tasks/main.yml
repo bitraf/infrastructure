@@ -27,13 +27,14 @@
   block:
     - name: packages
       apt:
-        name: "{{ item }}"
+        name: "{{ items }}"
         install_recommends: no
-      with_items:
-        - postgresql-10
-        - postgresql-client-10
-        - python-psycopg2
-        - python3-psycopg2
+      vars:
+        items:
+          - postgresql-10
+          - postgresql-client-10
+          - python-psycopg2
+          - python3-psycopg2
 
     - name: Logrotate
       copy:
