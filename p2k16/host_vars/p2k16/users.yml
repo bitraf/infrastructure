@@ -6,6 +6,7 @@ lusers:
   - tingo
   - trygvis
   - jonnor
+  - drerik
 
 superusers:
   - eliasbakken
@@ -15,3 +16,4 @@ superusers:
   - tingo
   - trygvis
   - jonnor
+  - drerik
