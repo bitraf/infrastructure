@@ -2,11 +2,12 @@
 - name: Packages for unattended upgrades
   become: true
   apt:
-    name: "{{ item }}"
+    name: "{{ items }}"
     install_recommends: no
-  with_items:
-    - unattended-upgrades
-    - apt-listchanges
+  vars:
+    items:
+      - unattended-upgrades
+      - apt-listchanges
 
 - name: Configure /etc/apt/apt.conf.d/50unattended-upgrades
   become: true
