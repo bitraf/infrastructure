@@ -15,6 +15,7 @@ users:
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPX+sVfRvl0+KxsDlbIutyB/Es3exTwNfDVHwi9orwz3 trygvis@birgitte
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJAzB6JB/hZ87M6ozsd7lgKxgOacEOZZRxa4ucs11lqq trygvis@conflatorio
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFJWlDmgPIwkUgljVKiNr2wfHGfz4VVoPvuDLJfMD9LM trygvis@arius-v2
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL3UZyrbXX7WMHqcZCRspkoSIfB6egrbOxXPf1zyZkAw trygvis@arius-v4
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPKXVnzqo+JTVNrt3p0LGeH59DPMc9WkVMXO3wpAyTH6 trygvis@akili
   tingo:
     authorized_keys: |
@@ -44,3 +45,7 @@ users:
   jonnor:
     authorized_keys: |
       ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCRBQiYf6X7stPARBtfaPdVPkwG5ixmFiWRHhKzKIpbRX3DG2LcJgTWOoqysbs+lAxsMeHXROjkAcyEosxjWb+ng8HuPGP2SSNaECwVI7e/Ey6WEYgU+UrmV0su7f8m1gcmBz4esWfY02k+ojR3MxzrPdSHOnsBmofIgbcqLV/Fozf5FxpKHkneYfbFMcNvXAESnbg8UvMXcxMWbJTiRKntAayB1NJ5WfZADIrCmDhDN52I7AvTOqamdgAGt1pmpuuEacB/rCJqBZyDSpP9cOrnBfA4a6REErHlLK1OuDhBGN1kmhHMRtvmM4xbwgt8U++1zgokHVt4iXZi4jVsowj jon@jon-portable
+  omega:
+    authorized_keys: |
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPzUlNNCZe0FJ+0vz1sM9hYMNHJSWFgY6gqyAP0kWm+y
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDYI6OTHiS015oqVINoQ3zEl2CF02UmdEVeO3dzeX1Kv
