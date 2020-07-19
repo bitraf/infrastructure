@@ -1,0 +1,53 @@
+- become: yes
+  tags: 
+    - infoscreen
+  block:
+    - name: infoscreen packages
+      vars:
+        items:
+          - unclutter
+      apt:
+        name: "{{ items }}"
+        install_recommends: no
+
+- become: yes
+  tags: 
+    - infoscreen
+  vars:
+    infoscreen_user: "{{ infoscreen__user }}"
+  block:
+    - name: adduser
+      with_items: "{{ infoscreen_user }}"
+      user:
+        name: "{{ item }}"
+        shell: /bin/bash
+        #group: "{{ infoscreen_user }}"
+        groups: audio,video,plugdev,games,users,input
+
+- become: yes
+  vars:
+    infoscreen_user: "{{ infoscreen__user }}"
+  block:
+    - name: configure autologin user
+      ini_file:
+        path: /etc/lightdm/lightdm.conf
+        section: Seat:*
+        option: autologin-user
+        value: "{{ infoscreen_user }}"
+
+- become: yes
+  vars:
+    infoscreen_user: "{{ infoscreen__user }}"
+  block:
+    - name: "mkdir /home/{{ infoscreen_user }}/.config/lxsession/LXDE-pi/"
+      file:
+        path: "/home/{{ infoscreen_user }}/.config/lxsession/LXDE-pi/"
+        state: directory
+        owner: "{{ infoscreen__user }}"
+        group: "{{ infoscreen__user }}"
+
+    - name: configure LXDE autostart
+      template:
+        src: autostart.j2
+        dest: "/home/{{ infoscreen_user }}/.config/lxsession/LXDE-pi/autostart"
+      notify: service restart lightdm
