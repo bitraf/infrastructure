@@ -46,9 +46,9 @@
   vars:
     infoscreen_user: "{{ infoscreen__user }}"
   block:
-    - name: "mkdir /home/{{ infoscreen_user }}/.config/lxsession/LXDE-pi/"
+    - name: "mkdir /home/{{ infoscreen_user }}/.config/lxsession/LXDE/"
       file:
-        path: "/home/{{ infoscreen_user }}/.config/lxsession/LXDE-pi/"
+        path: "/home/{{ infoscreen_user }}/.config/lxsession/LXDE/"
         state: directory
         owner: "{{ infoscreen__user }}"
         group: "{{ infoscreen__user }}"
@@ -56,5 +56,5 @@
     - name: configure LXDE autostart
       template:
         src: autostart.j2
-        dest: "/home/{{ infoscreen_user }}/.config/lxsession/LXDE-pi/autostart"
+        dest: "/home/{{ infoscreen_user }}/.config/lxsession/LXDE/autostart"
       notify: service restart lightdm
