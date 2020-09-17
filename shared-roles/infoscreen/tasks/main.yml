@@ -35,6 +35,13 @@
         option: autologin-user
         value: "{{ infoscreen_user }}"
 
+    - name: configure autologin session
+      ini_file:
+        path: /etc/lightdm/lightdm.conf
+        section: Seat:*
+        option: autologin-session
+        value: "LXDE"
+
 - become: yes
   vars:
     infoscreen_user: "{{ infoscreen__user }}"
