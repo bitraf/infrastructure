@@ -13,6 +13,28 @@
 - become: yes
   tags: 
     - infoscreen
+  block:
+    - name: check for light-locker global startup file
+      stat:
+        path: /etc/xdg/autostart/light-locker.desktop
+      register: ll_file
+
+    - name: hardlink light-locker global startup file to bak
+      file:
+        src: /etc/xdg/autostart/light-locker.desktop
+        dest: /etc/xdg/autostart/light-locker.desktop.bak
+        state: hard
+      when: ll_file.stat.exists
+
+    - name: remove light-locker global startup file
+      file:
+        path: /etc/xdg/autostart/light-locker.desktop
+        state: absent
+      when: ll_file.stat.exists
+
+- become: yes
+  tags: 
+    - infoscreen
   vars:
     infoscreen_user: "{{ infoscreen__user }}"
   block:
