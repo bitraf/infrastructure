@@ -6,6 +6,7 @@
       vars:
         items:
           - lxde
+          - chromium
           - unclutter
       apt:
         name: "{{ items }}"
