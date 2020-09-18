@@ -5,6 +5,7 @@
     - name: infoscreen packages
       vars:
         items:
+          - lxde
           - unclutter
       apt:
         name: "{{ items }}"
