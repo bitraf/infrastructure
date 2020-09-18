@@ -50,7 +50,7 @@
       file:
         path: /etc/xdg/autostart/xfce4-power-manager.desktop
         state: absent
-      when: ll_file.stat.exists
+      when: xpm_file.stat.exists
 
 - become: yes
   tags: 
