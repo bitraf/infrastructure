@@ -34,6 +34,24 @@
         state: absent
       when: ll_file.stat.exists
 
+    - name: check for xfce4-power-manager global startup file
+      stat:
+        path: /etc/xdg/autostart/xfce4-power-manager.desktop
+      register: xpm_file
+
+    - name: hardlink xfce4-power-manager global startup file to bak
+      file:
+        src: /etc/xdg/autostart/xfce4-power-manager.desktop
+        dest: /etc/xdg/autostart/xfce4-power-manager.desktop.bak
+        state: hard
+      when: xpm_file.stat.exists
+
+    - name: remove xfce4-power-manager global startup file
+      file:
+        path: /etc/xdg/autostart/xfce4-power-manager.desktop
+        state: absent
+      when: ll_file.stat.exists
+
 - become: yes
   tags: 
     - infoscreen
