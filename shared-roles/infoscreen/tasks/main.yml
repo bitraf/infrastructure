@@ -90,6 +90,11 @@
   vars:
     infoscreen_user: "{{ infoscreen__user }}"
   block:
+    - name: install chromefix script
+      copy:
+        src: chromefix.sh
+        dest: /home/{{ infoscreen_user }}/chromefix.sh
+
     - name: "mkdir /home/{{ infoscreen_user }}/.config/lxsession/LXDE/"
       file:
         path: "/home/{{ infoscreen_user }}/.config/lxsession/LXDE/"
