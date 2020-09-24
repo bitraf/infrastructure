@@ -40,6 +40,10 @@ For sane git integration put this in `$HOME/.gitconfig`:
 
 See also: https://github.com/building5/ansible-vault-tools
 
+**Git config**: Run this to show the plain text diff on vault files:
+
+   git config diff.ansible-vault.textconv ansible-vault view
+
 See also
 --------
 

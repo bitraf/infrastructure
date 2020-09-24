@@ -10,8 +10,8 @@
     - network
     - packages
     - bitraf-base
-    - superusers
     - lusers
+    - superusers
     - postgresql-server-base
     - postfix-satellite
     - p2k16

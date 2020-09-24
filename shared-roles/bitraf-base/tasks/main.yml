@@ -50,10 +50,11 @@
   when: bitraf_base__syslog
   block:
     - name:
-      with_items:
+      vars:
+        items:
         - rsyslog
       apt:
-        name: "{{ item }}"
+        name: "{{ items }}"
         state: present
         install_recommends: no
 
