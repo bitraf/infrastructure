@@ -94,6 +94,9 @@
       copy:
         src: chromefix.sh
         dest: /home/{{ infoscreen_user }}/chromefix.sh
+        owner: "{{ infoscreen__user }}"
+        group: "{{ infoscreen__user }}"
+        mode: u+rwx,g-rwx,o-rwx
 
     - name: "mkdir /home/{{ infoscreen_user }}/.config/lxsession/LXDE/"
       file:
