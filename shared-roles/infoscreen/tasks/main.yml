@@ -5,6 +5,7 @@
     - name: infoscreen packages
       vars:
         items:
+          - xserver-xorg
           - lightdm
           - lxde
           - chromium
