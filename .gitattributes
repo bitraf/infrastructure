@@ -1,3 +1,5 @@
 vault.yml diff=ansible-vault merge=ansible-vault
 *.vault.yml diff=ansible-vault merge=ansible-vault
 *.vault diff=ansible-vault merge=ansible-vault
+
+secrets.yml diff=ansible-vault merge=binary
