@@ -16,9 +16,12 @@ p2k16 ansible_host=p2k16.bitraf.no
 p2k16-staging ansible_host=p2k16-staging.bitraf.no
 radio ansible_host=radio.local
 riemann ansible_host=riemann.bitraf.no
+testskjerm ansible_host=testskjerm.local
 tv ansible_host=tv.local
 unifi ansible_host=unifi.local
 wordpress ansible_host=2a01:7e01:e001:e1:7aec:ccff:fea2:5c
+helsing ansible_host=10.13.37.59
+infoscreen-a ansible_host=infoscreen-a.local
 
 [mosquitto-servers]
 bomba
@@ -32,3 +35,7 @@ wordpress
 [lxc-guest:vars]
 bitraf_base__fix_hosts=True
 bitraf_base__syslog=True
+
+[infoscreens]
+infoscreen-a
+testskjerm
