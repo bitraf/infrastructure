@@ -5,6 +5,7 @@
     - name: infoscreen packages
       vars:
         items:
+          - lightdm
           - lxde
           - chromium
           - unclutter
