@@ -1,0 +1,10 @@
+@lxpanel --profile LXDE
+@pcmanfm --desktop --profile LXDE
+# turn off screensaver, turn off blanking, disable DPMS
+@xset s off
+@xset s noblank
+@xset -dpms
+#
+@unclutter -root -noevents
+/home/infoskjerm/chromefix.sh
+@chromium --incognito --start-maximized --kiosk --disable-infobars --noerrordialogs --disable-features=TranslateUI {{ infoscreen__url }}

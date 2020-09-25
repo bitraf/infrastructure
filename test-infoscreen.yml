@@ -1,0 +1,4 @@
+- hosts: testskjerm, infoscreen-a
+  roles:
+    - infoscreen
+

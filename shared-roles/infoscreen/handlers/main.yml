@@ -1,0 +1,5 @@
+- name: service restart lightdm
+  become: yes
+  service:
+    name: lightdm
+    state: restarted

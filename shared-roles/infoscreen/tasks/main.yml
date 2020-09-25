@@ -1,0 +1,112 @@
+- become: yes
+  tags: 
+    - infoscreen
+  block:
+    - name: infoscreen packages
+      vars:
+        items:
+          - xserver-xorg
+          - lightdm
+          - lxde
+          - chromium
+          - unclutter
+      apt:
+        name: "{{ items }}"
+        install_recommends: no
+
+- become: yes
+  tags: 
+    - infoscreen
+  block:
+    - name: check for light-locker global startup file
+      stat:
+        path: /etc/xdg/autostart/light-locker.desktop
+      register: ll_file
+
+    - name: hardlink light-locker global startup file to bak
+      file:
+        src: /etc/xdg/autostart/light-locker.desktop
+        dest: /etc/xdg/autostart/light-locker.desktop.bak
+        state: hard
+      when: ll_file.stat.exists
+
+    - name: remove light-locker global startup file
+      file:
+        path: /etc/xdg/autostart/light-locker.desktop
+        state: absent
+      when: ll_file.stat.exists
+
+    - name: check for xfce4-power-manager global startup file
+      stat:
+        path: /etc/xdg/autostart/xfce4-power-manager.desktop
+      register: xpm_file
+
+    - name: hardlink xfce4-power-manager global startup file to bak
+      file:
+        src: /etc/xdg/autostart/xfce4-power-manager.desktop
+        dest: /etc/xdg/autostart/xfce4-power-manager.desktop.bak
+        state: hard
+      when: xpm_file.stat.exists
+
+    - name: remove xfce4-power-manager global startup file
+      file:
+        path: /etc/xdg/autostart/xfce4-power-manager.desktop
+        state: absent
+      when: xpm_file.stat.exists
+
+- become: yes
+  tags: 
+    - infoscreen
+  vars:
+    infoscreen_user: "{{ infoscreen__user }}"
+  block:
+    - name: adduser
+      with_items: "{{ infoscreen_user }}"
+      user:
+        name: "{{ item }}"
+        shell: /bin/bash
+        #group: "{{ infoscreen_user }}"
+        groups: audio,video,plugdev,games,users,input
+
+- become: yes
+  vars:
+    infoscreen_user: "{{ infoscreen__user }}"
+  block:
+    - name: configure autologin user
+      ini_file:
+        path: /etc/lightdm/lightdm.conf
+        section: Seat:*
+        option: autologin-user
+        value: "{{ infoscreen_user }}"
+
+    - name: configure autologin session
+      ini_file:
+        path: /etc/lightdm/lightdm.conf
+        section: Seat:*
+        option: autologin-session
+        value: "LXDE"
+
+- become: yes
+  vars:
+    infoscreen_user: "{{ infoscreen__user }}"
+  block:
+    - name: install chromefix script
+      copy:
+        src: chromefix.sh
+        dest: /home/{{ infoscreen_user }}/chromefix.sh
+        owner: "{{ infoscreen__user }}"
+        group: "{{ infoscreen__user }}"
+        mode: u+rwx,g-rwx,o-rwx
+
+    - name: "mkdir /home/{{ infoscreen_user }}/.config/lxsession/LXDE/"
+      file:
+        path: "/home/{{ infoscreen_user }}/.config/lxsession/LXDE/"
+        state: directory
+        owner: "{{ infoscreen__user }}"
+        group: "{{ infoscreen__user }}"
+
+    - name: configure LXDE autostart
+      template:
+        src: autostart.j2
+        dest: "/home/{{ infoscreen_user }}/.config/lxsession/LXDE/autostart"
+      notify: service restart lightdm
