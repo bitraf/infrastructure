@@ -1,0 +1,26 @@
+
+- hosts: all
+  vars_files:
+    - ../vars/bitraf_passwords.yml
+    - ../vars/users.yml
+  vars:
+    dump_file: "pdb/{{ ansible_hostname }}/{{ ansible_date_time.date }}/{{ ansible_hostname }}-{{ ansible_date_time.date }}-{{ ansible_date_time.time }}.xz"
+    remote_filename: "pg-{{ ansible_hostname }}.dump.xz"
+  tasks:
+    - postgresql_db:
+        name: "p2k16"
+        login_host: localhost
+        login_user: "p2k16-flyway"
+        login_password: "{{ p2k16_secret.db_password_flyway }}"
+        state: dump
+        target: "{{ remote_filename }}"
+
+    - fetch:
+        src: "{{ remote_filename }}"
+        dest: "{{ dump_file }}"
+        flat: true
+
+    - file:
+        path: "{{ remote_filename }}"
+        state: absent
+
