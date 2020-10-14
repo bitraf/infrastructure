@@ -286,6 +286,15 @@
       notify: p2k16 restart
       tags: p2k16-pull
       pip:
+        requirements: /opt/p2k16/src/requirements.txt
+        chdir: /opt/p2k16/env
+        virtualenv: /opt/p2k16/env
+        virtualenv_python: python3
+
+    - name: p2k16 pip
+      notify: p2k16 restart
+      tags: p2k16-pull
+      pip:
         name: /opt/p2k16/src/web
         editable: true
         virtualenv: /opt/p2k16/env
