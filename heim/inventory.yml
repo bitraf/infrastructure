@@ -1,0 +1,5 @@
+all:
+  hosts:
+    heim:
+      ansible_host: heim.bitraf.no
+      ansible_python_interpreter: /usr/bin/python3

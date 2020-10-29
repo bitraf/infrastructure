@@ -10,7 +10,10 @@ superusers:
   - username: trygvis
     state: present
     authorized_keys: |
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPX+sVfRvl0+KxsDlbIutyB/Es3exTwNfDVHwi9orwz3 trygvis@birgitte
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJAzB6JB/hZ87M6ozsd7lgKxgOacEOZZRxa4ucs11lqq trygvis@conflatorio
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL3UZyrbXX7WMHqcZCRspkoSIfB6egrbOxXPf1zyZkAw trygvis@arius-v4
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEkisPUAai4P3Scj1gWdV2TcDr54tb20BDy0NAkGOZnF trygvis@akili-v2
   - username: tingo
     state: present
     authorized_keys: ""
@@ -27,4 +30,10 @@ superusers:
     authorized_keys: ""
   - username: margrav
     state: present
-    authorized_keys: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDrbAcmOIRSERVam1SKtMZDkST98ImyYVhRaW10RNF2YSgnmVbD6Wqq5oaFpGh4+9FVg9QbEx4O5FnSxGjnmJeVfTC162sK/oWl1NSZ4lmVALCOa0OnsbJ+AHGERBcv/6KoGCJ2slSRUgMkZEl46D2SP1mLH2HFhvugQMXWXBd8qBD3GmJ3QocR9bnWiJYE1uD57jkUpT2IJC9mgHoRR6inq/09lN/VANftlKvasrwgKGZwIU3nIquXSeHD9jtAP5rXzalRp+VJ8LM2zHKiRjRZf4FFgniruTT/fdYSdnvLqmo/yd0Y/nPxhESm9JqRQpKe6fdTJUJFwQ7SRTgHnVxp margrav@Martins-MacBook-Air.local
+    authorized_keys: |
+      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDrbAcmOIRSERVam1SKtMZDkST98ImyYVhRaW10RNF2YSgnmVbD6Wqq5oaFpGh4+9FVg9QbEx4O5FnSxGjnmJeVfTC162sK/oWl1NSZ4lmVALCOa0OnsbJ+AHGERBcv/6KoGCJ2slSRUgMkZEl46D2SP1mLH2HFhvugQMXWXBd8qBD3GmJ3QocR9bnWiJYE1uD57jkUpT2IJC9mgHoRR6inq/09lN/VANftlKvasrwgKGZwIU3nIquXSeHD9jtAP5rXzalRp+VJ8LM2zHKiRjRZf4FFgniruTT/fdYSdnvLqmo/yd0Y/nPxhESm9JqRQpKe6fdTJUJFwQ7SRTgHnVxp margrav@Martins-MacBook-Air.local
+  - username: omega
+    state: present
+    authorized_keys: |
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPzUlNNCZe0FJ+0vz1sM9hYMNHJSWFgY6gqyAP0kWm+y
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDYI6OTHiS015oqVINoQ3zEl2CF02UmdEVeO3dzeX1Kv
