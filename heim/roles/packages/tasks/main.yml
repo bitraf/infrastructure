@@ -15,6 +15,10 @@
       deb     http://ftp.no.debian.org/debian/ buster-updates main contrib non-free
       deb-src http://ftp.no.debian.org/debian/ buster-updates main contrib non-free
 
+      deb     http://ftp.no.debian.org/debian/ buster-backports main contrib non-free
+      deb-src http://ftp.no.debian.org/debian/ buster-backports main contrib non-free
+
+
 - name: install debian packages
   tags: packages
   become: yes
@@ -50,5 +54,5 @@
     - nginx
 
     # user requests
-    - php7.0
+    - php7.3
     - php
