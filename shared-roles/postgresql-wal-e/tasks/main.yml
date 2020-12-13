@@ -117,3 +117,39 @@
         enabled: yes
         masked: no
         name: postgresql-base-backup@{{ pwe_major }}-{{ pwe_instance }}.timer
+
+    - name: systemd base backup service cleaner
+      register: base_backup_cleaner_service
+      copy:
+        dest: /etc/systemd/system/postgresql-base-backup-cleaner@.service
+        content: |
+          [Unit]
+          Description=PostgreSQL base backup cleaner
+
+          [Service]
+          Type=oneshot
+          ExecStart=/usr/bin/env bash -c 'i="%i"; i=${i/-//}; bin/envdir /etc/wal-e/%i-env.d bin/wal-e delete --retain {{ pwe_retain }} --confirm'
+          WorkingDirectory={{ pwe_venv }}
+          User=postgres
+
+    - name: systemd base backup cleaner timer
+      register: base_backup_cleaner_timer
+      copy:
+        dest: /etc/systemd/system/postgresql-base-backup-cleaner@.timer
+        content: |
+          [Unit]
+          Description=PostgreSQL base backup cleaner timer
+
+          [Timer]
+          OnCalendar=Sun 05:00
+
+          [Install]
+          WantedBy=timers.target
+
+    - name: systemd daemon-reload
+      when: base_backup_cleaner_service.changed or base_backup_cleaner_timer.changed
+      systemd:
+        daemon_reload: yes
+        enabled: yes
+        masked: no
+        name: postgresql-base-backup-cleaner@{{ pwe_major }}-{{ pwe_instance }}.timer

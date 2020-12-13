@@ -1,1 +1,2 @@
 pwe_venv: /var/lib/postgresql/wal-e
+pwe_retain: 5
