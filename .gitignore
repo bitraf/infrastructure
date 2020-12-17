@@ -6,3 +6,8 @@ test.yml
 
 vault-password
 vault-password.asc
+
+linode-credentials
+terraform.d
+.terraform
+.terraform.lock.hcl
