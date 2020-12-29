@@ -259,8 +259,8 @@
           - unzip
           - openjdk-8-jre
           - mosquitto-clients
-          - python-certbot
-          - python-certbot-nginx
+          - python3-certbot
+          - python3-certbot-nginx
           - gcc # For twisted
           - python3-dev # For twisted
 
