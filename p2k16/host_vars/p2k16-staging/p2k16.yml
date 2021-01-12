@@ -5,6 +5,7 @@ p2k16:
   mqtt_username: bitraf-p2k16-web-staging
   mqtt_prefix: bitraf/bitraf-p2k16-web-staging/door/
   mqtt_prefix_tool: bitraf/tool
+  membership_cc: p2k16-staging@bitraf.no
 
 p2k16__git_version: master
 postgresql_wal_e__state: absent

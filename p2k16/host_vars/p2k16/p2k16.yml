@@ -5,3 +5,4 @@ p2k16:
   mqtt_username: bitraf-p2k16-web
   mqtt_prefix: /bitraf/door/
   mqtt_prefix_tool: bitraf/tool
+  membership_cc: post@bitraf.no
