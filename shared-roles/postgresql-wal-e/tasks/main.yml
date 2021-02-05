@@ -128,7 +128,7 @@
 
           [Service]
           Type=oneshot
-          ExecStart=/usr/bin/env bash -c 'i="%i"; i=${i/-//}; bin/envdir /etc/wal-e/%i-env.d bin/wal-e delete --retain {{ pwe_retain }} --confirm'
+          ExecStart=/usr/bin/env bash -c 'i="%i"; i=${i/-//}; bin/envdir /etc/wal-e/%i-env.d bin/wal-e delete --confirm retain {{ pwe_retain }}'
           WorkingDirectory={{ pwe_venv }}
           User=postgres
 
