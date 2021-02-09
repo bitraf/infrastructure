@@ -3,5 +3,3 @@ lxc_host_containers:
     state: started
   mysql:
     state: started
-  wordpress:
-    state: started
