@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -euo pipefail
+
+basedir=$(dirname "$0")
+
+version=0.14.5
+url=https://releases.hashicorp.com/terraform/${version}/terraform_${version}_linux_amd64.zip
+
+bin="$basedir/.tmp/$version/terraform"
+
+if [[ ! -x "$bin" ]]
+then
+  mkdir -p $(dirname "$bin")
+  wget -O "$bin.zip" "$url"
+  cd $(dirname "$bin")
+  unzip "$bin.zip" terraform
+  chmod +x terraform
+  cd -
+fi
+
+exec "$bin" "${@}"

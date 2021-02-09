@@ -1,0 +1,7 @@
+- name: systemctl restart
+  become: yes
+  loop: "{{ docker_service__restart }}"
+  systemd:
+    name: "{{ item }}"
+    state: restarted
+#  debug: var=docker_service__restart

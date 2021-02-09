@@ -11,3 +11,6 @@ linode-credentials
 terraform.d
 .terraform
 .terraform.lock.hcl
+
+bin/.tmp
+settings.vault

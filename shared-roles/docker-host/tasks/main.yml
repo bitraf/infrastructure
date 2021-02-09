@@ -1,0 +1,28 @@
+- become: yes
+  tags: never,packages
+  apt:
+    name:
+      - docker.io
+      - docker-compose
+      - gnupg2
+      - pass
+    install_recommends: no
+
+- name: Logging in to docker registries
+  loop: "{{ docker_host__credentials }}"
+  become: yes
+  command:
+    cmd: docker login -u "{{ item.username }}" --password-stdin "{{ item.registry }}"
+    stdin: "{{ item.password }}"
+  no_log: yes
+
+- name: Create /etc/docker/daemon.json
+  when: docker_host__daemon_json_content|default("")|length > 0
+  become: yes
+  register: docker_json
+  copy:
+    dest: /etc/docker/daemon.json
+    content: "{{ docker_host__daemon_json_content }}"
+
+- debug: msg="docker.json changed, you must manually restart docker."
+  when: docker_json.changed

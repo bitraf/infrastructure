@@ -4,6 +4,7 @@
     - network
     - packages
     - bitraf-base
+    - docker-host
     # superusers and lusers are maintained in ../all.yml
   vars_files:
     - ../group_vars/all/host_database.yml

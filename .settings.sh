@@ -1,7 +1,15 @@
-alias terraform="ANSIBLE_VAULT_PASS=\$($(pwd)/vault-password) $(pwd)/ops/terraform/.terraform/bin/terraform"
-
-if [[ -r linode-credentials && vault-password ]]
+if [[ ! -x vault-password ]]
 then
-  echo "Loading ./linode-credentials"
-  $(ansible-vault view linode-credentials)
+  echo "./vault-password does not exist, please read README.md"
+else
+  export ANSIBLE_VAULT_PASS="$($(pwd)/vault-password)"
+
+  if [[ -r settings.vault ]]
+  then
+    echo "Sourcing ./settings.vault"
+    $(ansible-vault view settings.vault)
+  fi
 fi
+
+echo "Adding bin/ to PATH"
+PATH="$(pwd)/bin:$PATH"
