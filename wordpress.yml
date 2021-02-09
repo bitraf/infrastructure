@@ -11,6 +11,5 @@
       - sites-enabled/default
   roles:
     - packages
-    - postfix-satellite
     - nginx
     - wordpress

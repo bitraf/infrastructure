@@ -27,11 +27,6 @@
       tags: packages
       become: true
 
-    - name: postfix-satellite
-      import_role: name=postfix-satellite
-      tags: postfix-satellite
-      become: true
-
     - tags: samba
       become: yes
       block:

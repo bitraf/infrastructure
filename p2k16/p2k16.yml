@@ -4,7 +4,6 @@
     - p2k16-staging
   vars_files:
     - ../vars/bitraf_passwords.yml
-    - ../vars/postfix.yml
     - ../vars/users.yml
   vars:
     pwe_major: 10
@@ -17,6 +16,5 @@
     - superusers
     - postgresql-server-base
     - postgresql-wal-e
-    - postfix-satellite
     - unattended-upgrades
     - p2k16
