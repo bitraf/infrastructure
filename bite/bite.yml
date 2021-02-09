@@ -4,11 +4,9 @@
     - network
     - packages
     - bitraf-base
-    - postfix-satellite
     # superusers and lusers are maintained in ../all.yml
   vars_files:
     - ../group_vars/all/host_database.yml
-    - ../vars/postfix.yml
     - ../vars/users.yml
   tasks:
   # The disk array doesn't work nicely with the UAS driver.
