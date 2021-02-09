@@ -7,6 +7,5 @@
     - p2k16-staging
     - riemann
     - unifi
-    - wordpress
   roles:
     - postfix-satellite
