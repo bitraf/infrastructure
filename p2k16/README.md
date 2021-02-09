@@ -10,7 +10,7 @@ If you don't have one, ask one of the superusers for one.
 For deploying the p2k16 application on staging (this is probably what you want):
 
 ```
-ansible-playbook -l p2k16-staging --tags p2k16-main p2k16.yml --extra-vars 'p2k16_git_version=master'
+ansible-playbook -l p2k16-staging --tags p2k16-main p2k16.yml --extra-vars 'p2k16__git_version=master'
 ```
 
 To deploy a specific version (git commit, branch, or tag), replace `master` above.

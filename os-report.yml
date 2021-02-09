@@ -1,0 +1,31 @@
+---
+# simple playbook to gather os info, write to os.csv. Found in a stackoverflow post.
+- hosts: all
+  become: no
+  vars:
+    output_file: os.csv
+  tasks:
+    - block:
+        # For permisison setup.
+        - name: get current user
+          command: whoami
+          register: whoami
+          run_once: yes
+
+        - name: clean file
+          copy:
+            dest: "{{ output_file }}"
+            content: 'hostname,distribution,version,release'
+            owner: "{{ whoami.stdout }}"
+          run_once: yes
+
+        - name: fill os information
+          lineinfile:
+            path: "{{ output_file }}"
+            line: "{{ ansible_hostname }},\
+              {{ ansible_distribution }},\
+              {{ ansible_distribution_version }},\
+              {{ ansible_distribution_release }}"
+          # Tries to prevent concurrent writes.
+          # throttle: 1
+      delegate_to: localhost

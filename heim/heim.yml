@@ -3,7 +3,7 @@
   roles:
     - network
     - packages
-    - bitraf-base
+#    - bitraf-base
     - superusers
     - users
     - www
