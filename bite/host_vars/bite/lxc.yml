@@ -1,8 +1,8 @@
 lxc_host_containers:
   marvin:
-    state: started
+    state: stopped
   mediawiki:
-    state: started
+    state: stopped
 
 lxc_host__zfs_root: pool0/lxc
 lxc_host__backing_store: zfs
