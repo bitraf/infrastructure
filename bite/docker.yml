@@ -1,0 +1,4 @@
+- hosts: bite
+  tasks:
+    - import_role:
+        name: docker-host

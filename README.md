@@ -15,9 +15,10 @@ terminal:
 Python requirements
 -------------------
 
-Install dependencies:
+Install dependencies in a Python 3 environment:
 
-    pip3 install --user -r requirements.txt
+    virtualenv env
+    env/bin/pip install -r requirements.txt
 
 ansible-vault settings
 ----------------------
