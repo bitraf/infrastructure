@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -euo pipefail
+
+basedir=$(dirname $0)
+
+$basedir/bin/terraform -chdir="$basedir/ops/terraform" output -json |\
+    python3 "$basedir/bin/terraform-to-ansible-inventory.py"

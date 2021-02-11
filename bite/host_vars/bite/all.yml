@@ -1,0 +1,5 @@
+docker_host__daemon_json_content: |
+  {
+    "storage-driver": "zfs",
+    "graph": "/pool0/docker"
+  }
