@@ -1,3 +1,4 @@
+packages_debian_release: buster
 packages__enable_backports: yes
 packages_packages:
   # network interface firmware (non-free)
