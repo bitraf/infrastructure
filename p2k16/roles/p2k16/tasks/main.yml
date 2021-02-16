@@ -131,6 +131,12 @@
         name: p2k16-flyway
         password: "{{ p2k16_secret.db_password_flyway }}"
         encrypted: yes
+    - name: p2k16-ldap
+      tags: update-password
+      postgresql_user:
+        name: p2k16-ldap
+        password: "{{ p2k16_secret.db_password_ldap }}"
+        encrypted: yes
     - name: p2k16-web
       tags: update-password
       notify: p2k16 restart
@@ -301,17 +307,6 @@
         virtualenv_python: python3
         extra_args: --trusted-host github.com --process-dependency-links
 
-    # This is a hack for now. Will have to be removed when an updated
-    # ldaptor is published. pip+git sucks.
-    - name: p2k16 pip (ldaptor)
-      notify: p2k16 restart
-      tags: p2k16-pull
-      pip:
-        name: "git+https://github.com/twisted/ldaptor.git#egg=ldaptor"
-        editable: true
-        virtualenv: /opt/p2k16/env
-        virtualenv_python: python3
-
     - name: p2k16 install bower
       notify: p2k16 restart
       npm:
@@ -338,5 +333,3 @@
         daemon_reload: yes
         enabled: yes
         state: started
-
-- import_tasks: ldap.yml
