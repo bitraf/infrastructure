@@ -1,0 +1,12 @@
+- hosts: bite
+  vars:
+    etc_dir: /etc/docker-service/minio
+    minio_version: RELEASE.2021-02-14T04-01-33Z
+    minio_basedir: /opt/minio
+  tasks:
+    - import_role:
+        name: docker-service
+      tags: docker-service
+      vars:
+        service: minio
+        template: minio/docker-compose.yml

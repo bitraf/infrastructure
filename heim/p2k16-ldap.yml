@@ -1,0 +1,9 @@
+- hosts: bite
+  vars:
+  tasks:
+    - import_role:
+        name: docker-service
+      tags: docker-service
+      vars:
+        service: minio
+        template: minio/docker-compose.yml

@@ -1,0 +1,7 @@
+version: "3"
+services:
+  minio:
+    image: bitraf/p2k16-ldap
+    environment: {}
+#      MINIO_ROOT_USER: {{ minio_root_user }}
+#      MINIO_ROOT_PASSWORD: {{ minio_root_password }}

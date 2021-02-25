@@ -1,0 +1,18 @@
+version: "3"
+services:
+  grafana:
+    image: grafana/grafana:7.1.5
+    environment:
+      GF_SERVER_ROOT_URL: https://grafana.bitraf.no
+    ports:
+      - "3000:3000"
+    volumes:
+      - {{ grafana_dir }}:/var/lib/grafana
+
+  idb:
+    image: influxdb:1.8.1
+    ports:
+      - "8086:8086"
+    volumes:
+      - {{ etc_dir }}/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+      - {{ influxdb_dir }}:/var/lib/influxdb

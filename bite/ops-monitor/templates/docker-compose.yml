@@ -1,0 +1,17 @@
+version: "3"
+services:
+  telegraf:
+    image: telegraf:1.15
+    networks:
+      - influx
+    volumes:
+      - {{ etc_dir }}/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - {{ etc_dir }}/unifi/UBNT-MIB:/root/.snmp/mibs/UBNT-MIB:ro
+      - {{ etc_dir }}/unifi/UBNT-UniFi-MIB:/root/.snmp/mibs/UBNT-UniFi-MIB:ro
+
+    environment:
+      INFLUX_URL: "http://idb:8086"
+    command:
+      - sh
+      - -c
+      - "sed -i -e 's/main/main non-free/' /etc/apt/sources.list && apt update && apt install --install-recommends=no -y snmp-mibs-downloader && exec telegraf"

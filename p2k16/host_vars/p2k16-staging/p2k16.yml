@@ -7,5 +7,5 @@ p2k16:
   mqtt_prefix_tool: bitraf/tool
   membership_cc: p2k16-staging@bitraf.no
 
-p2k16__git_version: master
+p2k16__git_version: ldap-2
 postgresql_wal_e__state: absent

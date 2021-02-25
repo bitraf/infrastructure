@@ -1,0 +1,45 @@
+- hosts: bite
+  vars:
+    etc_dir: /etc/docker-service/ops-server
+    grafana_zfs: pool0/grafana
+    grafana_dir: "/{{ grafana_zfs }}"
+
+    influxdb_zfs: pool0/influxdb
+    influxdb_dir: "/{{ influxdb_zfs }}"
+  tasks:
+    - become: yes
+      name: mkdirs
+      file:
+        dest: "{{ etc_dir }}/{{ item }}"
+        state: directory
+        owner: root
+        group: root
+        mode: u=rx
+      loop:
+        - ""
+        - unifi
+
+    - become: yes
+      name: ZFS for grafana
+      zfs:
+        name: "{{ grafana_zfs }}"
+        state: present
+        mode: ug=rwx,o=rx
+
+    - become: yes
+      template:
+        src: "ops-server/influxdb.conf"
+        dest: "{{ etc_dir }}/influxdb.conf"
+
+    - become: yes
+      name: ZFS for influxdb
+      zfs:
+        name: "{{ influxdb_zfs }}"
+        state: present
+
+    - import_role:
+        name: docker-service
+      tags: docker-service
+      vars:
+        service: ops-server
+        template: ops-server/docker-compose.yml

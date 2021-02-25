@@ -1,0 +1,9 @@
+- hosts: bite
+  vars:
+  tasks:
+    - import_role:
+        name: docker-service
+      tags: docker-service
+      vars:
+        service: p2k16-ldap
+        template: p2k16-ldap/docker-compose.yml

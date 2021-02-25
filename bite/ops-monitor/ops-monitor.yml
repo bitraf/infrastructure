@@ -1,0 +1,34 @@
+- hosts: bite
+  vars:
+    etc_dir: /etc/docker-service/ops-monitor
+  tasks:
+    - become: yes
+      name: mkdirs
+      file:
+        dest: "{{ etc_dir }}/{{ item }}"
+        state: directory
+        owner: root
+        group: root
+        mode: u=rx
+      loop:
+        - ""
+        - unifi
+
+    - become: yes
+      template:
+        src: "ops-monitor/telegraf.conf"
+        dest: "{{ etc_dir }}/telegraf.conf"
+    - become: yes
+      template:
+        src: "ops-monitor/unifi/{{ item }}"
+        dest: "{{ etc_dir }}/unifi/{{ item }}"
+      loop:
+        - UBNT-MIB
+        - UBNT-UniFi-MIB
+
+    - import_role:
+        name: docker-service
+      tags: docker-service
+      vars:
+        service: ops-monitor
+        template: ops-monitor/docker-compose.yml
