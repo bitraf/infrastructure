@@ -219,6 +219,8 @@ $wgGoogleTagManagerContainerID = "{{ wgGoogleTagManagerContainerID }}";
 
 // --- Semantic mediawiki
 $smwgShowFactbox = SMW_FACTBOX_NONEMPTY;
+
+/*
 enableSemantics("https://bitraf.no/wiki/Special:URIResolver/", true);
 
 wfLoadExtension("SemanticResultFormats");
@@ -228,6 +230,7 @@ wfLoadExtension("Scribunto");
 #$wgScribuntoDefaultEngine = "luastandalone";
 
 wfLoadExtension("SemanticScribunto");
+*/
 
 // --- CodeEditor
 wfLoadExtension( 'CodeEditor' );
