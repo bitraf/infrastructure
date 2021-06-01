@@ -102,6 +102,7 @@ resource "linode_domain_record" "a-records" {
     "boxy4" : { type : "CNAME", target : "boxy4.local", },
     "wormwood" : { type : "A", target : "195.159.128.13", },
     "channon" : { type : "A", target : "178.79.163.96", },
+    "wiki" : { type : "A", target : local.bitnode, },
   }
 }
 
