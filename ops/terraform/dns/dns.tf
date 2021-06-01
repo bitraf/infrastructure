@@ -28,7 +28,7 @@ resource "linode_domain_record" "txt-records" {
 resource "linode_domain_record" "spf" {
   domain_id   = linode_domain.bitraf.id
   record_type = "TXT"
-  target      = "v=spf1 a:bitraf.no ip4:85.90.244.199 ip4:77.40.158.113/27 ip6:2a01:7e01::f03c:91ff:fe67:e271 include:_spf.google.com ~all"
+  target      = "v=spf1 a:bitraf.no ip4:${local.bitnode} ip4:${local.pg4}.113/27 ip6:2a01:7e01::f03c:91ff:fe67:e271 include:_spf.google.com ~all"
 }
 
 resource "linode_domain_record" "libera-chat" {
@@ -58,15 +58,14 @@ resource "linode_domain_record" "a-records" {
   target      = each.value.target
 
   for_each = {
-    "" : { type : "A", target : local.bitnode },
-    "www" : { type : "A", target : local.bitnode },
+    "" : { type : "A", target : local.wpengine },
+    "www" : { type : "A", target : local.wpengine },
     "bit" : { type : "A", target : "${local.pg4}.100", },
     "bitbot" : { type : "A", target : "127.0.0.1", },
-    "bitnode" : { type : "A", target : "85.90.244.199", },
-    "mail" : { type : "A", target : "85.90.244.199", },
-    # "ns1": {type: "A", target: "85.90.244.199",},
-    # "ns2": {type: "A", target: "85.90.244.199",},
-    "www" : { type : "A", target : "85.90.244.199", },
+    "bitnode" : { type : "A", target : local.bitnode, },
+    "mail" : { type : "A", target : local.bitnode, },
+    # "ns1": {type: "A", target: local.bitnode,},
+    # "ns2": {type: "A", target: local.bitnode,},
     "api" : { type : "CNAME", target : "www.bitraf.no", },
     "staging" : { type : "CNAME", target : "www.bitraf.no", },
     "blog" : { type : "CNAME", target : "www.bitraf.no", },
@@ -109,4 +108,5 @@ resource "linode_domain_record" "a-records" {
 locals {
   pg4     = "77.40.158"
   bitnode = "85.90.244.199"
+  wpengine = "34.89.223.2"
 }
