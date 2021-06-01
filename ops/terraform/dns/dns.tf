@@ -31,6 +31,12 @@ resource "linode_domain_record" "spf" {
   target      = "v=spf1 a:bitraf.no ip4:85.90.244.199 ip4:77.40.158.113/27 ip6:2a01:7e01::f03c:91ff:fe67:e271 include:_spf.google.com ~all"
 }
 
+resource "linode_domain_record" "libera-chat" {
+  domain_id   = linode_domain.bitraf.id
+  record_type = "TXT"
+  target      = "lba-verify-982374234"
+}
+
 resource "linode_domain_record" "domainkey-1" {
   domain_id   = linode_domain.bitraf.id
   record_type = "TXT"
