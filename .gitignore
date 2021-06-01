@@ -14,3 +14,4 @@ terraform.d
 
 bin/.tmp
 settings.vault
+*.tfstate
