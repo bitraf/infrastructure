@@ -161,4 +161,4 @@
         dest: /opt/mediawiki/mediawiki/bitraf.png
         owner: www-data
         group: www-data
-        mode: u=rw, g=r, o=r
+        mode: u=rw,g=r,o=r
