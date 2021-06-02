@@ -219,6 +219,9 @@ $wgGoogleAnalyticsAccount = "{{ wgGoogleAnalyticsAccount }}";
 $wgGoogleTagManagerContainerID = "{{ wgGoogleTagManagerContainerID }}";
 {% endif %}
 
+// --- CodeEditor
+wfLoadExtension( 'CodeEditor' );
+
 // --- Semantic mediawiki
 $smwgShowFactbox = SMW_FACTBOX_NONEMPTY;
 
