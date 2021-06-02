@@ -164,7 +164,7 @@ $wgGroupPermissions['*']['autocreateaccount'] = true;
 wfLoadExtension('WikiEditor');
 # Enables use of WikiEditor by default but still allows users to disable
 # it in preferences
-$wgDefaultUserOptions['usebetatoolbar'] = 1;
+$wgDefaultUserOptions['usebetatoolbar'] = 1; // user option provided by WikiEditor extension
 
 # Enables link and table wizards by default but still allows users to
 # disable them in preferences
@@ -237,9 +237,6 @@ wfLoadExtension("Scribunto");
 wfLoadExtension("SemanticScribunto");
 */
 
-// --- CodeEditor
-wfLoadExtension( 'CodeEditor' );
-$wgDefaultUserOptions['usebetatoolbar'] = 1; // user option provided by WikiEditor extension
 $wgScribuntoUseCodeEditor = true;
 $wgDebugLogFile = "/var/log/nginx/mediawiki.log";
 
