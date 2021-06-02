@@ -156,6 +156,8 @@ $wgAuth = new p2k12Auth();
 $wgGroupPermissions['*']['createaccount'] = false;
 $wgGroupPermissions['*']['edit'] = false;
 
+$wgGroupPermissions['*']['autocreateaccount'] = true;
+
 #
 # WikiEditor
 #
