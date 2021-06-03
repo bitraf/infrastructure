@@ -33,14 +33,14 @@ $wgArticlePath = '/wiki/$1';
 ## The protocol and server name to use in fully-qualified URLs
 # This is the ideal pattern, but some tuning from Nginx is required.
 # $wgServer = "https://${_SERVER['HTTP_HOST']}";
-$wgServer = "https://bitraf.no";
+$wgServer = "https://wiki.bitraf.no";
 
 ## The URL path to static resources (images, scripts, etc.)
 $wgResourceBasePath = $wgScriptPath;
 
 ## The URL path to the logo.  Make sure you change this from the default,
 ## or else you'll overwrite your logo when you upgrade!
-$wgLogo = "https://bitraf.no/images/bitraf.png";
+$wgLogo = "{$wgScriptPath}/bitraf.png";
 
 ## UPO means: this is also a user preference option
 
@@ -156,13 +156,15 @@ $wgAuth = new p2k12Auth();
 $wgGroupPermissions['*']['createaccount'] = false;
 $wgGroupPermissions['*']['edit'] = false;
 
+$wgGroupPermissions['*']['autocreateaccount'] = true;
+
 #
 # WikiEditor
 #
 wfLoadExtension('WikiEditor');
 # Enables use of WikiEditor by default but still allows users to disable
 # it in preferences
-$wgDefaultUserOptions['usebetatoolbar'] = 1;
+$wgDefaultUserOptions['usebetatoolbar'] = 1; // user option provided by WikiEditor extension
 
 # Enables link and table wizards by default but still allows users to
 # disable them in preferences
@@ -217,6 +219,9 @@ $wgGoogleAnalyticsAccount = "{{ wgGoogleAnalyticsAccount }}";
 $wgGoogleTagManagerContainerID = "{{ wgGoogleTagManagerContainerID }}";
 {% endif %}
 
+// --- CodeEditor
+wfLoadExtension( 'CodeEditor' );
+
 // --- Semantic mediawiki
 $smwgShowFactbox = SMW_FACTBOX_NONEMPTY;
 
@@ -232,9 +237,6 @@ wfLoadExtension("Scribunto");
 wfLoadExtension("SemanticScribunto");
 */
 
-// --- CodeEditor
-wfLoadExtension( 'CodeEditor' );
-$wgDefaultUserOptions['usebetatoolbar'] = 1; // user option provided by WikiEditor extension
 $wgScribuntoUseCodeEditor = true;
 $wgDebugLogFile = "/var/log/nginx/mediawiki.log";
 

@@ -149,3 +149,16 @@
       template:
         dest: /etc/mediawiki
         src: "{{ mediawiki__local_settings }}"
+
+- become: yes
+  tags:
+    - mediawiki
+    - mediawiki-config
+  block:
+    - name: mediawiki-bitraf-logo
+      copy:
+        src: bitraf.png
+        dest: /opt/mediawiki/mediawiki/bitraf.png
+        owner: www-data
+        group: www-data
+        mode: u=rw,g=r,o=r
