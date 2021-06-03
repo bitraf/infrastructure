@@ -86,7 +86,7 @@ server {
 
   # Explicit access to the root website, redirect to main page (adapt as needed)
   location = / {
-    return 301 https://bitraf.no;
+    return 301 https://wiki.bitraf.no/wiki/;
   }
 
   # Every other entry point will be disallowed.
