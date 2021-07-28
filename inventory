@@ -20,7 +20,6 @@ riemann ansible_host=riemann.bitraf.no
 testskjerm ansible_host=testskjerm.local
 tv ansible_host=tv.local
 unifi ansible_host=unifi.local
-wordpress ansible_host=2a01:7e01:e001:e1:7aec:ccff:fea2:5c
 helsing ansible_host=10.13.37.59
 infoscreen-a ansible_host=infoscreen-a.local
 
@@ -31,7 +30,6 @@ bomba
 marvin
 mediawiki
 mysql
-wordpress
 
 [lxc-guest:vars]
 bitraf_base__fix_hosts=True

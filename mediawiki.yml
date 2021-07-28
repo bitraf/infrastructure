@@ -8,7 +8,6 @@
     - packages
     - lusers
     - superusers
-    - postfix-satellite
     - role: nginx
       nginx__template:
         - sites-enabled/default

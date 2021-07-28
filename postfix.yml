@@ -1,0 +1,11 @@
+---
+- hosts:
+    - bite
+    - marvin
+    - mediawiki
+    - p2k16
+    - p2k16-staging
+    - riemann
+    - unifi
+  roles:
+    - postfix-satellite

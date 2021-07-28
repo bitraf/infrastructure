@@ -1,12 +1,24 @@
 bitraf infrastructure
 =====================
 
+`.settings.sh`
+--------------
+
+To get our tools put in your $PATH and secrets loaded (see
+`settings.vault`), always source .settings.sh when opening a new
+terminal:
+
+    $ . .settings.sh
+    Sourcing ./settings.vault
+    Adding bin/ to PATH
+
 Python requirements
 -------------------
 
-Install dependencies:
+Install dependencies in a Python 3 environment:
 
-    pip3 install --user -r requirements.txt
+    virtualenv env
+    env/bin/pip install -r requirements.txt
 
 ansible-vault settings
 ----------------------
@@ -43,6 +55,28 @@ See also: https://github.com/building5/ansible-vault-tools
 **Git config**: Run this to show the plain text diff on vault files:
 
    git config diff.ansible-vault.textconv ansible-vault view
+
+`./settings.vault`
+------------------
+
+When using Terraform, you need to have a ansible-vault file called
+settings.vault. It can be created with
+
+    ansible-vault create settings.vault
+
+It's content should be:
+
+    export LINODE_TOKEN=
+    export AWS_ACCESS_KEY_ID=
+    export AWS_SECRET_ACCESS_KEY=
+
+The values you will get from your Bitraf Linode account if you have
+access. The `LINODE_TOKEN` is a "personal access token v4" and the AWS
+keys are created under 
+[Object Storage](https://cloud.linode.com/object-storage/buckets).
+Make sure that the token has access to the `bitraf-terraform` bucket.
+
+Name the tokens `$username-$machine`.
 
 See also
 --------

@@ -40,17 +40,6 @@ host_database:
           address: 10.13.39.2
           netmask: 24
           gateway: 10.13.39.1
-  wordpress:
-    interfaces:
-      eth0:
-        hwaddr: 78:ec:cc:a2:00:5c
-        role: lan
-        ipv4:
-          address: 10.13.39.3
-          netmask: 24
-          gateway: 10.13.39.1
-        ipv6:
-          address: 2a01:7e01:e001:e1:7aec:ccff:fea2:5c
   mysql:
     interfaces:
       eth0:
