@@ -25,7 +25,7 @@
     dest: /etc/apt/preferences.d/bitraf-packages
     content: |
       Package: *
-      Pin: release a=stretch-backports
+      Pin: release a={{ packages_debian_release }}-backports
       Pin-Priority: 500
 
 - meta: flush_handlers
