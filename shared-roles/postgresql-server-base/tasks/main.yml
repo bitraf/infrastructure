@@ -16,7 +16,7 @@
       notify: update apt cache
       copy:
         dest: /etc/apt/sources.list.d/postgresql.list
-        content: 'deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main'
+        content: 'deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main'
 
 - meta: flush_handlers
 
