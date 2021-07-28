@@ -1,7 +1,11 @@
-- name: systemctl restart
+- name: systemctl reload
   become: yes
-  loop: "{{ docker_service__restart }}"
+  loop: "{{ docker_service__reload }}"
   systemd:
     name: "{{ item }}"
-    state: restarted
-#  debug: var=docker_service__restart
+    state: reloaded
+#  debug: var=docker_service__reload
+
+- name: docker-compose pull
+  community.docker.docker_compose:
+    pull: yes

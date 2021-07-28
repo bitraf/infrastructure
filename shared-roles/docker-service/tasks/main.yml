@@ -20,7 +20,9 @@
   template:
     dest: "{{ docker_service__etc }}/{{ service }}/docker-compose.yml"
     src: "{{ template }}"
-  notify: systemctl restart
+  notify:
+    - docker-compose pull
+    - systemctl reload
   register: docker_descriptor
 
 - name: "/etc/systemd/system/{{ systemd_unit }}.service"
@@ -36,14 +38,21 @@
 
       [Service]
       WorkingDirectory={{ docker_service__etc }}/{{ service }}/
-      ExecStartPre=-/usr/bin/docker-compose pull
-      ExecStartPre=-/usr/bin/docker-compose stop
+      Type=oneshot
+      RemainAfterExit=true
+      ExecStartPre=/usr/bin/docker-compose pull
       ExecStart=/usr/bin/docker-compose up -d
+
+      ExecStop=/usr/bin/docker-compose stop
+
+      ExecReload=/usr/bin/docker-compose pull
       ExecReload=/usr/bin/docker-compose up -d
 
       [Install]
       WantedBy=multi-user.target
-  notify: systemctl restart
+  notify:
+    - docker-compose pull
+    - systemctl reload
   register: systemd_descriptor
 
 - name: systemd daemon-reload
@@ -60,5 +69,5 @@
     state: "{{ systemd_state }}"
 
 - set_fact:
-    docker_service__restart: "{{ docker_service__restart + [systemd_unit] }}"
+    docker_service__reload: "{{ docker_service__reload + [systemd_unit] }}"
   when: (systemd_descriptor.changed or docker_descriptor.changed) and systemd_state == 'started'

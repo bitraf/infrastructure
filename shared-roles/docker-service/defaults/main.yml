@@ -2,4 +2,4 @@ docker_service__etc: /etc/docker-service
 systemd_unit: "docker-service-{{ service }}"
 systemd_enabled: "yes"
 systemd_state: "started"
-docker_service__restart: []
+docker_service__reload: []
