@@ -9,20 +9,20 @@
       - docker-compose
     install_recommends: no
 
-- name: "{{ docker_service__etc }}/{{ service }}"
+- name: "{{ docker_service__etc }}/{{ docker_service }}"
   become: yes
   file:
-    path: "{{ docker_service__etc }}/{{ service }}"
+    path: "{{ docker_service__etc }}/{{ docker_service }}"
     state: directory
 
-- name: "{{ docker_service__etc }}/{{ service }}/docker-compose.yml"
+- name: "{{ docker_service__etc }}/{{ docker_service }}/docker-compose.yml"
   become: yes
   template:
-    dest: "{{ docker_service__etc }}/{{ service }}/docker-compose.yml"
+    dest: "{{ docker_service__etc }}/{{ docker_service }}/docker-compose.yml"
     src: "{{ template }}"
   notify:
-    - docker-compose pull
-    - systemctl reload
+    - "docker-service: pull"
+    - "docker-service: reload"
   register: docker_descriptor
 
 - name: "/etc/systemd/system/{{ systemd_unit }}.service"
@@ -31,13 +31,13 @@
     dest: "/etc/systemd/system/{{ systemd_unit }}.service"
     content: |
       [Unit]
-      Description=Docker service: {{ service }}
+      Description=Docker service: {{ docker_service }}
       After=network-online.target
       After=docker.service
       Requires=docker.service
 
       [Service]
-      WorkingDirectory={{ docker_service__etc }}/{{ service }}/
+      WorkingDirectory={{ docker_service__etc }}/{{ docker_service }}/
       Type=oneshot
       RemainAfterExit=true
       ExecStartPre=/usr/bin/docker-compose pull
@@ -51,8 +51,8 @@
       [Install]
       WantedBy=multi-user.target
   notify:
-    - docker-compose pull
-    - systemctl reload
+    - "docker-service: pull"
+    - "docker-service: reload"
   register: systemd_descriptor
 
 - name: systemd daemon-reload

@@ -1,11 +1,14 @@
-- name: systemctl reload
+- name: docker-compose pull
+  become: yes
+  listen: "docker-service: pull"
+  community.docker.docker_compose:
+    project_src: "{{ docker_service__etc }}/{{ docker_service }}"
+    pull: yes
+
+- name: Reload Docker Service
+  listen: "docker-service: reload"
   become: yes
   loop: "{{ docker_service__reload }}"
   systemd:
     name: "{{ item }}"
     state: reloaded
-#  debug: var=docker_service__reload
-
-- name: docker-compose pull
-  community.docker.docker_compose:
-    pull: yes

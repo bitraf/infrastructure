@@ -1,0 +1,9 @@
+- name: systemctl reload
+  become: yes
+  systemd:
+    name: "{{ systemd_unit }}"
+    state: reloaded
+
+- name: docker-compose pull
+  community.docker.docker_compose:
+    pull: yes
