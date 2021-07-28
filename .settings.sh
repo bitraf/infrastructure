@@ -13,3 +13,5 @@ fi
 
 echo "Adding bin/ to PATH"
 PATH="$(pwd)/bin:$PATH"
+echo "Adding env/bin/ to PATH"
+PATH="$(pwd)/env/bin:$PATH"
