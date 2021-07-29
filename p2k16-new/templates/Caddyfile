@@ -7,6 +7,6 @@
 #  }
 }
 
-{{ p2k16.domain_name }} {
+{{ p2k16_public_domain }} {
   reverse_proxy /* p2k16:5000
 }

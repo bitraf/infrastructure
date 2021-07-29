@@ -15,3 +15,5 @@ terraform.d
 bin/.tmp
 settings.vault
 *.tfstate
+
+ops/terraform-output

@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  p2k16:
+    image: "{{ docker_image }}:{{ docker_tag }}"
+    restart: always
+    networks:
+      - web
+    environment:
+      DLOCK_BASE_URL: "{{ p2k16_dlock_base_url }}"
+      DLOCK_USERNAME: "{{ p2k16_dlock_username }}"
+      DLOCK_PASSWORD: "{{ bitraf_passwords.dlock[p2k16_dlock_username].password }}"
+      P2K16_BIND: "0.0.0.0:5000"
+      MQTT_HOST: "{{ p2k16_mqtt_host }}"
+      MQTT_PORT: "{{ p2k16_mqtt_port }}"
+      MQTT_USERNAME: "{{ p2k16_mqtt_username }}"
+      MQTT_PASSWORD: "{{ bitraf_passwords.mqtt[p2k16_mqtt_username].password }}"
+      MQTT_PREFIX: "{{ p2k16_mqtt_prefix }}"
+      MQTT_PREFIX_TOOL: "{{ p2k16_mqtt_prefix_tool }}"
+      MEMBERSHIP_CC: "{{ p2k16_membership_cc }}"
+      LDAP_DB: "dbname={{ db_database }} user={{ db_web_username }} password={{ db_web_password }} host={{ db_host }} port={{ db_port }} sslmode=require"
+      SQLALCHEMY_DATABASE_URI: "postgresql://{{ db_web_username }}:{{ db_web_password }}@{{ db_host }}:{{ db_port }}/{{ db_database }}?sslmode=require"
+      SECRET_KEY: "{{ flask_secret_key }}"
+      STRIPE_WEBHOOK_SECRET: "{{ stripe_webhook_secret }}"
+      STRIPE_SECRET_KEY: "{{ stripe_secret_key }}"
+      STRIPE_PUBLIC_KEY: "{{ stripe_public_key }}"
+
+  caddy:
+    image: caddy
+    restart: always
+    volumes:
+      - {{ docker_service_root }}/caddy-data:/data
+      - {{ docker_service_root }}/Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - web
+
+networks:
+  web:
+
+# vim: filetype=yaml:

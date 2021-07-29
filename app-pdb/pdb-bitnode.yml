@@ -1,0 +1,12 @@
+- hosts:
+    - bitnode
+  vars:
+    pdb_instance: 11
+    pdb_postgres_image: postgres:11
+    pdb_port: 5413
+  vars_files:
+    - ../ops/terraform-output/linode/vault.json
+    - ../ops/terraform-output/linode-pdb-bitnode/public.json
+    - ../ops/terraform-output/linode-pdb-bitnode/vault.json
+  roles:
+    - name: pdb

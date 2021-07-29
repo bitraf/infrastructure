@@ -107,7 +107,7 @@ resource "linode_domain_record" "a-records" {
 }
 
 locals {
-  pg4     = "77.40.158"
-  bitnode = "85.90.244.199"
+  pg4      = "77.40.158"
+  bitnode  = "85.90.244.199"
   wpengine = "34.89.223.2"
 }

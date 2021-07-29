@@ -1,0 +1,5 @@
+- hosts:
+#    - p2k16
+    - p2k16-staging
+  roles:
+    - docker-host

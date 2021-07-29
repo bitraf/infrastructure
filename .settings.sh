@@ -11,6 +11,8 @@ else
   fi
 fi
 
+export ANSIBLE_CONFIG=$(pwd)/ansible.cfg
+
 echo "Adding bin/ to PATH"
 PATH="$(pwd)/bin:$PATH"
 echo "Adding env/bin/ to PATH"

@@ -1,0 +1,19 @@
+- hosts:
+    - bite
+  vars_files:
+    - vars.yml
+  tasks:
+    - import_role:
+        name: systemd-networkd-interface
+      vars:
+        interface: lan0
+        netdev_content: |
+          [NetDev]
+          Name=lan0
+          Kind=dummy
+        network_content: |
+          [Match]
+          Name={{ interface }}
+
+          [Network]
+          Address={{ iface.ipv4.address }}/{{ iface.ipv4.netmask }}
