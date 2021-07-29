@@ -1,0 +1,12 @@
+{
+  debug # enabled debug mode
+  email itavdelingen@bitraf.no
+
+#  admin {
+#    origins 127.0.0.1 172.0.0.0/8
+#  }
+}
+
+{{ p2k16.domain_name }} {
+  reverse_proxy /* p2k16:5000
+}

@@ -1,0 +1,35 @@
+- hosts:
+#    - p2k16
+    - p2k16-staging
+  vars_files:
+    - p2k16/host_vars/p2k16-staging/p2k16.yml
+    - p2k16/host_vars/p2k16-staging/secrets.yml
+  vars:
+    docker_image: ghcr.io/bitraf/p2k16
+    docker_service: p2k16
+    docker_service_root: "/etc/docker-service/{{ docker_service }}"
+    p2k16_pdb_host: p2k16-staging.bitraf.no
+
+    # TODO: move to host_vars
+    docker_tag: master
+  tasks:
+    - tags:
+        - telegraf
+        - docker-service
+      become: yes
+      block:
+        - loop:
+            - Caddyfile
+          template:
+            src: "app-p2k16/{{ item }}"
+            dest: "{{ docker_service_root }}/{{ item }}"
+          notify:
+            - "docker-service: pull"
+            - "docker-service: reload"
+
+    - import_role:
+        name: docker-service
+      tags:
+        - docker-service
+      vars:
+        template: "app-p2k16/docker-compose.yml.j2"

@@ -6,3 +6,5 @@ p2k16:
   mqtt_prefix: /bitraf/door/
   mqtt_prefix_tool: bitraf/tool
   membership_cc: post@bitraf.no
+
+p2k16_pdb_host: localhost
