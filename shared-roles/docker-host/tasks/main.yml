@@ -22,7 +22,8 @@
   register: docker_json
   copy:
     dest: /etc/docker/daemon.json
-    content: "{{ docker_host__daemon_json_content }}"
+    content: |
+      {{ docker_host__daemon_json_content | from_json | to_nice_json(indent=2) }}
 
 - debug: msg="docker.json changed, you must manually restart docker."
   when: docker_json.changed
