@@ -88,6 +88,8 @@ resource "linode_domain_record" "a-records" {
     "iot2" : { type : "A", target : "77.40.158.107", },
     # virtual machine on bite
     "riemann" : { type : "A", target : "77.40.158.108", },
+    # virtual machine on bite
+    "dlock" : { type : "A", target : "77.40.158.109", },
     "bitwarden" : { type : "CNAME", target : "bite.bitraf.no", },
     "minio" : { type : "AAAA", target : "2001:840:4b0b:1337:e8d9:2ff:fea1:7189", },
     "webapps" : { type : "CNAME", target : "bomba.bitraf.no", },
