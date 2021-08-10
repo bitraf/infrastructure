@@ -1,4 +1,6 @@
 p2k16:
+  dlock_base_url: "https://dlock.bitraf.no"
+  dlock_username: "bitraf-prod-1"
   domain_name: p2k16.bitraf.no
   mqtt_host: mqtt.bitraf.no
   mqtt_port: 1883
