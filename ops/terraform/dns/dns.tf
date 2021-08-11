@@ -71,6 +71,7 @@ resource "linode_domain_record" "a-records" {
     "blog" : { type : "CNAME", target : "www.bitraf.no", },
     "scripts" : { type : "CNAME", target : "www.bitraf.no", },
     "shop" : { type : "CNAME", target : "www.bitraf.no", },
+    "aix" : { type : "A", target : "213.52.52.185", },
     "bix" : { type : "A", target : "77.40.158.100", },
     "james" : { type : "A", target : "77.40.158.101", },
     "bomba" : { type : "A", target : "77.40.158.113", },
