@@ -1,0 +1,69 @@
+- name: mkdir docker_service_root
+  become: yes
+  file:
+    path: "{{ docker_service_root }}"
+    state: directory
+
+- become: yes
+  block:
+    - loop:
+        - pg_hba.conf
+        - crontab
+      template:
+        src: "{{ item }}"
+        dest: "{{ docker_service_root }}/{{ item }}"
+      notify:
+        - "docker-service: pull"
+        - "docker-service: reload"
+
+- name: Download wal-g
+  become: yes
+  block:
+    - name: mkdir /opt/wal-g-...
+      become: yes
+      file:
+        path: /opt/wal-g-{{ wal_g_version }}
+        state: directory
+    - get_url:
+        url: https://github.com/wal-g/wal-g/releases/download/v{{ wal_g_version }}/wal-g-pg-ubuntu-18.04-amd64
+        dest: /opt/wal-g-{{ wal_g_version }}/wal-g
+        checksum: "{{ wal_g_checksum }}"
+        mode: "a+rx"
+
+- become: yes
+  block:
+    - name: gitignore
+      lineinfile:
+        path: "{{ docker_service_root }}/.gitignore"
+        create: yes
+        line: "{{ item }}"
+      loop:
+        - ssl.key
+        - ssl.crt
+
+    - name: SSL certificate
+      shell: |
+        set -e
+        openssl req -x509 -nodes -subj '/CN=pdb.lan.bitraf.no' -days 3650 \
+            -newkey rsa:4096 -sha256 -keyout ssl.key -out ssl.crt
+        chown root:101 ssl.key ssl.crt
+        chmod u=rw,g=r,o= ssl.key ssl.crt
+      args:
+        chdir: "{{ docker_service_root }}"
+        creates: "{{ docker_service_root }}/ssl.key"
+      notify:
+        - "docker-service: pull"
+        - "docker-service: reload"
+
+- name: mkdir /local/pdb/data-{{ pdb_instance }}
+  become: yes
+  file:
+    path: /local/pdb/data-{{ pdb_instance }}
+    state: directory
+
+- import_role:
+    name: docker-service
+  tags:
+    - docker-service
+  vars:
+   template: "docker-compose.yml.j2"

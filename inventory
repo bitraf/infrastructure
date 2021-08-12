@@ -1,4 +1,4 @@
-bite ansible_host=bite.bitraf.no
+bite ansible_host=bite.bitraf.no ansible_python_interpreter=/usr/bin/python3
 bitnode ansible_host=bitnode.bitraf.no
 bomba ansible_host=bomba.bitraf.no
 boxy2 ansible_host=boxy2.local

@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+  postgres:
+    image: {{ pdb_postgres_image }}
+    restart: always
+    ports:
+      - "{{ pdb_address }}:{{ pdb_port }}:5432"
+    volumes:
+      - /etc/ssl/certs:/etc/ssl/certs:ro
+      - {{ docker_service_root }}/pg_hba.conf:/pg_hba.conf:ro
+      - {{ docker_service_root }}/ssl.key:/ssl.key:ro
+      - {{ docker_service_root }}/ssl.crt:/ssl.crt:ro
+      - /opt/wal-g-{{ wal_g_version }}:/opt/wal-g:ro
+      - /local/{{ docker_service }}/data:/var/lib/postgresql/data
+      - /local/{{ docker_service }}/scratch:/scratch
+    environment:
+      WALG_S3_PREFIX: s3://{{ pdb_bucket }}
+      AWS_ACCESS_KEY_ID: "{{ pdb_bucket_sender_access_key }}"
+      AWS_SECRET_ACCESS_KEY: "{{ pdb_bucket_sender_secret_key }}"
+      AWS_REGION: "{{ pdb_bucket_cluster }}"
+      AWS_ENDPOINT: "{{ pdb_bucket_endpoint }}"
+      PGHOST: /var/run/postgresql
+      PGUSER: postgres
+      POSTGRES_PASSWORD: "{{ pdb_postgres_password }}"
+    command:
+      -c wal_level=replica
+      -c archive_mode=on
+      -c "archive_command=/opt/wal-g/wal-g wal-push /var/lib/postgresql/data/%p"
+      -c hba_file=/pg_hba.conf
+      -c ssl=on
+      -c ssl_cert_file=/ssl.crt
+      -c ssl_key_file=/ssl.key
+
+  cron:
+    image: webdevops/go-crond:21.5.0-debian
+    restart: always
+    volumes:
+      - /etc/ssl/certs:/etc/ssl/certs:ro
+      - {{ docker_service_root }}/crontab:/opt/crontab:ro
+      - /opt/wal-g-{{ wal_g_version }}:/opt/wal-g:ro
+      - /local/{{ docker_service }}/data:/var/lib/postgresql/data
+      - /local/{{ docker_service }}/scratch:/scratch
+    environment:
+      WALG_S3_PREFIX: s3://{{ pdb_bucket }}
+      AWS_ACCESS_KEY_ID: "{{ pdb_bucket_sender_access_key }}"
+      AWS_SECRET_ACCESS_KEY: "{{ pdb_bucket_sender_secret_key }}"
+      AWS_REGION: "{{ pdb_bucket_cluster }}"
+      AWS_ENDPOINT: "{{ pdb_bucket_endpoint }}"
+      PGHOST: postgres
+      PGUSER: postgres
+      PGPASSWORD: "{{ pdb_postgres_password }}"
+      PGDATA: /var/lib/postgresql/data
+    entrypoint: go-crond /opt/crontab

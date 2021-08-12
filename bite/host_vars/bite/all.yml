@@ -1,5 +1,8 @@
-docker_host__daemon_json_content: |
-  {
-    "storage-driver": "zfs",
-    "graph": "/pool0/docker"
-  }
+docker_host__daemon_json_content: "{{ docker_host__daemon | to_nice_json }}"
+docker_host__daemon: {}
+#  storage-driver: "zfs",
+#  graph: "/pool0/docker"
+
+#  default-address-pools:
+#    - base: "10.14.0.0/16"
+#      size: 24

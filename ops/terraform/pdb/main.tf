@@ -2,7 +2,7 @@
 terraform {
   backend "s3" {
     bucket                      = "bitraf-terraform"
-    key                         = "dns/terraform.tfstate"
+    key                         = "pdb/terraform.tfstate"
     region                      = "eu-central-1"
     skip_region_validation      = true
     skip_credentials_validation = true
@@ -14,6 +14,18 @@ terraform {
     linode = {
       source  = "linode/linode"
       version = "1.13.4"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.1.0"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "3.1.0"
+    }
+    local = {
+      source  = "hashicorp/local"
+      version = "2.1.0"
     }
     shell = {
       source  = "scottwinkler/shell"

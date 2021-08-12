@@ -1,0 +1,13 @@
+- hosts:
+    - bite
+  vars:
+    pdb_instance: 13
+    pdb_postgres_image: postgres:13
+    pdb_address: "{{ host_database.pdb.interfaces.lan.ipv4.address }}"
+    pdb_port: 5413
+  vars_files:
+    - ../ops/terraform-output/linode/vault.json
+    - ../ops/terraform-output/linode-pdb-13/public.json
+    - ../ops/terraform-output/linode-pdb-13/vault.json
+  roles:
+    - name: pdb

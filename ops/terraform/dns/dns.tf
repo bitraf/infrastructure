@@ -71,6 +71,7 @@ resource "linode_domain_record" "a-records" {
     "blog" : { type : "CNAME", target : "www.bitraf.no", },
     "scripts" : { type : "CNAME", target : "www.bitraf.no", },
     "shop" : { type : "CNAME", target : "www.bitraf.no", },
+    "aix" : { type : "A", target : "213.52.52.185", },
     "bix" : { type : "A", target : "77.40.158.100", },
     "james" : { type : "A", target : "77.40.158.101", },
     "bomba" : { type : "A", target : "77.40.158.113", },
@@ -88,6 +89,8 @@ resource "linode_domain_record" "a-records" {
     "iot2" : { type : "A", target : "77.40.158.107", },
     # virtual machine on bite
     "riemann" : { type : "A", target : "77.40.158.108", },
+    # virtual machine on bite
+    "dlock" : { type : "A", target : "77.40.158.109", },
     "bitwarden" : { type : "CNAME", target : "bite.bitraf.no", },
     "minio" : { type : "AAAA", target : "2001:840:4b0b:1337:e8d9:2ff:fea1:7189", },
     "webapps" : { type : "CNAME", target : "bomba.bitraf.no", },
@@ -107,7 +110,7 @@ resource "linode_domain_record" "a-records" {
 }
 
 locals {
-  pg4     = "77.40.158"
-  bitnode = "85.90.244.199"
+  pg4      = "77.40.158"
+  bitnode  = "85.90.244.199"
   wpengine = "34.89.223.2"
 }

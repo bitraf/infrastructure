@@ -1,0 +1,36 @@
+- hosts:
+    - bite
+  vars_files:
+    - ../ops/terraform-output/linode/public.json
+    - ../ops/terraform-output/linode/vault.json
+    - vars.yml
+  vars:
+    docker_image: ghcr.io/bitraf/p2k16
+    docker_service: pdb-{{ major }}
+    docker_service_root: "/etc/docker-service/{{ docker_service }}"
+
+    wal_g_version: "1.0"
+    wal_g_checksum: sha256:35e95fe25ea82d24d190b417f33d7069c89413d3c662c3a358c3bcd794c809a2
+  tasks:
+    - name: v10
+      include_tasks:
+        file: pdb.yml
+        apply:
+          tags:
+            - v10
+      vars:
+        major: 10
+      tags:
+        - always
+    
+    - name: v13
+      include_tasks:
+        file: pdb.yml
+        apply:
+          tags:
+            - v13
+      vars:
+        major: 13
+      tags:
+        - always
+    

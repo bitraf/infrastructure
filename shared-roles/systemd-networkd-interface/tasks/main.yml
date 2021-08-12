@@ -1,0 +1,13 @@
+- become: yes
+  copy:
+    dest: /etc/systemd/network/{{ priority }}-{{ interface }}.netdev
+    content: |
+      {{ netdev_content }}
+  notify: "systemctl restart systemd-networkd"
+
+- become: yes
+  copy:
+    dest: /etc/systemd/network/{{ priority }}-{{ interface }}.network
+    content: |
+      {{ network_content }}
+  notify: "systemctl restart systemd-networkd"
