@@ -74,6 +74,14 @@ host_database:
           address: 10.13.37.211
           netmask: 24
 
+  p2k16-production:
+    interfaces:
+      lan:
+        dns: p2k16-production.lan.bitraf.no
+        ipv4:
+          address: 10.13.37.212
+          netmask: 24
+
   p2k16-staging:
     interfaces:
       lan:
