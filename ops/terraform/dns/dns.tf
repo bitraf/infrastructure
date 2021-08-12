@@ -84,6 +84,8 @@ resource "linode_domain_record" "a-records" {
     # virtual machine on bite
     "p2k16" : { type : "A", target : "77.40.158.105", },
     # virtual machine on bite
+    "p2k16-production" : { type : "A", target : "77.40.158.110", },
+    # virtual machine on bite
     "mqtt2" : { type : "A", target : "77.40.158.106", },
     # virtual machine on bite
     "iot2" : { type : "A", target : "77.40.158.107", },
