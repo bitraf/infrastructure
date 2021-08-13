@@ -11,6 +11,11 @@
           auto lo
           iface lo inet loopback
 
+    - name: interfaces directory
+      file:
+        state: directory
+        path: /etc/network/interfaces.d
+
     - name: configure network interfaces
       copy:
         src: etc/network/interfaces.d/{{ ansible_hostname }}

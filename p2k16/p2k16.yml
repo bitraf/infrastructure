@@ -18,3 +18,16 @@
     - postgresql-wal-e
     - unattended-upgrades
     - p2k16
+- hosts:
+    - p2k16-production
+  vars_files:
+    - ../vars/bitraf_passwords.yml
+    - ../vars/users.yml
+  vars:
+    pwe_major: 10
+    pwe_instance: main
+  roles:
+    - network
+    - bitraf-base
+    - lusers
+    - superusers

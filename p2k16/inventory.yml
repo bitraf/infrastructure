@@ -3,6 +3,9 @@ all:
     p2k16:
       ansible_host: p2k16.bitraf.no
       ansible_python_interpreter: /usr/bin/python3
+    p2k16-production:
+      ansible_host: p2k16-production.bitraf.no
+      ansible_python_interpreter: /usr/bin/python3
     p2k16-staging:
       ansible_host: p2k16-staging.bitraf.no
       ansible_python_interpreter: /usr/bin/python3
