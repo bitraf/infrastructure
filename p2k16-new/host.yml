@@ -1,0 +1,48 @@
+- hosts:
+    - p2k16-production
+    - p2k16-staging
+  vars:
+    lan: "{{ host_database[ansible_hostname].interfaces.lan }}"
+    wan: "{{ host_database[ansible_hostname].interfaces.wan }}"
+    wan_phy: "{{ {'p2k16-production': 'ens4', 'p2k16-staging': 'ens10'}[ansible_hostname] }}"
+  roles:
+    - bitraf-base
+
+    - role: systemd-networkd-interface
+      tags: network
+      vars:
+        priority: 10
+        interface: ens3
+        network_content: |
+          [Match]
+          Name={{ interface }}
+
+          [Network]
+          Address={{ lan.ipv4.address }}/{{ lan.ipv4.netmask }}
+
+    - role: systemd-networkd-interface
+      tags: network
+      vars:
+        priority: 10
+        interface: "{{ wan_phy }}"
+        network_content: |
+          [Match]
+          Name={{ interface }}
+
+          [Network]
+          {% if wan.ipv4.address|default("")|length>0 %}
+          Address={{ wan.ipv4.address }}/{{ wan.ipv4.netmask }}
+          {% if wan.ipv4.gateway|default("")|length>0 %}
+          Gateway={{ wan.ipv4.gateway }}
+          {% endif %}
+          {% endif %}
+          {% if wan.ipv6.address|default("")|length>0 %}
+          Address={{ wan.ipv6.address }}/{{ wan.ipv6.netmask }}
+          {% if wan.ipv6.gateway|default("")|length>0 %}
+          Gateway={{ wan.ipv6.gateway }}
+          {% endif %}
+          {% endif %}
+          
+    - lusers
+    - superusers
+    - docker-host

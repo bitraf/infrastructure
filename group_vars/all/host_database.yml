@@ -81,6 +81,16 @@ host_database:
         ipv4:
           address: 10.13.37.212
           netmask: 24
+      wan:
+        dns: p2k16-production.bitraf.no
+        ipv4:
+          address: 77.40.158.110
+          netmask: 27
+          gateway: 77.40.158.100
+        ipv6:
+          address: 2001:840:4b0b:1000:77:40:158:110
+          netmask: 64
+          gateway: 2001:840:4b0b:1000::1
 
   p2k16-staging:
     interfaces:
@@ -89,3 +99,13 @@ host_database:
         ipv4:
           address: 10.13.37.37 # this is the current value from DHCP, should be made static
           netmask: 24
+      wan:
+        dns: p2k16-staging.bitraf.no
+        ipv4:
+          address: 77.40.158.104
+          netmask: 27
+          gateway: 77.40.158.100
+        ipv6:
+          address: 2001:840:4b0b:1000:77:40:158:104
+          netmask: 64
+          gateway: 2001:840:4b0b:1000::1

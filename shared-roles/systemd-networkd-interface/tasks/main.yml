@@ -1,8 +1,14 @@
 - become: yes
+  file:
+    path: /etc/systemd/network
+    state: directory
+
+- become: yes
   copy:
     dest: /etc/systemd/network/{{ priority }}-{{ interface }}.netdev
     content: |
       {{ netdev_content }}
+  when: netdev_content|default("")|length > 0
   notify: "systemctl restart systemd-networkd"
 
 - become: yes
@@ -10,4 +16,12 @@
     dest: /etc/systemd/network/{{ priority }}-{{ interface }}.network
     content: |
       {{ network_content }}
+  when: network_content|default("")|length > 0
   notify: "systemctl restart systemd-networkd"
+
+- name: "systemctl enable systemd-networkd"
+  become: yes
+  systemd:
+    name: systemd-networkd
+    enabled: yes
+    state: started

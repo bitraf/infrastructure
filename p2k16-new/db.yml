@@ -1,4 +1,5 @@
 - hosts:
+    - p2k16-production
     - p2k16-staging
   vars:
     pdb_instance: p2k16
