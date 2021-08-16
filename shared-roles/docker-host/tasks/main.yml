@@ -1,5 +1,4 @@
 - become: yes
-  tags: never,packages
   apt:
     name:
       - docker.io
@@ -7,6 +6,7 @@
       - gnupg2
       - pass
     install_recommends: no
+    cache_valid_time: 3600
 
 - name: Logging in to docker registries
   loop: "{{ docker_host__credentials }}"

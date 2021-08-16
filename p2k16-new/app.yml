@@ -9,6 +9,11 @@
         - docker-service
       become: yes
       block:
+        - name: "mkdir {{ docker_service_root }}"
+          file:
+            path: "{{ docker_service_root }}"
+            state: directory
+
         - loop:
             - Caddyfile
           template:

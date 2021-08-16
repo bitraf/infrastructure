@@ -7,6 +7,7 @@
     wan_phy: "{{ {'p2k16-production': 'ens4', 'p2k16-staging': 'ens10'}[ansible_hostname] }}"
   roles:
     - bitraf-base
+    - packages
 
     - role: systemd-networkd-interface
       tags: network
@@ -45,4 +46,5 @@
           
     - lusers
     - superusers
-    - docker-host
+    - role: docker-host
+      tags: docker-host
