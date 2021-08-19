@@ -9,8 +9,14 @@
       deb     http://ftp.no.debian.org/debian/ {{ packages_debian_release }} main contrib non-free
       deb-src http://ftp.no.debian.org/debian/ {{ packages_debian_release }} main contrib non-free
 
+      {# https://debian-handbook.info/browse/en-US/stable/apt.html#sect.apt-sources.list.testing #}
+      {% if packages_debian_release == "bullseye" %}
+      deb     http://security.debian.org/debian-security {{ packages_debian_release }}-security main contrib non-free
+      deb-src http://security.debian.org/debian-security {{ packages_debian_release }}-security main contrib non-free
+      {% else %}
       deb     http://security.debian.org/debian-security {{ packages_debian_release }}/updates main contrib non-free
       deb-src http://security.debian.org/debian-security {{ packages_debian_release }}/updates main contrib non-free
+      {% endif %}
 
       deb     http://ftp.no.debian.org/debian/ {{ packages_debian_release }}-updates main contrib non-free
       deb-src http://ftp.no.debian.org/debian/ {{ packages_debian_release }}-updates main contrib non-free
