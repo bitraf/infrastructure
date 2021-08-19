@@ -1,4 +1,4 @@
-packages_debian_release: buster
+packages_debian_release: bullseye
 
 p2k16_public_domain: p2k16-production.bitraf.no
 docker_tag: master

@@ -39,3 +39,7 @@ bitraf_base__syslog=True
 [infoscreens]
 infoscreen-a
 testskjerm
+
+[p2k16]
+p2k16-staging
+p2k16-production
