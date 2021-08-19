@@ -17,3 +17,4 @@ settings.vault
 *.tfstate
 
 ops/terraform-output
+/os.csv
