@@ -2,24 +2,30 @@
 - become: yes
   tags: lusers
   vars:
+    login_shell:
+      Debian: "/bin/bash"
+      OpenBSD: "/bin/sh"
+    nologin_shell:
+      Debian: "/sbin/nologin"
+      OpenBSD: "/usr/sbin/nologin"
     usernames: "{{ users|dict2items|map(attribute='key')|list }}"
   block:
-    - name: adduser
+    - name: add luser
       with_items: "{{ lusers }}"
       user:
         name: "{{ item }}"
-        shell: /bin/bash
+        shell: "{{ login_shell[ansible_distribution] }}"
 
     - name: getent passwd
       getent:
         database: passwd
 
-    - name: disable user
+    - name: disable luser
       with_items: "{{ usernames }}"
       when: (item not in lusers) and (item in getent_passwd)
       user:
         name: "{{ item }}"
-        shell: /usr/sbin/nologin
+        shell: "{{ nologin_shell[ansible_distribution] }}"
 
     - name: authorized_keys, exclusively managed by Ansible
       copy:
