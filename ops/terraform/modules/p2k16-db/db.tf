@@ -40,3 +40,14 @@ resource "postgresql_role" "ldap" {
 
 resource "random_uuid" "ldap_password" {
 }
+
+# User: stripestats
+
+resource "postgresql_role" "stripestats" {
+  name     = "stripestats"
+  login    = true
+  password = random_uuid.stripestats_password.result
+}
+
+resource "random_uuid" "stripestats_password" {
+}
