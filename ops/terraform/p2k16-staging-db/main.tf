@@ -22,12 +22,12 @@ terraform {
   }
 }
 
-data "terraform_remote_state" "linode" {
+data "terraform_remote_state" "pdb" {
   backend = "s3"
 
   config = {
     bucket                      = "bitraf-terraform"
-    key                         = "linode/terraform.tfstate"
+    key                         = "pdb/terraform.tfstate"
     region                      = "eu-central-1"
     skip_region_validation      = true
     skip_credentials_validation = true
@@ -36,9 +36,9 @@ data "terraform_remote_state" "linode" {
   }
 }
 
-module "p2k16-staging" {
+module "p2k16-db" {
   source            = "../modules/p2k16-db"
-  postgres_password = data.terraform_remote_state.linode.outputs.p2k16_staging.postgres_password
+  postgres_password = data.terraform_remote_state.pdb.outputs.pdb-p2k16-staging_vault.pdb_postgres_password
   host              = "p2k16-staging.lan.bitraf.no"
   env               = "staging"
 }
@@ -46,6 +46,6 @@ module "p2k16-staging" {
 module "terraform-output" {
   source = "../modules/terraform-output"
   name   = "p2k16-staging-db"
-  public = module.p2k16-staging.public
-  vault  = module.p2k16-staging.vault
+  public = module.p2k16-db.public
+  vault  = module.p2k16-db.vault
 }
