@@ -2,6 +2,11 @@
 - become: yes
   tags: lusers
   vars:
+    # NOTE(mastensg): the keys are each for an ansible_distribution, but could
+    # be changed to ansible_system if we can assume that "Linux" =>
+    # "/bin/bash". discussion:
+    # https://github.com/bitraf/infrastructure/pull/159#discussion_r692656301
+
     login_shell:
       Debian: "/bin/bash"
       OpenBSD: "/bin/sh"
