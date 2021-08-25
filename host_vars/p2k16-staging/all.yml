@@ -1,7 +1,7 @@
 packages_debian_release: buster
 
 p2k16_public_domain: p2k16-staging.bitraf.no
-docker_tag: hackaton-2021
+docker_tag: master
 docker_image: registry.gitlab.com/bitraf/p2k16/p2k16
 
 p2k16_mqtt_host: mqtt.bitraf.no
