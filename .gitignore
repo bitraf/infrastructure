@@ -18,3 +18,5 @@ settings.vault
 
 ops/terraform-output
 /os.csv
+
+misc/bitraf-infrastructure/hugo/

@@ -1,0 +1,17 @@
+version: "3"
+services:
+  hugo:
+    image: jojomi/hugo:0.85.0
+    restart: "no"
+    user: "1000:1000"
+    ports:
+      - "1313:1313"
+    volumes:
+      - ./hugo/resources:/src/resources
+      - ../../doc:/src
+      - ./hugo/output:/output
+    command: /run.sh --cleanDestinationDir --disableFastRender
+    environment:
+      HUGO_THEME: "docport"
+      HUGO_WATCH: "true"
+      HUGO_REFRESH_TIME: "1"

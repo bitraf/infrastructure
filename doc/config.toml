@@ -1,0 +1,28 @@
+baseURL = "https://bitraf-infrastructure.github.io"
+languageCode = "en-us"
+title = "Bitraf Infrastructure manual"
+
+theme = "hugo-theme-docport"
+
+pygmentsCodeFences = true
+pygmentsStyle = "monokai"
+
+disableKinds = ["taxonomy", "taxonomyTerm", "category", "RSS"]
+
+
+[params]
+# ordersectionsby = "weight" # ordersectionsby = "title"
+# color_main = "#737373"
+# #color_second = "#b30000"
+# disableSearch = false # default is false
+# disableNavChevron = false # set true to hide next/prev chevron, default is false
+# menushortcutsnewtab = false # set true to open shortcuts links to a new tab/window
+
+editURL = "https://github.com/bitraf/infrastructure/edit/master/doc/content/"
+#editWithNetlifyCMSURL = "admin/#/collections/pages/entries/"
+enableGitInfo = true
+
+
+[outputs]
+# home = [ "HTML", "RSS", "JSON"]
+home = [ "HTML", "JSON" ]

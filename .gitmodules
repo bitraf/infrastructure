@@ -1,3 +1,6 @@
 [submodule "misc/ansible-vault-tools"]
 	path = misc/ansible-vault-tools
 	url = https://github.com/building5/ansible-vault-tools
+[submodule "doc/themes/docport"]
+	path = doc/themes/docport
+	url = https://github.com/vjeantet/hugo-theme-docport.git
