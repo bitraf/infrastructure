@@ -28,7 +28,7 @@ resource "linode_domain_record" "txt-records" {
 resource "linode_domain_record" "spf" {
   domain_id   = linode_domain.bitraf.id
   record_type = "TXT"
-  target      = "v=spf1 a:bitraf.no ip4:${local.bitnode} ip4:${local.pg4}.113/27 ip6:2a01:7e01::f03c:91ff:fe67:e271 include:_spf.google.com ~all"
+  target      = "v=spf1 a:bitraf.no ip4:${local.bitnode} ip4:${local.bomba}/27 ip6:2a01:7e01::f03c:91ff:fe67:e271 include:_spf.google.com ~all"
 }
 
 resource "linode_domain_record" "libera-chat" {
@@ -62,13 +62,13 @@ resource "linode_domain_record" "a-records" {
     "aix" : { type : "A", target : "213.52.52.185", },
     "api" : { type : "CNAME", target : "www.bitraf.no", },
     "bitbot" : { type : "A", target : "127.0.0.1", },
-    "bite" : { type : "A", target : "77.40.158.102", },
+    "bite" : { type : "A", target : local.bite, },
     "bitnode" : { type : "A", target : local.bitnode, },
-    "bit" : { type : "A", target : "${local.pg4}.100", },
+    "bit" : { type : "A", target : local.bit, },
     "bitwarden" : { type : "CNAME", target : "bite.bitraf.no", },
     "bix" : { type : "A", target : "77.40.158.100", },
     "blog" : { type : "CNAME", target : "www.bitraf.no", },
-    "bomba" : { type : "A", target : "77.40.158.113", },
+    "bomba" : { type : "A", target : local.bomba, },
     "boxy4" : { type : "CNAME", target : "boxy4.local", },
     "channon" : { type : "A", target : "178.79.163.96", },
     "dlock" : { type : "A", target : "77.40.158.109", },
@@ -77,6 +77,7 @@ resource "linode_domain_record" "a-records" {
     "heim" : { type : "A", target : "77.40.158.103", },
     "iot2" : { type : "A", target : "77.40.158.107", },
     "iot" : { type : "CNAME", target : "bomba.bitraf.no", },
+    "healthchecks" : { type : "A", target : local.bite, },
     "james" : { type : "A", target : "77.40.158.101", },
     "mail" : { type : "A", target : local.bitnode, },
     "minio" : { type : "AAAA", target : "2001:840:4b0b:1337:e8d9:2ff:fea1:7189", },
@@ -102,7 +103,9 @@ resource "linode_domain_record" "a-records" {
 }
 
 locals {
-  pg4      = "77.40.158"
+  bit      = "77.40.158.100"
+  bite     = "77.40.158.102"
   bitnode  = "85.90.244.199"
+  bomba    = "77.40.158.113"
   wpengine = "34.89.223.2"
 }
