@@ -17,7 +17,7 @@ terraform {
     }
 
     minio = {
-      source = "aminueza/minio"
+      source  = "aminueza/minio"
       version = "1.2.0"
     }
   }
@@ -25,7 +25,7 @@ terraform {
 
 provider "minio" {
   minio_server = "bite.bitraf.no:9000"
-#  minio_ssl = "true"
+  #  minio_ssl = "true"
   minio_access_key = var.minio_access_key
   minio_secret_key = var.minio_secret_key
 }
