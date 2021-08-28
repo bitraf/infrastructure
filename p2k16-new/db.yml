@@ -3,7 +3,7 @@
     - p2k16-staging
   vars:
     pdb_instance: p2k16
-    pdb_postgres_image: postgres:13
+    pdb_version: 13
     pdb_address: "{{ host_database[ansible_hostname].interfaces.lan.ipv4.address }}"
     pdb_port: 5432
   roles:

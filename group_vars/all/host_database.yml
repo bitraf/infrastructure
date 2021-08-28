@@ -66,14 +66,6 @@ host_database:
         ipv4:
           address: 10.13.37.4
 
-  pdb:
-    interfaces:
-      lan:
-        dns: pdb.lan.bitraf.no
-        ipv4:
-          address: 10.13.37.211
-          netmask: 24
-
   p2k16-production:
     interfaces:
       lan:

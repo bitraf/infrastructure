@@ -2,7 +2,7 @@
     - bitnode
   vars:
     pdb_instance: 11
-    pdb_postgres_image: postgres:11
+    pdb_version: 11
     pdb_port: 5413
   vars_files:
     - ../ops/terraform-output/linode/vault.json

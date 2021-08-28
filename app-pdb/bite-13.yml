@@ -1,0 +1,12 @@
+- hosts:
+    - bite
+  vars:
+    pdb_instance: bite-13
+    pdb_version: 13
+    pdb_address: "{{ host_database.bite.interfaces.lan.ipv4.address }}"
+    pdb_port: 5413
+  vars_files:
+    - ../ops/terraform-output/pdb/bite-13/public.json
+    - ../ops/terraform-output/pdb/bite-13/vault.json
+  roles:
+    - name: pdb

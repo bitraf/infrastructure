@@ -1,3 +1,7 @@
+pdb_version: 13
+pdb_image_postgres: registry.gitlab.com/bitraf/infrastructure/docker-postgres:{{ pdb_version }}
+pdb_image_cron: registry.gitlab.com/bitraf/infrastructure/docker-postgres:{{ pdb_version }}
+
 docker_service: pdb-{{ pdb_instance }}
 docker_service_root: "/etc/docker-service/{{ docker_service }}"
 

@@ -2,7 +2,7 @@ version: "3"
 
 services:
   postgres:
-    image: {{ pdb_postgres_image }}
+    image: {{ pdb_image_postgres }}
     restart: always
     ports:
       - "{{ pdb_address }}:{{ pdb_port }}:5432"
@@ -33,7 +33,7 @@ services:
       -c ssl_key_file=/ssl.key
 
   cron:
-    image: webdevops/go-crond:21.5.0-debian
+    image: {{ pdb_image_cron }}
     restart: always
     volumes:
       - /etc/ssl/certs:/etc/ssl/certs:ro
