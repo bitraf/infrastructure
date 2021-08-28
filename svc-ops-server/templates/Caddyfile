@@ -1,0 +1,9 @@
+{
+  debug # enabled debug mode
+  email itavdelingen@bitraf.no
+}
+
+healthchecks.bitraf.no {
+  reverse_proxy /* healthchecks:8000
+}
+

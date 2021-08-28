@@ -1,0 +1,32 @@
+version: "3"
+services:
+  caddy:
+    image: caddy
+    restart: always
+    volumes:
+      - {{ docker_service_root }}/caddy-data:/data
+      - {{ docker_service_root }}/Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - "80:80"
+      - "443:443"
+
+  healthchecks:
+    image: "healthchecks/healthchecks:v1.22.0"
+    environment:
+      DB: postgres
+      DB_HOST: {{ db_host }}
+      DB_PORT: {{ db_port }}
+      DB_NAME: {{ db_database }}
+      DB_USER: {{ db_username }}
+      DB_PASSWORD: {{ db_password }}
+      DB_SSLMODE: require
+      DEFAULT_FROM_EMAIL: itavdelingen@bitraf.no
+      SECRET_KEY: {{ secret_key }}
+      EMAIL_HOST: bite.lan.bitraf.no
+      EMAIL_PORT: 25
+      EMAIL_USE_TLS: "False"
+      SITE_LOGO_URL: "https://bitraf.no/wp-content/uploads/2021/05/cropped-bitraf-1-01a-02.png"
+      SITE_NAME: "Bitraf checks"
+      SITE_ROOT: "https://healthchecks.bitraf.no"
+
+# vim: filetype=yaml:

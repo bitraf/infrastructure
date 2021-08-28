@@ -1,0 +1,31 @@
+- hosts:
+    - svc-ops-server
+  vars:
+    docker_service: ops-server
+    docker_service_root: "/etc/docker-service/{{ docker_service }}"
+  tasks:
+    - tags:
+        - docker-service
+      become: yes
+      block:
+        - name: "mkdir {{ docker_service_root }}"
+          file:
+            path: "{{ docker_service_root }}"
+            state: directory
+
+        - loop:
+            - Caddyfile
+          template:
+            src: "{{ item }}"
+            dest: "{{ docker_service_root }}/{{ item }}"
+          notify:
+            - "docker-service: pull"
+            - "docker-service: reload"
+
+    - import_role:
+        name: docker-service
+      tags:
+        - docker-service
+      vars:
+        template: "docker-compose.yml.j2"
+
