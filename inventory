@@ -43,6 +43,9 @@ bitraf_base__syslog=True
 [mosquitto-servers]
 bomba
 
-[p2k16]
+[svc-ops-server]
+bite
+
+[svc-p2k16]
 p2k16-production
 p2k16-staging
