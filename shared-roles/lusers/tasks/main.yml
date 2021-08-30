@@ -12,7 +12,7 @@
       OpenBSD: "/bin/sh"
     nologin_shell:
       Debian: "/usr/sbin/nologin"
-      OpenBSD: "/usr/sbin/nologin"
+      OpenBSD: "/sbin/nologin"
     usernames: "{{ users|dict2items|map(attribute='key')|list }}"
   block:
     - name: add luser
