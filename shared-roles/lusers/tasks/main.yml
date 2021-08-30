@@ -11,7 +11,7 @@
       Debian: "/bin/bash"
       OpenBSD: "/bin/sh"
     nologin_shell:
-      Debian: "/sbin/nologin"
+      Debian: "/usr/sbin/nologin"
       OpenBSD: "/usr/sbin/nologin"
     usernames: "{{ users|dict2items|map(attribute='key')|list }}"
   block:
