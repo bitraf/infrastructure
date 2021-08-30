@@ -4,12 +4,12 @@ p2k16_public_domain: p2k16-production.bitraf.no
 docker_tag: master
 docker_image: registry.gitlab.com/bitraf/p2k16/p2k16
 
-p2k16_dlock_base_url: "https://dlock.bitraf.no"
-p2k16_dlock_username: "bitraf-prod-1"
-p2k16_domain_name: p2k16.bitraf.no
 p2k16_mqtt_host: mqtt.bitraf.no
 p2k16_mqtt_port: 1883
 p2k16_mqtt_username: bitraf-p2k16-web
 p2k16_mqtt_prefix: /bitraf/door/
 p2k16_mqtt_prefix_tool: bitraf/tool
 p2k16_membership_cc: post@bitraf.no
+
+p2k16_dlock_base_url: "https://dlock.bitraf.no"
+p2k16_dlock_username: "bitraf-prod-1"
