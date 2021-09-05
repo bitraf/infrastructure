@@ -5,7 +5,12 @@ services:
     image: "{{ docker_image }}:{{ docker_tag }}"
     restart: always
     networks:
-      - web
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.p2k16.rule=Host(`p2k16-staging.bitraf.no`)"
+      - "traefik.http.routers.p2k16.entrypoints=websecure"
+      - "traefik.http.routers.p2k16.tls.certresolver=bitraf"
     environment:
       DLOCK_BASE_URL: "{{ p2k16_dlock_base_url }}"
       DLOCK_USERNAME: "{{ p2k16_dlock_username }}"
@@ -24,20 +29,10 @@ services:
       STRIPE_WEBHOOK_SECRET: "{{ stripe_webhook_secret }}"
       STRIPE_SECRET_KEY: "{{ stripe_secret_key }}"
       STRIPE_PUBLIC_KEY: "{{ stripe_public_key }}"
-
-  caddy:
-    image: caddy
-    restart: always
-    volumes:
-      - {{ docker_service_root }}/caddy-data:/data
-      - {{ docker_service_root }}/Caddyfile:/etc/caddy/Caddyfile
-    ports:
-      - "80:80"
-      - "443:443"
-    networks:
-      - web
+      SMTP_HOST: bite.lan.bitraf.no
 
 networks:
-  web:
+  traefik:
+    external: true
 
 # vim: filetype=yaml:

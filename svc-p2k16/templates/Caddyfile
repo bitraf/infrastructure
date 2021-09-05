@@ -7,6 +7,13 @@
 #  }
 }
 
-{{ p2k16_public_domain }} {
-  reverse_proxy /* p2k16:5000
+(p2k16) {
+  reverse_proxy /* p2k16:5000 {
+    header_up Host {{ p2k16_public_domain }}
+    header_up X-Real-IP {remote}
+  }
+}
+
+http://{{ p2k16_public_domain }}:8001 {
+  import p2k16
 }

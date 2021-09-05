@@ -1,0 +1,40 @@
+version: "3.3"
+
+services:
+  traefik:
+    image: "traefik:v2.5"
+    command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+#      - "--certificatesresolvers.bitraf.acme.httpchallenge=true"
+#      - "--certificatesresolvers.bitraf.acme.httpchallenge.entrypoint=web"
+#      - "--certificatesresolvers.bitraf.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.bitraf.acme.dnschallenge.provider=linode"
+      - "--certificatesresolvers.bitraf.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53"
+      - "--certificatesresolvers.bitraf.acme.email=itavdelingen@bitraf.no"
+      - "--certificatesresolvers.bitraf.acme.storage=/letsencrypt/acme.json"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`p2k16-staging.lan.bitraf.no`)"
+#      - "traefik.http.routers.traefik.entrypoints=web"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.routers.traefik.tls.certresolver=bitraf"
+      - "traefik.http.routers.traefik.service=api@internal"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "{{ docker_service__root }}/traefik/letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    environment:
+      LINODE_TOKEN: "{{ linode_itavdelingen_pat }}"
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true

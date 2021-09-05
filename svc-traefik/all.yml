@@ -1,0 +1,31 @@
+- hosts:
+    - p2k16-staging
+  tasks:
+    - become: yes
+      name: docker network create traefik
+      community.docker.docker_network:
+        name: traefik
+
+    - import_role:
+        name: docker-service
+      vars:
+        template: "docker-compose.yml"
+        docker_service: traefik
+
+#    - loop:
+#        - Caddyfile
+#      become: yes
+#      template:
+#        src: "{{ item }}"
+#        dest: "{{ docker_service__root }}/{{ item }}"
+#      notify:
+#        - "docker-service: pull"
+#        - "docker-service: reload"
+
+#    - loop:
+#        - traefik
+#        - traefik/letsencrypt
+#      become: yes
+#      file:
+#        path: "{{ docker_service__root }}/{{ item }}"
+#        state: directory

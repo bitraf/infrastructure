@@ -7,7 +7,7 @@
 #    pull: yes
   shell: docker-compose pull
   args:
-    chdir: "{{ docker_service__etc }}/{{ docker_service }}"
+    chdir: "{{ docker_service__root }}"
 
 - name: Reload Docker Service
   listen: "docker-service: reload"
@@ -16,10 +16,3 @@
   systemd:
     name: "{{ item }}"
     state: reloaded
-
-- name: Restart Docker Service
-  listen: "docker-service: restart"
-  become: yes
-  systemd:
-    name: "{{ systemd_unit }}"
-    state: restarted
