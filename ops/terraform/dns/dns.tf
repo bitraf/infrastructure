@@ -89,7 +89,7 @@ resource "linode_domain_record" "a-records" {
     "p2k16-production" : { type : "A", target : "77.40.158.110", },
     "p2k16-staging" : { type : "A", target : "77.40.158.104", },
     "p2k16-test" : { type : "CNAME", target : "heim.bitraf.no", },
-#    "p2k16" : { type : "A", target : "77.40.158.105", },
+    #    "p2k16" : { type : "A", target : "77.40.158.105", },
     "p2k16-old" : { type : "A", target : "77.40.158.105", },
     "p2k16" : { type : "A", target : "77.40.158.110", },
     "pulseaudio" : { type : "CNAME", target : "bomba.bitraf.no", },
