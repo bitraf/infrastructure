@@ -5,8 +5,10 @@ variables:
 
 pages:
   script:
-    - cd doc && hugo
+    - (cd doc && hugo)
     # To try this locally, run: rm -rf doc/public/*; docker run --user $(id -u):$(id -g) --rm -v $(pwd)/doc:/doc --workdir /doc registry.gitlab.com/pages/hugo/hugo_extended:0.88.1 hugo
+    - pwd
+    - find
     - cp -r doc/public public
   artifacts:
     paths:
