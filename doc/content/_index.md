@@ -6,5 +6,3 @@ hide:
 - nextpage
 ---
 
-{{%children%}}
-

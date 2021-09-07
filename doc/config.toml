@@ -1,8 +1,8 @@
-baseURL = "https://bitraf-infrastructure.github.io"
+baseURL = "https://bitraf-infrastructure.gitlab.io"
 languageCode = "en-us"
 title = "Bitraf Infrastructure manual"
 
-theme = "hugo-theme-docport"
+theme = "docport"
 
 pygmentsCodeFences = true
 pygmentsStyle = "monokai"

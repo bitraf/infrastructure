@@ -25,3 +25,6 @@ misc/bitraf-infrastructure/hugo/
 tmp
 *.tmp
 tmp.*
+
+doc/output
+doc/resources/_gen
