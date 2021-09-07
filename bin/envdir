@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -euo pipefail
+
+dir="$1"; shift
+
+if [ ! -d "$dir" ]
+then
+  echo "Not a directory: $dir" >/dev/stderr
+  exit 1
+fi
+
+while read file
+do
+  if [ -r "$file" ]
+  then
+    key="${file##*/}"
+    if [ -s "$file" ]
+    then
+      value=$(< $file)
+      export "$key=$value"
+    else
+      unset "$key"
+    fi
+  fi
+done < <(ls -1 "$dir"/*)
+
+exec "$@"

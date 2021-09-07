@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -euo pipefail
+
+self=$(basename "$0")
+basedir=$(dirname "$0")
+
+v=v0.2.19
+url="https://github.com/wal-g/wal-g/releases/download/$v/wal-g.linux-amd64.tar.gz"
+
+cmd="$basedir/.wal-g/$v/wal-g"
+
+if [[ ! -x $cmd ]]
+then
+  mkdir -p "$basedir/.wal-g/$v"
+  curl -L "$url" | tar zxf - -C "$basedir/.wal-g/$v"
+fi
+
+exec "$cmd" "${@}"

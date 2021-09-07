@@ -1,6 +1,12 @@
 bitraf infrastructure
 =====================
 
+More documentation is available under [the infrastructure site](doc/content). To view the rendered site, run 
+
+    docker-compose -f misc/bitraf-infrastructure/docker-compose.yml up -d hugo
+
+and visit http://localhost:1313
+
 `.settings.sh`
 --------------
 

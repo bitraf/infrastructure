@@ -12,7 +12,8 @@ terraform.d
 .terraform
 .terraform.lock.hcl
 
-bin/.tmp
+bin/.*
+envdir
 settings.vault
 *.tfstate
 
@@ -20,3 +21,7 @@ ops/terraform-output
 /os.csv
 
 misc/bitraf-infrastructure/hugo/
+
+tmp
+*.tmp
+tmp.*
