@@ -26,5 +26,4 @@ tmp
 *.tmp
 tmp.*
 
-doc/output
 doc/resources/_gen

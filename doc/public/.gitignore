@@ -1,0 +1,3 @@
+# This is just to prevent docker from creating the this directory and make it owned by root.
+*
+!.gitignore

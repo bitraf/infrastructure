@@ -1,4 +1,4 @@
-baseURL = "https://bitraf-infrastructure.gitlab.io"
+baseURL = "https://bitraf.gitlab.io/infrastructure/infrastructure/"
 languageCode = "en-us"
 title = "Bitraf Infrastructure manual"
 
