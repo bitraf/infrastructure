@@ -1,0 +1,14 @@
+image: registry.gitlab.com/pages/hugo:0.88.1
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+pages:
+  script:
+    - cd doc && hugo
+    - cp -r doc/output public
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
