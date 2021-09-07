@@ -7,7 +7,7 @@ pages:
   script:
     - cd doc && hugo
     # To try this locally, run: rm -rf doc/public/*; docker run --user $(id -u):$(id -g) --rm -v $(pwd)/doc:/doc --workdir /doc registry.gitlab.com/pages/hugo/hugo_extended:0.88.1 hugo
-    - cp -r doc/output public
+    - cp -r doc/public public
   artifacts:
     paths:
       - public
