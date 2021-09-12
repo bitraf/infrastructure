@@ -24,6 +24,7 @@
               bridge_ports enp4s0f0
               address 10.13.37.3
               netmask 255.255.255.0
+              post-up iptables -A FORWARD -p all -i br0 -j ACCEPT
 
       auto enp4s0f1
       iface enp4s0f1 inet manual
@@ -34,6 +35,7 @@
               address 77.40.158.102
               netmask 255.255.255.224
               gateway 77.40.158.97
+              post-up iptables -A FORWARD -p all -i br1 -j ACCEPT
 
 - name: disable ipv6 autoconf for some interfaces
   tags: network
