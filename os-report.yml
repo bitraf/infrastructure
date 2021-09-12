@@ -15,7 +15,7 @@
         - name: clean file
           copy:
             dest: "{{ output_file }}"
-            content: 'hostname,distribution,version,release'
+            content: 'hostname,system,distribution,version,release'
             owner: "{{ whoami.stdout }}"
           run_once: yes
 
@@ -23,6 +23,7 @@
           lineinfile:
             path: "{{ output_file }}"
             line: "{{ ansible_hostname }},\
+              {{ ansible_system }},\
               {{ ansible_distribution }},\
               {{ ansible_distribution_version }},\
               {{ ansible_distribution_release }}"
