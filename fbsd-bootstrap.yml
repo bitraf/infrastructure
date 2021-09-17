@@ -1,0 +1,19 @@
+# needs to be run with '--become-method su --ask-become-pass' since sudo isn't installed by default
+# also, your user should be a member of the "wheel" group for sudo to work
+- hosts: all
+  gather_facts: no
+  become: yes
+  tasks:
+  - name: pkg bootstrap
+    raw: ASSUME_ALWAYS_YES=yes pkg bootstrap
+  - name: pkg update
+    raw: pkg update
+  - name: install python and sudo
+    raw: pkg install -y python3 sudo
+  - name: set up wheel group to have passwordless sudo
+    lineinfile:
+      path: /usr/local/etc/sudoers
+      state: present
+      regexp: '^%wheel ALL='
+      line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+      validate: /usr/local/sbin/visudo -cf %s
