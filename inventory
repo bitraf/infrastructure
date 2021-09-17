@@ -10,7 +10,7 @@ boxy3               ansible_host=boxy3.local
 boxy3-workshop      ansible_host=boxy3-workshop.local
 boxy4               ansible_host=boxy4.local
 heim                ansible_host=heim.bitraf.no
-helsing             ansible_host=10.13.37.176
+helsing             ansible_host=10.13.37.176				ansible_python_interpreter=/usr/local/bin/python3
 infoscreen-a        ansible_host=infoscreen-a.local
 infoskjerm          ansible_host=infoskjerm.local
 iot                 ansible_host=iot2.bitraf.no
