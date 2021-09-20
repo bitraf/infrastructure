@@ -9,9 +9,11 @@
 
     login_shell:
       Debian: "/bin/bash"
+      FreeBSD: "/bin/sh"
       OpenBSD: "/bin/sh"
     nologin_shell:
       Debian: "/usr/sbin/nologin"
+      FreeBSD: "/usr/sbin/nologin"
       OpenBSD: "/sbin/nologin"
     usernames: "{{ users|dict2items|map(attribute='key')|list }}"
   block:
