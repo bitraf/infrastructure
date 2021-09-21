@@ -20,6 +20,19 @@
   loop_control:
     loop_var: group
   include_tasks: adjust-group.yml
+  when: ansible_system == "Linux"
+
+- tags: superusers
+  vars:
+    usernames: "{{ users|dict2items|map(attribute='key')|list }}"
+    unix_groups:
+      - wheel
+      - operator
+  loop: "{{ unix_groups }}"
+  loop_control:
+    loop_var: group
+  include_tasks: adjust-group.yml
+  when: ansible_system == "FreeBSD"
 
 - name: "Allow 'sudo' group to have passwordless sudo"
   tags: superusers
@@ -29,3 +42,16 @@
     state: present
     regexp: '^%sudo'
     line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+  when: ansible_system == "Linux"
+
+# FreeBSD uses the wheel group for admin tasks, including sudo
+- name: set up wheel group to have passwordless sudo
+  tags: superusers
+  become: yes
+  lineinfile:
+    path: /usr/local/etc/sudoers
+    state: present
+    regexp: '^%wheel ALL='
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    validate: /usr/local/sbin/visudo -cf %s
+  when: ansible_system == "FreeBSD"
