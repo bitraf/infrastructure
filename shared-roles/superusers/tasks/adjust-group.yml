@@ -24,10 +24,10 @@
       when: (item|length) > 0 and ansible_system == "FreeBSD" and item != "root"
       with_items: "{{ to_add }}"
       become: yes
-      shell: "pw groupmod -n {{ group }} -m {{ item }} "
+      shell: "pw groupmod -n {{ group }} -m {{ item }}"
 
     - name: pw groupmod remove member
       when: (item|length) > 0 and ansible_system == "FreeBSD" and item != "root"
       with_items: "{{ to_remove }}"
       become: yes
-      shell: "pw groupmod -n {{ group }} -d {{ item }} "
+      shell: "pw groupmod -n {{ group }} -d {{ item }}"
