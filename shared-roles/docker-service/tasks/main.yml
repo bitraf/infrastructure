@@ -1,24 +1,16 @@
-- name: apt install docker
-  tags:
-    - never
-    - packages
-  become: yes
-  apt:
-    name:
-      - docker.io
-      - docker-compose
-    install_recommends: no
+- set_fact:
+    docker_service__root: "{{ docker_service__etc }}/{{ docker_service }}"
 
-- name: "{{ docker_service__etc }}/{{ docker_service }}"
+- name: "{{ docker_service__root }}"
   become: yes
   file:
-    path: "{{ docker_service__etc }}/{{ docker_service }}"
+    path: "{{ docker_service__root }}"
     state: directory
 
-- name: "{{ docker_service__etc }}/{{ docker_service }}/docker-compose.yml"
+- name: "{{ docker_service__root }}/docker-compose.yml"
   become: yes
   template:
-    dest: "{{ docker_service__etc }}/{{ docker_service }}/docker-compose.yml"
+    dest: "{{ docker_service__root }}/docker-compose.yml"
     src: "{{ template }}"
   notify:
     - "docker-service: pull"
@@ -35,6 +27,14 @@
       After=network-online.target
       After=docker.service
       Requires=docker.service
+
+      {% if docker_service__requires_mounts_for|default([])|length > 0 %}
+      RequiresMountsFor=
+      {%- for x in docker_service__requires_mounts_for|default([]) %}
+      {{ x }}{% if not loop.last %} {% endif %}
+      {% endfor %}
+
+      {% endif %}
 
       [Service]
       WorkingDirectory={{ docker_service__etc }}/{{ docker_service }}/
@@ -60,13 +60,6 @@
   systemd:
     daemon_reload: yes
   when: systemd_descriptor.changed
-
-- name: systemd start "{{ systemd_unit }}"
-  become: yes
-  systemd:
-    name: "{{ systemd_unit }}"
-    enabled: "{{ systemd_enabled }}"
-    state: "{{ systemd_state }}"
 
 - set_fact:
     docker_service__reload: "{{ docker_service__reload + [systemd_unit] }}"

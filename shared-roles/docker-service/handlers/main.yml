@@ -16,3 +16,10 @@
   systemd:
     name: "{{ item }}"
     state: reloaded
+
+- name: Restart Docker Service
+  listen: "docker-service: restart"
+  become: yes
+  systemd:
+    name: "{{ systemd_unit }}"
+    state: restarted
