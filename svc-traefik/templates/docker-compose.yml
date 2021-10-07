@@ -19,11 +19,11 @@ services:
       - "--certificatesresolvers.bitraf.acme.storage=/letsencrypt/acme.json"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.traefik.rule=Host(`p2k16-staging.lan.bitraf.no`)"
+#      - "traefik.http.routers.traefik.rule=Host(`p2k16-staging.lan.bitraf.no`)"
 #      - "traefik.http.routers.traefik.entrypoints=web"
-      - "traefik.http.routers.traefik.entrypoints=websecure"
-      - "traefik.http.routers.traefik.tls.certresolver=bitraf"
-      - "traefik.http.routers.traefik.service=api@internal"
+#      - "traefik.http.routers.traefik.entrypoints=websecure"
+#      - "traefik.http.routers.traefik.tls.certresolver=bitraf"
+#      - "traefik.http.routers.traefik.service=api@internal"
     ports:
       - "80:80"
       - "443:443"
