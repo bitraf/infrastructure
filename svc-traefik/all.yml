@@ -1,0 +1,11 @@
+- hosts: traefik_host
+  tasks:
+    - name: docker network create traefik
+      become: yes
+      community.docker.docker_network:
+        name: traefik
+
+    - import_role:
+        name: docker-service
+      vars:
+        docker_service: traefik

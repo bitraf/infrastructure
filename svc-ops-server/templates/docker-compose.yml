@@ -1,17 +1,15 @@
 version: "3"
 services:
-  caddy:
-    image: caddy
-    restart: always
-    volumes:
-      - {{ docker_service_root }}/caddy-data:/data
-      - {{ docker_service_root }}/Caddyfile:/etc/caddy/Caddyfile
-    ports:
-      - "80:80"
-      - "443:443"
-
   healthchecks:
     image: "healthchecks/healthchecks:v1.22.0"
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.healthchecks.rule=Host(`healthchecks.bitraf.no`)"
+      - "traefik.http.routers.healthchecks.entrypoints=websecure"
+      - "traefik.http.routers.healthchecks.tls.certresolver=bitraf"
+      - "traefik.http.services.myservice.loadbalancer.server.port=8000"
     environment:
       DB: postgres
       DB_HOST: {{ db_host }}
@@ -29,4 +27,6 @@ services:
       SITE_NAME: "Bitraf checks"
       SITE_ROOT: "https://healthchecks.bitraf.no"
 
-# vim: filetype=yaml:
+networks:
+  traefik:
+    external: true
