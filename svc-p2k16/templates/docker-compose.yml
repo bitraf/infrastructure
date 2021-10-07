@@ -34,5 +34,3 @@ services:
 networks:
   traefik:
     external: true
-
-# vim: filetype=yaml:
