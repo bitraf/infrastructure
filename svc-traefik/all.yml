@@ -9,7 +9,6 @@
     - import_role:
         name: docker-service
       vars:
-        template: "docker-compose.yml"
         docker_service: traefik
 
 #    - loop:
