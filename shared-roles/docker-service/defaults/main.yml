@@ -3,3 +3,4 @@ systemd_unit: "docker-service-{{ docker_service }}"
 systemd_enabled: "yes"
 systemd_state: "started"
 docker_service__reload: []
+template: "docker-compose.yml"
