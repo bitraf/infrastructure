@@ -1,0 +1,4 @@
+all:
+  hosts:
+    p2k16-staging:
+    p2k16-production:
