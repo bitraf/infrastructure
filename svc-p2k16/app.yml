@@ -27,5 +27,3 @@
         name: docker-service
       tags:
         - docker-service
-      vars:
-        template: "docker-compose.yml.j2"
