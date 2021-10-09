@@ -1,4 +1,1 @@
 ldap_db: /opt/ldap/db
-
-base_dn: "dc={{ ldap_domain | replace('.', ',dc=') }}"
-admin_dc: "cn=admin,{{ base_dn }}"

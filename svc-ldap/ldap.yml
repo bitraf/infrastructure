@@ -1,5 +1,5 @@
 - hosts:
-    - ldap_host
+    - ldap_instance
   vars:
     docker_service: ldap
   tasks:

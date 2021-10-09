@@ -1,4 +1,4 @@
-ldap_host:
+ldap_instance:
   children:
     ldap_test:
 

@@ -14,8 +14,8 @@ services:
     environment:
       LDAP_ORGANISATION: "Bitraf"
       LDAP_DOMAIN: "{{ ldap_domain }}"
-      LDAP_ADMIN_PASSWORD: admin
-      LDAP_CONFIG_PASSWORD: config
+      LDAP_ADMIN_PASSWORD: "{{ ldap_admin_password }}"
+      LDAP_CONFIG_PASSWORD: "{{ ldap_config_password }}"
       LDAP_REMOVE_CONFIG_AFTER_SETUP: "false"
 
       LDAP_TLS_CRT_FILENAME: /ldap.crt
