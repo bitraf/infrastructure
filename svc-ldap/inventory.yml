@@ -1,0 +1,7 @@
+ldap_host:
+  children:
+    ldap_test:
+
+ldap_test:
+  hosts:
+    p2k16-staging:

@@ -1,0 +1,14 @@
+- hosts:
+    - ldap_host
+  connection: local
+  tasks:
+    - file:
+        path: "env-{{ ldap_instance }}.tmp"
+        state: directory
+
+    - template:
+        src: "{{ item }}"
+        dest: "env-{{ ldap_instance }}.tmp/{{ item }}"
+      loop:
+        - init-01.ldif
+#        - init-02.ldif

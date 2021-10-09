@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  ldap:
+    image: osixia/openldap:1.5.0
+    ports:
+      - "389:389"
+    volumes:
+      - ./ldap.crt:/ldap.crt
+      - ./ldap.key:/ldap.key
+      - {{ ldap_db }}:/var/lib/ldap
+#      - ./ldif:/container/service/slapd/assets/config/bootstrap/ldif/custom
+#    command: --loglevel debug
+    environment:
+      LDAP_ORGANISATION: "Bitraf"
+      LDAP_DOMAIN: "{{ ldap_domain }}"
+      LDAP_ADMIN_PASSWORD: admin
+      LDAP_CONFIG_PASSWORD: config
+      LDAP_REMOVE_CONFIG_AFTER_SETUP: "false"
+
+      LDAP_TLS_CRT_FILENAME: /ldap.crt
+      LDAP_TLS_KEY_FILENAME: /ldap.key
+#      LDAP_TLS_CA_CRT_FILENAME: the-ca.crt
+#      DISABLE_CHOWN: "true"
+#      LDAP_OPENLDAP_UID: 1000
+#      LDAP_OPENLDAP_GID: 1000
+
+      LDAP_LOG_LEVEL: 0xA4
