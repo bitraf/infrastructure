@@ -54,5 +54,5 @@
     - nginx
 
     # user requests
-    - php7.3
+    - php7.4
     - php
