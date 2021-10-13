@@ -18,3 +18,11 @@ resource "ldap_object" "p2k16-web" {
     { sn : "p2k16-web" },
   ]
 }
+
+resource "ldap_object_attributes" "foo" {
+  dn = format("cn=adminGroup,ou=meta,%s", var.base_dn)
+
+  attributes = [
+    { uniqueMember = local.p2k16_web_dn },
+  ]
+}

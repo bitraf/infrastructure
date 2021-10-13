@@ -11,11 +11,12 @@ linode-credentials
 terraform.d
 .terraform
 .terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
 
 bin/.*
 envdir
 settings.vault
-*.tfstate
 
 ops/terraform-output
 /os.csv

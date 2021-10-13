@@ -16,19 +16,19 @@
         path: "{{ ldap_db }}"
         state: directory
 
-    - name: Create private key (RSA, 4096 bits)
+    - name: Create private key
       become: yes
       community.crypto.openssl_privatekey:
         path: "{{ private_key }}"
 
-    - name: Create certificate signing request (CSR) for self-signed certificate
+    - name: Create CRS
       become: yes
       community.crypto.openssl_csr_pipe:
         privatekey_path: "{{ private_key }}"
         common_name: "{{ ansible_host }}"
       register: csr
 
-    - name: Create self-signed certificate from CSR
+    - name: Create certificate from CSR
       become: yes
       community.crypto.x509_certificate:
         path: "{{ public_key }}"

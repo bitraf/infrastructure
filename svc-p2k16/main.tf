@@ -33,13 +33,14 @@ data "terraform_remote_state" "ldap" {
 
 locals {
   test = data.terraform_remote_state.ldap.outputs.test
+  test_url = "ldap://p2k16-staging.bitraf.no"
   prod = data.terraform_remote_state.ldap.outputs.prod
 }
 
 provider "ldap" {
   alias = "test"
 
-  url           = "ldap://p2k16-staging.bitraf.no"
+  url           = local.test_url
   bind_user     = local.test.ldap_admin_dn
   bind_password = local.test.ldap_admin_password
 }
@@ -50,6 +51,7 @@ module "ldap" {
     ldap = ldap.test
   }
 
+  ldap_url      = local.test_url
   ldap_instance = local.test.ldap_instance
   base_dn       = local.test.ldap_base_dn
 }

@@ -1,10 +1,12 @@
 module "terraform-output" {
   source = "../../../ops/terraform/modules/terraform-output"
-  name   = "ldap-${var.ldap_instance}"
+  name   = "svc-p2k16/ldap/${var.ldap_instance}"
   public = {
-    p2k16_web_username = local.p2k16_web_dn
+    ldap_p2k16_web_dn = local.p2k16_web_dn
+    ldap_url = var.ldap_url
+    ldap_base_dn = var.base_dn
   }
   vault = {
-    p2k16_web_password = random_uuid.p2k16-web.result
+    ldap_p2k16_web_password = random_uuid.p2k16-web.result
   }
 }

@@ -23,13 +23,19 @@ services:
       MQTT_PREFIX: "{{ p2k16_mqtt_prefix }}"
       MQTT_PREFIX_TOOL: "{{ p2k16_mqtt_prefix_tool }}"
       MEMBERSHIP_CC: "{{ p2k16_membership_cc }}"
-      LDAP_DB: "dbname={{ db_database }} user={{ db_web_username }} password={{ db_web_password }} host={{ db_host }} port={{ db_port }} sslmode=require"
+#      LDAP_DB: "dbname={{ db_database }} user={{ db_web_username }} password={{ db_web_password }} host={{ db_host }} port={{ db_port }} sslmode=require"
       SQLALCHEMY_DATABASE_URI: "postgresql://{{ db_web_username }}:{{ db_web_password }}@{{ db_host }}:{{ db_port }}/{{ db_database }}?sslmode=require"
       SECRET_KEY: "{{ flask_secret_key }}"
       STRIPE_WEBHOOK_SECRET: "{{ stripe_webhook_secret }}"
       STRIPE_SECRET_KEY: "{{ stripe_secret_key }}"
       STRIPE_PUBLIC_KEY: "{{ stripe_public_key }}"
       SMTP_HOST: bite.lan.bitraf.no
+{% if ldap_p2k16_web_dn is defined %}
+      LDAP_BASE: "{{ ldap_base_dn }}"
+      LDAP_URI: "{{ ldap_url }}"
+      LDAP_BIND_DN: "{{ ldap_p2k16_web_dn }}"
+      LDAP_BIND_PASSWORD: "{{ ldap_p2k16_web_password }}"
+{% endif %}
 
 networks:
   traefik:
