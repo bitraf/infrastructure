@@ -11,4 +11,4 @@
         dest: "env-{{ ldap_instance }}.tmp/{{ item }}"
       loop:
         - init-01.ldif
-#        - init-02.ldif
+        - init-02.ldif

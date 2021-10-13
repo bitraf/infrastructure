@@ -18,7 +18,7 @@ locals {
     ldap_domain: replace(replace(var.ldap_base_dn, ",dc=", "."), "dc=", "")
     ldap_base_dn: var.ldap_base_dn
     ldap_admin_dn: format("cn=admin,%s", var.ldap_base_dn)
-    ldap_config_dn: format("cn=admin,cn=config", var.ldap_base_dn)
+    ldap_config_dn: "cn=admin,cn=config"
   }
   vault = {
     ldap_admin_password: random_uuid.admin.result # TODO: apply sensitive()
