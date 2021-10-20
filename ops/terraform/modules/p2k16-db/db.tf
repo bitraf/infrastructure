@@ -19,28 +19,6 @@ resource "postgresql_role" "web" {
 resource "random_uuid" "web_password" {
 }
 
-# User: p2k16-flyway
-
-resource "postgresql_role" "flyway" {
-  name     = "p2k16-flyway"
-  login    = true
-  password = random_uuid.flyway_password.result
-}
-
-resource "random_uuid" "flyway_password" {
-}
-
-# User: p2k16-ldap
-
-resource "postgresql_role" "ldap" {
-  name     = "p2k16-ldap"
-  login    = true
-  password = random_uuid.ldap_password.result
-}
-
-resource "random_uuid" "ldap_password" {
-}
-
 # User: stripestats
 
 resource "postgresql_role" "stripestats" {
