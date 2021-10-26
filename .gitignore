@@ -10,7 +10,6 @@ vault-password.asc
 linode-credentials
 terraform.d
 .terraform
-.terraform.lock.hcl
 
 bin/.*
 envdir
