@@ -101,3 +101,11 @@ host_database:
           address: 2001:840:4b0b:1000:77:40:158:104
           netmask: 64
           gateway: 2001:840:4b0b:1000::1
+
+  etikett2:
+    interfaces:
+      lan:
+        dns: etikett2.lan.bitraf.no
+        ipv4:
+          address: 10.13.37.201
+
