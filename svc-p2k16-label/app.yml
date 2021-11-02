@@ -1,0 +1,11 @@
+- hosts:
+    - svc-p2k16-label-server
+  vars:
+    docker_service: p2k16-label-server
+  tasks:
+    - import_role:
+        name: docker-service
+      tags:
+        - docker-service
+      vars:
+
