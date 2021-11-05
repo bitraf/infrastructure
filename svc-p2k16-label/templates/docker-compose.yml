@@ -1,7 +1,6 @@
 version: "3"
 services:
   p2k16-label:
-    build: .
-    image: p2k16-label
+    image: ghcr.io/bitraf/p2k16-label:latest
     stdin_open: true
     tty: true
