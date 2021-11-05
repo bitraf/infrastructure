@@ -4,6 +4,7 @@
     - bitraf-base
     - superusers
     - lusers
+    - postfix-satellite
   vars_files:
     - ../vars/bitraf_passwords.yml
     - ../vars/users.yml
