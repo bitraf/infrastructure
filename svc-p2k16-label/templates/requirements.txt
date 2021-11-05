@@ -1,4 +1,0 @@
-pillow
-qrcode
-brother_ql
-paho.mqtt
