@@ -109,3 +109,9 @@ host_database:
         ipv4:
           address: 10.13.37.201
 
+  bitraf-friskluft:
+    interfaces:
+      lan:
+        dns: bitraf-friskluft.lan.bitraf.no
+        ipv4:
+          address: 10.13.37.229
