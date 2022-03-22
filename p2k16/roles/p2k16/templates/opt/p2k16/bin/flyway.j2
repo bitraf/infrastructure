@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -e
-
-v="{{ flyway_version }}"
-flyway="/opt/p2k16/flyway/flyway-$v/flyway"
-exec "$flyway" -configFile=/etc/p2k16/flyway.conf "$@"
-
