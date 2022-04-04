@@ -13,7 +13,7 @@ terraform {
   required_providers {
     linode = {
       source  = "linode/linode"
-      version = "1.13.4"
+      version = "1.20.2"
     }
 
     minio = {
@@ -21,21 +21,6 @@ terraform {
       version = "1.2.0"
     }
   }
-}
-
-provider "minio" {
-  minio_server = "bite.bitraf.no:9000"
-  #  minio_ssl = "true"
-  minio_access_key = var.minio_access_key
-  minio_secret_key = var.minio_secret_key
-}
-
-variable "minio_access_key" {
-  type = string
-}
-
-variable "minio_secret_key" {
-  type = string
 }
 
 module "dns" {
