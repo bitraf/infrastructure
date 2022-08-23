@@ -33,6 +33,9 @@ mediawiki__extensions_git_repos:
   Arrays:
     repo: https://github.com/wikimedia/mediawiki-extensions-Arrays
     version: "{{ mediawiki__version }}"
+  VisualEditor:
+    repo: https://github.com/wikimedia/mediawiki-extensions-VisualEditor
+    version: "{{ mediawiki__version }}"
 
 wgGoogleAnalyticsAccount: UA-29715437-1
 wgGoogleTagManagerContainerID: GTM-WP3CM2M
