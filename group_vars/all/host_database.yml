@@ -115,3 +115,13 @@ host_database:
         dns: bitraf-friskluft.lan.bitraf.no
         ipv4:
           address: 10.13.37.229
+
+  testwiki:
+    interfaces:
+      eth0:
+        hwaddr: a8:82:a8:8f:4a:f5
+        role: lan
+        ipv4:
+          address: 10.13.39.5
+          netmask: 24
+          gateway: 10.13.39.1
