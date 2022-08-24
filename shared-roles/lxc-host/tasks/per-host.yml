@@ -85,14 +85,14 @@
         path: "/var/lib/lxc/{{ i.key }}/conf.d"
         state: "directory"
 
-    - name: "fill conf.d"
-      register: fill_config_d
-      with_fileglob: "lxc-host/{{ i.key }}/*"
-      loop_control:
-        loop_var: file
-      copy:
-        dest: "/var/lib/lxc/{{ i.key }}/conf.d"
-        src: "{{ file }}"
+#    - name: "fill conf.d"
+#      register: fill_config_d
+#      with_fileglob: "lxc-host/{{ i.key }}/*"
+#      loop_control:
+#        loop_var: file
+#      copy:
+#        dest: "/var/lib/lxc/{{ i.key }}/conf.d"
+#        src: "{{ file }}"
 
     - name: "restart lxc container {{ i.key }}"
       when: i.value.state == 'started' and (
