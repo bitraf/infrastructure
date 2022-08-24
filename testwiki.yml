@@ -1,0 +1,71 @@
+- hosts: mediawiki
+  vars:
+    lan: "{{ host_database | json_query(ansible_hostname + '.interfaces | * | [?role==`lan`]') | first }}"
+    db: "{{ host_database | json_query(mediawiki.db.host + '.interfaces | * | [?role==`lan`]') | first }}"
+  roles:
+    - bitraf-base
+    - lxc-guest
+    - packages
+    - lusers
+    - superusers
+    - role: nginx
+      nginx__template:
+        - sites-enabled/default
+        - sites-enabled/mediawiki
+      w: w
+      wiki: wiki
+      ipv4: "*"
+      ipv6: "[::]"
+    - role: mediawiki
+      mediawiki__local_settings: mediawiki/LocalSettings.php
+      mediawiki__wgDBserver: "{{ db.ipv4.address }}"
+      mediawiki__wgDBname: "{{ mediawiki.db.name }}"
+      mediawiki__wgDBuser: "{{ mediawiki.db.user }}"
+      mediawiki__wgDBpassword: "{{ mediawiki.db.password }}"
+
+  tasks:
+    - name: Install skins from git
+      tags:
+        - mediawiki
+        - mediawiki-skins
+      become: yes
+      with_dict: "{{ mediawiki__skins_git_repos }}"
+      git:
+        repo: "{{ item.value.repo }}"
+        dest: "/opt/mediawiki/mediawiki/skins/{{ item.key }}"
+#        version: "{{ item.value.version if version in item.value else None }}"
+
+    - name: Install Extensions from git
+      tags:
+        - mediawiki
+        - mediawiki-extensions
+      become: yes
+      with_dict: "{{ mediawiki__extensions_git_repos }}"
+      git:
+        repo: "{{ item.value.repo }}"
+        dest: "/opt/mediawiki/mediawiki/extensions/{{ item.key }}"
+        version: "{{ item.value.version }}"
+
+    - name: Install local extensions (mkdir)
+      become: yes
+      tags:
+        - mediawiki
+        - mediawiki-extensions
+      with_items:
+        - extensions/GoogleTagManager
+      file:
+        path: "/opt/mediawiki/mediawiki/{{ item }}"
+        state: directory
+
+    - name: Install local extensions (copy)
+      become: yes
+      tags:
+        - mediawiki
+        - mediawiki-extensions
+      with_items:
+        - p2k12-auth.php
+        - GoogleTagManager/GoogleTagManager.i18n.php
+        - GoogleTagManager/GoogleTagManager.php
+      copy:
+        dest: "/opt/mediawiki/mediawiki/extensions/{{ item }}"
+        src: "mediawiki/{{ item }}"
