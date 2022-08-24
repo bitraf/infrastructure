@@ -99,6 +99,7 @@ resource "linode_domain_record" "a-records" {
     "scripts" : { type : "CNAME", target : "www.bitraf.no", },
     "shop" : { type : "CNAME", target : "www.bitraf.no", },
     "staging" : { type : "CNAME", target : "www.bitraf.no", },
+    "testwiki" : { type : "A", target : local.bitnode, },
     "webapps" : { type : "CNAME", target : "bomba.bitraf.no", },
     "wiki" : { type : "A", target : local.bitnode, },
     "wormwood" : { type : "A", target : "195.159.128.13", },
