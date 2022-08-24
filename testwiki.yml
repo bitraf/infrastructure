@@ -1,4 +1,4 @@
-- hosts: mediawiki
+- hosts: testwiki
   vars:
     lan: "{{ host_database | json_query(ansible_hostname + '.interfaces | * | [?role==`lan`]') | first }}"
     db: "{{ host_database | json_query(mediawiki.db.host + '.interfaces | * | [?role==`lan`]') | first }}"
