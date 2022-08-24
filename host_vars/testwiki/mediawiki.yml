@@ -1,0 +1,38 @@
+mediawiki__version: REL1_35
+mediawiki__composer_require:
+  mediawiki/parser-hooks: ~1
+  mediawiki/validator: ~2
+  mediawiki/semantic-media-wiki: ~3.0
+  mediawiki/semantic-result-formats: ~3.0
+  mediawiki/semantic-scribunto: 2.0.0
+  monolog/monolog: 1.22.1
+
+mediawiki__skins_git_repos:
+  Bitraf:
+    repo: https://github.com/bitraf/mediawiki-skin-bitraf
+
+mediawiki__extensions_git_repos:
+  googleAnalytics:
+    repo: https://github.com/wikimedia/mediawiki-extensions-googleAnalytics
+    version: "{{ mediawiki__version }}"
+  CharInsert:
+    repo: https://github.com/wikimedia/mediawiki-extensions-CharInsert
+    version: "{{ mediawiki__version }}"
+  Scribunto:
+    repo: https://github.com/wikimedia/mediawiki-extensions-Scribunto
+    version: "{{ mediawiki__version }}"
+  CodeEditor:
+    repo: https://github.com/wikimedia/mediawiki-extensions-CodeEditor
+    version: "{{ mediawiki__version }}"
+  TemplateData:
+    repo: https://github.com/wikimedia/mediawiki-extensions-TemplateData
+    version: "{{ mediawiki__version }}"
+  Variables:
+    repo: https://github.com/wikimedia/mediawiki-extensions-Variables
+    version: "{{ mediawiki__version }}"
+  Arrays:
+    repo: https://github.com/wikimedia/mediawiki-extensions-Arrays
+    version: "{{ mediawiki__version }}"
+
+wgGoogleAnalyticsAccount: UA-29715437-1
+wgGoogleTagManagerContainerID: GTM-WP3CM2M
