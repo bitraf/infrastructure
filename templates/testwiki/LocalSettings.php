@@ -33,7 +33,7 @@ $wgArticlePath = '/wiki/$1';
 ## The protocol and server name to use in fully-qualified URLs
 # This is the ideal pattern, but some tuning from Nginx is required.
 # $wgServer = "https://${_SERVER['HTTP_HOST']}";
-$wgServer = "https://wiki.bitraf.no";
+$wgServer = "https://testwiki.bitraf.no";
 
 ## The URL path to static resources (images, scripts, etc.)
 $wgResourceBasePath = $wgScriptPath;
