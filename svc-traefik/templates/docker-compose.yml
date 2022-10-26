@@ -8,8 +8,12 @@ services:
       - "--api.insecure=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
+
+      # Enable HTTP and HTTP -> HTTPS redirects
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
 #      - "--certificatesresolvers.bitraf.acme.httpchallenge=true"
 #      - "--certificatesresolvers.bitraf.acme.httpchallenge.entrypoint=web"
 #      - "--certificatesresolvers.bitraf.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
