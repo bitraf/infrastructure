@@ -1,0 +1,9 @@
+- hosts:
+    - concourse
+  roles:
+    - bitraf-base
+    - packages
+    - lusers
+    - superusers
+    - role: docker-host
+      tags: docker-host
