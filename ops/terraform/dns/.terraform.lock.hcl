@@ -24,9 +24,11 @@ provider "registry.terraform.io/linode/linode" {
 }
 
 provider "registry.terraform.io/scottwinkler/shell" {
-  version = "1.7.10"
+  version     = "1.7.10"
+  constraints = "1.7.10"
   hashes = [
     "h1:JQSzisQQJATfDuN1voS1ZvXGrJnLjaFbtcwx+fiMr9w=",
+    "h1:yPUe5wSWvyz0d56XUdyoP+TqVj2xP/ruTzfk0yWXJws=",
     "zh:0017ae6dcdcf320df10dd0a24f22dd7f1bd92cc62c2550f5696888d7bb042d81",
     "zh:00574d8102685054080ad68db5ee99f1ee02c07709d3f77324be2d134eddf0d4",
     "zh:0a9b84dccbfe0e704a81c1e76f75c95efdc4bf03c6a1a210b1b386dfd1593209",

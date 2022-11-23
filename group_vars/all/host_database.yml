@@ -20,6 +20,24 @@ host_database:
         ipv6:
           address: 2a01:7e01:e001:e1::1
           netmask: 64
+  concourse:
+    interfaces:
+      lan:
+        dns: concourse.lan.bitraf.no
+        ipv4:
+          address: 10.13.37.213
+          netmask: 24
+      wan:
+        dns: concourse.bitraf.no
+        ipv4:
+          address: 77.40.158.111
+          netmask: 27
+          gateway: 77.40.158.100
+        ipv6:
+          address: 2001:840:4b0b:1000:77:40:158:111
+          netmask: 64
+          gateway: 2001:840:4b0b:1000::1
+      
   marvin:
     interfaces:
       eth0:

@@ -1,0 +1,46 @@
+- hosts:
+    - concourse
+
+  vars:
+    interfaces: "{{ host_database[ansible_hostname].interfaces }}"
+    lan: "{{ interfaces.lan | default('') }}"
+    wan: "{{ interfaces.wan | default('') }}"
+
+# TODO: move stuff from svc-p2k16/host.yml here
+  roles:
+    - role: systemd-networkd-interface
+      tags: network
+      when: lan|length > 0
+      vars:
+        priority: 10
+        interface: ens3
+        network_content: |
+          [Match]
+          Name={{ interface }}
+
+          [Network]
+          Address={{ lan.ipv4.address }}/{{ lan.ipv4.netmask }}
+
+    - role: systemd-networkd-interface
+      tags: network
+      when: wan|length > 0
+      vars:
+        priority: 10
+        interface: "{{ wan_phy }}"
+        network_content: |
+          [Match]
+          Name={{ interface }}
+
+          [Network]
+          {% if wan.ipv4.address|default("")|length>0 %}
+          Address={{ wan.ipv4.address }}/{{ wan.ipv4.netmask }}
+          {% if wan.ipv4.gateway|default("")|length>0 %}
+          Gateway={{ wan.ipv4.gateway }}
+          {% endif %}
+          {% endif %}
+          {% if wan.ipv6.address|default("")|length>0 %}
+          Address={{ wan.ipv6.address }}/{{ wan.ipv6.netmask }}
+          {% if wan.ipv6.gateway|default("")|length>0 %}
+          Gateway={{ wan.ipv6.gateway }}
+          {% endif %}
+          {% endif %}
