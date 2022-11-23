@@ -32,6 +32,14 @@
         name: "{{ item }}"
         shell: "{{ nologin_shell[ansible_distribution] }}"
 
+    - name: create ~/.ssh
+      file:
+        path: "/home/{{ item }}/.ssh"
+        state: directory
+        owner: "{{ item }}"
+        group: "{{ item }}"
+      with_items: "{{ lusers }}"
+
     - name: authorized_keys, exclusively managed by Ansible
       copy:
         dest: "/home/{{ item }}/.ssh/authorized_keys"
