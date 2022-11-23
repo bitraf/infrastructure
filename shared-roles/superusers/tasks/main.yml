@@ -1,28 +1,36 @@
----
-- tags: superusers
-  block:
-    - name: getent passwd
-      getent:
-        database: passwd
+- name: getent passwd
+  getent:
+    database: passwd
 
-    - name: getent group
-      getent:
-        database: group
+- name: getent group
+  getent:
+    database: group
 
-# NOTE: Accounts are added by the luser module.
-- tags: superusers
-  vars:
-    usernames: "{{ users|dict2items|map(attribute='key')|list }}"
+- set_fact:
     unix_groups:
       - sudo
       - systemd-journal
-  loop: "{{ unix_groups }}"
+
+# Only add the docker group if it exists
+- name: Get docker group
+  getent:
+    database: group
+    key: docker
+    fail_key: False
+
+- set_fact:
+    unix_groups: "{{ unix_groups + ['docker'] }}"
+  when: getent_group["docker"]
+
+# NOTE: Accounts are added by the luser module.
+- vars:
+    usernames: "{{ users|dict2items|map(attribute='key')|list }}"
+  with_items: "{{ unix_groups }}"
   loop_control:
     loop_var: group
   include_tasks: adjust-group.yml
 
 - name: "Allow 'sudo' group to have passwordless sudo"
-  tags: superusers
   become: yes
   lineinfile:
     dest: /etc/sudoers

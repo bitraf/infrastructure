@@ -4,6 +4,7 @@
     - bitraf-base
     - packages
     - lusers
-    - superusers
+    - role: superusers
+      tags: superusers
     - role: docker-host
       tags: docker-host
