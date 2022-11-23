@@ -1,4 +1,6 @@
 terraform {
+  required_version = "~> 1.3.5"
+
   backend "s3" {
     bucket                      = "bitraf-terraform"
     key                         = "healthchecks-db/terraform.tfstate"

@@ -1,5 +1,7 @@
 # Tokens are configured by .settings.sh
 terraform {
+  required_version = "~> 1.3.5"
+
   backend "s3" {
     bucket                      = "bitraf-terraform"
     key                         = "p2k16-production-db/terraform.tfstate"
