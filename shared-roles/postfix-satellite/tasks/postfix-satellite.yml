@@ -36,7 +36,7 @@
 
 - set_fact:
     main_cf: "{{ main_cf + [ {'key': 'mynetworks', 'value': mynetworks} ] }}"
-  when: mynetworks|default("")|length > 0
+  when: mynetworks|default("")|trim|length > 0
 
 - name: "Configure postfix: main.cf"
   tags: postfix-satellite-config
