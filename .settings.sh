@@ -7,7 +7,7 @@ else
   if [[ -r settings.vault ]]
   then
     echo "Sourcing ./settings.vault"
-    $(ansible-vault view settings.vault)
+    . <(ansible-vault view settings.vault)
   fi
 fi
 
