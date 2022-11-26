@@ -11,10 +11,34 @@ resource "docker_container" "concourse" {
   command = ["quickstart"]
   #  start   = false
 
-  network_mode = "host"
-  ports {
-    internal = "8080"
-    external = "8080"
+  #  ports {
+  #    internal = "8080"
+  #    external = "8080"
+  #  }
+
+  networks_advanced {
+    name = "traefik"
+  }
+
+  labels {
+    label = "traefik.enable"
+    value = "true"
+  }
+  labels {
+    label = "traefik.http.routers.healthchecks.entrypoints"
+    value = "websecure"
+  }
+  labels {
+    label = "traefik.http.routers.healthchecks.rule"
+    value = "Host(`concourse.bitraf.no`)"
+  }
+  labels {
+    label = "traefik.http.routers.healthchecks.tls.certresolver"
+    value = "bitraf"
+  }
+  labels {
+    label = "traefik.http.services.myservice.loadbalancer.server.port"
+    value = "8000"
   }
 
   env = [
