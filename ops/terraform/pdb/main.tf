@@ -13,21 +13,25 @@ terraform {
   }
 
   required_providers {
+    healthchecksio = {
+      source  = "kristofferahl/healthchecksio"
+      version = "1.9.0"
+    }
     linode = {
       source  = "linode/linode"
       version = "1.20.2"
     }
-    random = {
-      source  = "hashicorp/random"
-      version = "3.1.0"
+    local = {
+      source  = "hashicorp/local"
+      version = "2.1.0"
     }
     null = {
       source  = "hashicorp/null"
       version = "3.1.0"
     }
-    local = {
-      source  = "hashicorp/local"
-      version = "2.1.0"
+    random = {
+      source  = "hashicorp/random"
+      version = "3.1.0"
     }
     shell = {
       source  = "scottwinkler/shell"
@@ -36,3 +40,11 @@ terraform {
   }
 }
 
+provider "healthchecksio" {
+  api_key = var.pdb_project_api_key
+  api_url = "https://healthchecks.bitraf.no/api/v1"
+}
+
+data "healthchecksio_channel" "slack" {
+  kind = "slack"
+}

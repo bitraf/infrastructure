@@ -1,1 +1,1 @@
-45 03 * * * root /opt/wal-g/wal-g backup-push -f $PGDATA
+45 03 * * * root /opt/wal-g/wal-g backup-push -f $PGDATA; {% if ping_url_backup is defined %}; curl -fsS -m 10 --retry 5 -o /dev/null {{ ping_url_backup }}{% endif %}

@@ -4,6 +4,8 @@ then
 else
   export ANSIBLE_VAULT_PASS="$($(pwd)/vault-password)"
 
+  . <(ansible-vault view terraform.vault)
+
   if [[ -r settings.vault ]]
   then
     echo "Sourcing ./settings.vault"

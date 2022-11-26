@@ -1,7 +1,7 @@
 version: "3"
 services:
   healthchecks:
-    image: "healthchecks/healthchecks:v1.22.0"
+    image: "healthchecks/healthchecks:v2.4.1"
     networks:
       - traefik
     labels:
@@ -11,6 +11,7 @@ services:
       - "traefik.http.routers.healthchecks.tls.certresolver=bitraf"
       - "traefik.http.services.myservice.loadbalancer.server.port=8000"
     environment:
+      DEBUG: "False"
       DB: postgres
       DB_HOST: {{ db_host }}
       DB_PORT: {{ db_port }}
