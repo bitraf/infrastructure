@@ -1,6 +1,13 @@
 - become: yes
   tags: 
     - infoscreen
+  name: update apt cache
+  apt:
+    update_cache: yes
+
+- become: yes
+  tags: 
+    - infoscreen
   block:
     - name: infoscreen packages
       vars:
