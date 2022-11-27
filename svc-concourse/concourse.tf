@@ -1,5 +1,5 @@
 resource "docker_image" "concourse" {
-  name = "concourse/concourse:6.8.0"
+  name = "concourse/concourse:7.8.3"
 }
 
 resource "docker_container" "concourse" {
@@ -9,12 +9,6 @@ resource "docker_container" "concourse" {
   must_run   = false
 
   command = ["quickstart"]
-  #  start   = false
-
-  #  ports {
-  #    internal = "8080"
-  #    external = "8080"
-  #  }
 
   networks_advanced {
     name = "traefik"
@@ -49,8 +43,6 @@ resource "docker_container" "concourse" {
     "CONCOURSE_POSTGRES_PORT=${local.port}",
     "CONCOURSE_POSTGRES_SSLMODE=require",
     "CONCOURSE_EXTERNAL_URL=https://concourse.bitraf.no",
-    "CONCOURSE_ADD_LOCAL_USER=test:test",
-    "CONCOURSE_MAIN_TEAM_LOCAL_USER=test",
     "CONCOURSE_WORKER_BAGGAGECLAIM_DRIVER=overlay",
     "CONCOURSE_CLIENT_SECRET=Y29uY291cnNlLXdlYgo=",
     "CONCOURSE_TSA_CLIENT_SECRET=Y29uY291cnNlLXdvcmtlcgo=",
@@ -60,6 +52,13 @@ resource "docker_container" "concourse" {
     "CONCOURSE_WORKER_CONTAINERD_DNS_SERVER=8.8.8.8",
     "CONCOURSE_WORKER_RUNTIME=containerd",
     "CONCOURSE_ENABLE_ACROSS_STEP=true",
+
+    "CONCOURSE_ADD_LOCAL_USER=test:test",
+    "CONCOURSE_MAIN_TEAM_LOCAL_USER=test",
+
+#    "CONCOURSE_MAIN_TEAM_GITHUB_ORG=org-name",
+    "CONCOURSE_MAIN_TEAM_GITHUB_TEAM=bitraf:Drift",
+#    "CONCOURSE_MAIN_TEAM_GITHUB_USER=some-user",
 
     "CONCOURSE_GITHUB_CLIENT_ID=${data.ansiblevault_path.github_client_id.value}",
     "CONCOURSE_GITHUB_CLIENT_SECRET=${data.ansiblevault_path.github_client_secret.value}",
