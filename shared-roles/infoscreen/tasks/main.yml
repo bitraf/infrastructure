@@ -94,6 +94,21 @@
         value: "LXDE"
 
 - become: yes
+  tags:
+    - infoscreen
+  name: get current systemd default target
+  command: "systemctl get-derfault"
+  changed_when: false
+  register: systemdefault
+
+- become: yes
+  tags:
+    - infoscreen
+  name: set system default target to graphical target
+  command: "systemctl set-default graphical.target"
+  when: "'graphical' not in systemdefault.stdout"
+
+- become: yes
   vars:
     infoscreen_user: "{{ infoscreen__user }}"
   block:
