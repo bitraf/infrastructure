@@ -30,6 +30,7 @@ unifi               ansible_host=unifi.local
 
 [infoscreens]
 infoscreen-a
+infoskjerm
 testskjerm
 
 [lxc-guest]
