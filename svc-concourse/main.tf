@@ -13,6 +13,10 @@ terraform {
   }
 
   required_providers {
+    ansiblevault = {
+      source  = "MeilleursAgents/ansiblevault"
+      version = "2.2.0"
+    }
     docker = {
       source  = "kreuzwerker/docker"
       version = "2.23.1"
@@ -34,4 +38,8 @@ terraform {
 
 provider "docker" {
   host = "ssh://concourse.bitraf.no"
+}
+
+provider "ansiblevault" {
+  root_folder = ".."
 }

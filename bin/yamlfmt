@@ -1,0 +1,47 @@
+#!/bin/bash
+
+v=1.3.0
+
+set -euo pipefail
+
+basedir="${0%/*}"
+bin="$basedir/.yamlfmt/$v/yamlfmt"
+tar="${bin}.tar.gz"
+
+if [ ! -x "${bin}" ]
+then
+  s=$(uname -s)
+  case "$s" in
+    Linux)
+      s=linux
+      ;;
+    Darwin)
+      s=darwin
+      ;;
+    *)
+      echo "Unsupported system: $s" >/dev/stderr
+      exit 1
+      ;;
+  esac
+
+  m=$(uname -m)
+  case "$m" in
+    x86_64)
+      m=amd64
+      ;;
+    *)
+      echo "Unsupported machine: $m" >/dev/stderr
+      exit 1
+      ;;
+  esac
+
+  url="https://github.com/UltiRequiem/yamlfmt/releases/download/v${v}/yamlfmt_${v}_${s}_${m}.tar.gz"
+
+  mkdir -p "${tar%/*}"
+  curl --output "${tar}" \
+    --location \
+    "$url"
+  tar xf "$tar" -C "${tar%/*}"
+fi
+
+exec "$bin" "${@}"

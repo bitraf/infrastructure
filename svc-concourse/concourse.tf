@@ -37,8 +37,8 @@ resource "docker_container" "concourse" {
     value = "bitraf"
   }
   labels {
-    label = "traefik.http.services.myservice.loadbalancer.server.port"
-    value = "8000"
+    label = "traefik.http.services.healthchecks.loadbalancer.server.port"
+    value = "8080"
   }
 
   env = [
@@ -60,5 +60,18 @@ resource "docker_container" "concourse" {
     "CONCOURSE_WORKER_CONTAINERD_DNS_SERVER=8.8.8.8",
     "CONCOURSE_WORKER_RUNTIME=containerd",
     "CONCOURSE_ENABLE_ACROSS_STEP=true",
+
+    "CONCOURSE_GITHUB_CLIENT_ID=${data.ansiblevault_path.github_client_id.value}",
+    "CONCOURSE_GITHUB_CLIENT_SECRET=${data.ansiblevault_path.github_client_secret.value}",
   ]
+}
+
+data "ansiblevault_path" "github_client_id" {
+  path = "group_vars/concourse/vault.yml"
+  key  = "concourse_github_client_id"
+}
+
+data "ansiblevault_path" "github_client_secret" {
+  path = "group_vars/concourse/vault.yml"
+  key  = "concourse_github_client_secret"
 }
