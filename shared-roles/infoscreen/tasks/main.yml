@@ -97,7 +97,7 @@
   tags:
     - infoscreen
   name: get current systemd default target
-  command: "systemctl get-derfault"
+  command: "systemctl get-default"
   changed_when: false
   register: systemdefault
 
