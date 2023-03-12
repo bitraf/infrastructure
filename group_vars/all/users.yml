@@ -22,6 +22,7 @@ users:
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAq/8+H4A29KrV8SqvF6V7vU8r5f6sXStVroqLZmAeRx tingo@bitraf (bsbox)
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINL2e5n0kvZIJmZx6jIct4nzU5stsFu7QYhNcoSrliqA tingo@z30b
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHYcHhTGOXsSZnQ0OkLdyy/0mAn81wi/EcDy8UVVReBL tingo@win10
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIRTi4YDV/xNswlyEDNHuz64NkU4h5w7m6d8+zeYR01L tingo @ kg-bsbox (FreeBSD)
   royk:
     authorized_keys: |
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJlXRj/vYaL3v/ynF4Z1Sc5up9b1hCdfSZv4bLzwLWYv roy@karlsbakk.net
