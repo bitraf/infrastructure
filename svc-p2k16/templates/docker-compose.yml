@@ -8,7 +8,7 @@ services:
       - traefik
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.p2k16.rule=Host(`{{ p2k16_public_domain }}`)"
+      - "traefik.http.routers.p2k16.rule=Host(`{{ p2k16_public_domain }}`, `door.bitraf.no`)"
       - "traefik.http.routers.p2k16.entrypoints=websecure"
       - "traefik.http.routers.p2k16.tls.certresolver=bitraf"
     environment:
