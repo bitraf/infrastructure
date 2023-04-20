@@ -1,6 +1,8 @@
 packages_debian_release: bullseye
 
-p2k16_public_domain: p2k16.bitraf.no
+p2k16_public_domains:
+  - p2k16.bitraf.no
+  - door.bitraf.no
 docker_tag: master
 docker_image: registry.gitlab.com/bitraf/p2k16/p2k16
 
