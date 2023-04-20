@@ -76,7 +76,7 @@ resource "linode_domain_record" "a-records" {
     "concourse-v6": { type: "AAAA", target: "2001:8c0:9302:4:5054:ff:febf:6ac0", },
     "dlock" : { type : "A", target : "77.40.158.109", },
     "door2" : { type : "CNAME", target : "p2k12.bitraf.no", },
-    "door" : { type : "CNAME", target : "p2k12.bitraf.no", },
+    "door" : { type : "CNAME", target : "p2k16.bitraf.no", },
     "heim" : { type : "A", target : "77.40.158.103", },
     "iot2" : { type : "A", target : "77.40.158.107", },
     "iot" : { type : "CNAME", target : "bomba.bitraf.no", },
