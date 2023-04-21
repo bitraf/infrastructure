@@ -9,7 +9,7 @@ services:
     labels:
       - "traefik.enable=true"
 
-      - "traefik.http.middlewares.bitraf-internal.ipwhitelist.sourcerange=77.40.158.96/27, 10.13.37.0/24"
+      - "traefik.http.middlewares.bitraf-internal.ipwhitelist.sourcerange=77.40.158.96/27, 10.13.37.0/24, 85.90.244.199"
 
       - "traefik.http.routers.p2k16-passwd.priority=0"
       - "traefik.http.routers.p2k16-passwd.rule=Host(`{{ '`, `'.join(p2k16_public_domains) }}`) && PathPrefix(`/passwd.php`)"
