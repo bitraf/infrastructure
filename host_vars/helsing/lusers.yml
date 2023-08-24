@@ -1,0 +1,9 @@
+lusers_authorized_keys_exclusive: yes
+lusers:
+  - eliasbakken
+  - haavares
+  - mastensg
+  - mattis
+  - omega
+  - tingo
+  - trygvis
