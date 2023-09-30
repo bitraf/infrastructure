@@ -1,7 +1,7 @@
 ---
 - hosts: bomba
   roles:
-#    - network
+    - network
     - packages
     - bitraf-base
     - lusers
