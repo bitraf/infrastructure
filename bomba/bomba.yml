@@ -9,15 +9,3 @@
   vars_files:
     - ../vars/bitraf_passwords.yml
     - ../vars/users.yml
-  tasks:
-  - name: Role mosquitto-server
-    tags: mosquitto-server
-    become: yes
-    import_role:
-      name: mosquitto-server
-
-  - name: Role hivemq-mqtt-web-client
-    tags: hivemq-mqtt-web-client
-    become: yes
-    import_role:
-      name: hivemq-mqtt-web-client

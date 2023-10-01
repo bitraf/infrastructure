@@ -6,8 +6,6 @@ services:
     restart: always
     networks:
       - traefik
-    ports:
-      - "83:83"
     labels:
       - "traefik.enable=true"
       - "traefik.tcp.routers.mosquitto.rule=HostSNI(`mqtt.bitraf.no`)"
@@ -20,7 +18,7 @@ services:
       - "traefik.tcp.routers.mosquittos.tls.certresolver=bitraf"
       - "traefik.tcp.routers.mosquittos.service=mqtt"
 
-      - "traefik.tcp.services.mqtt.loadBalancer.server.port=83"
+      - "traefik.tcp.services.mqtt.loadBalancer.server.port=1883"
     volumes:
       - "{{ docker_service__root }}/mosquitto:/mosquitto/config"
 

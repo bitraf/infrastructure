@@ -28,7 +28,6 @@
   with_items:
     # useful utilities and things
     - etckeeper
-    - mosquitto
     - screen
     - tmux
     - vim
