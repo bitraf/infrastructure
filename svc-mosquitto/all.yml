@@ -15,6 +15,7 @@
       template:
         dest: "{{ docker_service__root }}/mosquitto/{{ item }}"
         src: "{{ item }}"
+        mode: 0700
       with_items:
         - mosquitto.conf
         - bitraf.acl
@@ -60,9 +61,8 @@
         - name: chmod passwd file
           file:
             path: "{{ mosquitto__password_file }}"
-            user: 1883
+            owner: 1883
             mode: 0700
-          when: not orig.stat.exists
 
         - debug:
             msg: Forcing restart of mosquitto
