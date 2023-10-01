@@ -1,5 +1,9 @@
 - hosts: traefik_host
   tasks:
+    - import_role:
+        name: docker-host
+      tags: docker-host
+
     - name: docker network create traefik
       become: yes
       community.docker.docker_network:
@@ -9,3 +13,22 @@
         name: docker-service
       vars:
         docker_service: traefik
+
+    - become: yes
+      file:
+        path: "{{ docker_service__root }}/traefik/config"
+        state: directory
+
+    - become: yes
+      when: traefik_file_config | default(False)
+      template:
+        dest: "{{ docker_service__root }}/traefik/config/traefik-file.yml"
+        src: "{{ traefik_file_config }}"
+      notify: restart traefik
+
+  handlers:
+    - name: restart traefik
+      become: yes
+      ansible.builtin.service:
+        name: docker-service-traefik
+        state: restarted

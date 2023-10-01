@@ -2,37 +2,46 @@ version: "3.3"
 
 services:
   traefik:
-    image: "traefik:v2.9"
+    image: "traefik:{{ traefik_version_tag }}"
     command:
       - "--log.level=DEBUG"
+{#
       - "--api.insecure=true"
+#}
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.websecure.address=:443"
+{% if traefik_file_config|default("")|length > 0 %}
+      - "--providers.file.filename=/config/traefik-file.yml"
+{% endif %}
+{% for k, v in traefik_endpoints.items() %}
+      - "--entrypoints.{{ k }}.address={{ v }}"
+{% endfor %}
 
+{% if traefik_http_to_https_redirect %}
       # Enable HTTP and HTTP -> HTTPS redirects
-      - "--entrypoints.web.address=:80"
       - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
       - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
-#      - "--certificatesresolvers.bitraf.acme.httpchallenge=true"
-#      - "--certificatesresolvers.bitraf.acme.httpchallenge.entrypoint=web"
-#      - "--certificatesresolvers.bitraf.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+{% endif %}
+
       - "--certificatesresolvers.bitraf.acme.dnschallenge.provider=linode"
       - "--certificatesresolvers.bitraf.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53"
       - "--certificatesresolvers.bitraf.acme.email=itavdelingen@bitraf.no"
       - "--certificatesresolvers.bitraf.acme.storage=/letsencrypt/acme.json"
+{#
     labels:
-      - "traefik.enable=true"
-#      - "traefik.http.routers.traefik.rule=Host(`p2k16-staging.lan.bitraf.no`)"
-#      - "traefik.http.routers.traefik.entrypoints=web"
-#      - "traefik.http.routers.traefik.entrypoints=websecure"
-#      - "traefik.http.routers.traefik.tls.certresolver=bitraf"
-#      - "traefik.http.routers.traefik.service=api@internal"
+      - "traefik.http.routers.traefik.rule=Host(`p2k16-staging.lan.bitraf.no`)"
+      - "traefik.http.routers.traefik.entrypoints=web"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.routers.traefik.tls.certresolver=bitraf"
+      - "traefik.http.routers.traefik.service=api@internal"
+#}
     ports:
-      - "80:80"
-      - "443:443"
+{% for item in traefik_ports %}
+      - "{{ item }}"
+{% endfor %}
     volumes:
       - "{{ docker_service__root }}/traefik/letsencrypt:/letsencrypt"
+      - "{{ docker_service__root }}/traefik/config:/config"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     environment:
       LINODE_TOKEN: "{{ linode_itavdelingen_pat }}"

@@ -47,3 +47,13 @@ bomba
 
 [svc-ops-server]
 bite
+
+[traefik_host]
+bite
+bomba
+concourse
+p2k16-production
+p2k16-staging
+
+[mosquitto_host]
+bomba

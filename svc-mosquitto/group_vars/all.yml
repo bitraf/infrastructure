@@ -1,0 +1,1 @@
+mosquitto__password_file: "{{ docker_service__root }}/mosquitto/bitraf.passwords"

@@ -1,0 +1,77 @@
+- hosts: mosquitto_host
+  tasks:
+    - import_role:
+        name: docker-service
+      vars:
+        docker_service: mosquitto
+
+    - become: yes
+      file:
+        path: "{{ docker_service__root }}/mosquitto"
+        state: directory
+      notify: restart
+
+    - become: yes
+      template:
+        dest: "{{ docker_service__root }}/mosquitto/{{ item }}"
+        src: "{{ item }}"
+      with_items:
+        - mosquitto.conf
+        - bitraf.acl
+      notify: restart
+
+    - name: Password management
+      tags: mosquitto-passwd
+      become: yes
+      block:
+        - name: Stat passwd file
+          stat:
+            path: "{{ mosquitto__password_file }}"
+          register: orig
+
+        - name: Create passwd file
+          file:
+            path: "{{ mosquitto__password_file }}"
+            state: touch
+          when: not orig.stat.exists
+
+        - name: Load passwd file
+          command: "cut -f 1 -d : {{ mosquitto__password_file }}"
+          changed_when: False
+          check_mode: False
+          register: mosquitto__passwd
+
+        - name: Remove passwd entries
+          command: "mosquitto_passwd -D {{ mosquitto__password_file }} {{ item.name | d(item) }}"
+          with_items:
+            - "{{ mqtt_accounts }}"
+          when: |
+            (item.state|d('present') == 'absent') and
+            (item.name in mosquitto__passwd.stdout_lines)
+
+        - name: Create passwd entries
+          environment:
+            PW: "{{ bitraf_passwords.mqtt[item.name].password }}"
+          command: "mosquitto_passwd -b {{ mosquitto__password_file }} {{ item.name | d(item) }} ${PW}"
+          with_items:
+            - "{{ mqtt_accounts }}"
+          when: (item.state|d('present') != 'absent')
+
+        - name: chmod passwd file
+          file:
+            path: "{{ mosquitto__password_file }}"
+            user: 1883
+            mode: 0700
+          when: not orig.stat.exists
+
+        - debug:
+            msg: Forcing restart of mosquitto
+          notify: restart
+          changed_when: true
+
+  handlers:
+    - name: restart
+      become: yes
+      ansible.builtin.service:
+        name: docker-service-mosquitto
+        state: restarted

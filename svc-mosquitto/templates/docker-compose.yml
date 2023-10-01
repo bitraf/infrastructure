@@ -1,0 +1,29 @@
+version: "3.3"
+
+services:
+  mosquitto:
+    image: "eclipse-mosquitto:2.0.18"
+    restart: always
+    networks:
+      - traefik
+    ports:
+      - "83:83"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.mosquitto.rule=HostSNI(`mqtt.bitraf.no`)"
+      - "traefik.tcp.routers.mosquitto.entrypoints=mqtt"
+      - "traefik.tcp.routers.mosquitto.tls.certresolver=bitraf"
+      - "traefik.tcp.routers.mosquitto.service=mqtt"
+
+      - "traefik.tcp.routers.mosquittos.rule=HostSNI(`mqtt.bitraf.no`)"
+      - "traefik.tcp.routers.mosquittos.entrypoints=mqtts"
+      - "traefik.tcp.routers.mosquittos.tls.certresolver=bitraf"
+      - "traefik.tcp.routers.mosquittos.service=mqtt"
+
+      - "traefik.tcp.services.mqtt.loadBalancer.server.port=83"
+    volumes:
+      - "{{ docker_service__root }}/mosquitto:/mosquitto/config"
+
+networks:
+  traefik:
+    external: true

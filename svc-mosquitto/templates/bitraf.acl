@@ -1,0 +1,148 @@
+# WARNING
+# WARNING This file is managed with ansible
+# WARNING
+
+# Cannot be enabled, because the rules not overwritten by more specific ones below
+#topic read /#
+#topic write /#
+
+topic read /public/#
+topic write /public/#
+
+topic read public/#
+topic write public/#
+
+# msgflo discovery
+topic read fbp/#
+topic write fbp/#
+topic read fbp
+topic write fbp
+topic read /fbp/#
+topic write /fbp/#
+topic read /fbp
+topic write /fbp
+# msgflo default queue naming: role.PORT
+topic read +
+topic write +
+
+# Diller devices
+topic read /diller/#
+topic write /diller/#
+
+# Infodisplay on TV
+topic read /bitraf/tv/#
+topic write /bitraf/tv/#
+
+# 3D printers
+# publicly available for now
+topic read /bitraf/3d-printer/#
+topic write /bitraf/3d-printer/#
+
+# Door webinterface
+topic read /bitraf/doorweb/memberlogin
+topic write /bitraf/doorweb/memberlogin
+
+# Door
+topic read /bitraf/door/+/open
+topic read /bitraf/door/+/isopen
+topic read /bitraf/door/+/error
+topic read /bitraf/door/+/openuntil
+
+# p2k16 prod and staging systems
+topic read bitraf/bitraf-p2k16-web/#
+topic read bitraf/bitraf-p2k16-web-staging/#
+
+# Guest door notification
+topic read bitraf/guestlogin/arriving
+
+# Nexa
+topic read bitraf/nexa/1/online
+# TOOD: remove me, for debugging
+topic read bitraf/nexa/1/#
+
+# Allow read for everybody on our button, temperature and humidity sensors
+# Remember to add the same set for openhab
+topic read bitraf/button/+
+topic read bitraf/button/+/value
+topic read bitraf/guestbutton/+/led
+topic read bitraf/guestbutton/+/button
+topic read bitraf/temperature/+
+topic read bitraf/temperature/+/value
+topic read bitraf/humidity/+
+topic read bitraf/humidity/+/value
+topic read bitraf/co2/+
+topic read bitraf/co2/+/value
+topic read bitraf/octoprint/hotbot/#
+topic read bitraf/currentsensor/+
+
+# Current sensors
+# Anyone can write, for now
+topic write bitraf/currentsensor/+
+
+# https://github.com/bitraf/machineaccess
+topic read bitraf/tool/#
+
+# OpenHAB
+user bitraf-openhab
+topic write bitraf/nexa/1/cmd/#
+topic read bitraf/temperature/+
+topic read bitraf/humidity/+
+topic read bitraf/button/+
+topic read bitraf/co2/+/value
+
+# Door
+# Privileged operations, critical for ops
+user bitraf-door-2
+topic read /bitraf/door/#
+topic write /bitraf/door/+/open
+topic write /bitraf/door/+/error
+topic write /bitraf/door/+/isopen
+topic write /bitraf/door/+/openuntil
+topic readwrite bitraf/guestbutton/+/button
+topic readwrite bitraf/guestbutton/+/led
+topic readwrite bitraf/openbutton/+/button
+topic readwrite bitraf/openbutton/+/led
+topic write bitraf/guestlogin/arriving
+topic readwrite fbp
+
+# Tools
+# One dedicated user for all tool devices
+user bitraf-tool-lock
+topic read      bitraf/tool/+/unlock
+topic read      bitraf/tool/+/lock
+topic write     bitraf/tool/+/islocked
+
+# p2k16, can manage doors and locks
+user bitraf-p2k16-web
+topic write /bitraf/door/+/open
+topic write bitraf/tool/+/unlock
+topic write bitraf/tool/+/lock
+topic write /public/#
+
+user bitraf-p2k16-web-staging
+topic readwrite bitraf/bitraf-p2k16-web-staging/#
+topic write /public/#
+
+# Misc sensors
+user bitraf-button-1
+topic write bitraf/button/1/#
+topic write bitraf/temperature/1/#
+topic write bitraf/humidity/1/#
+
+user bitraf-nexa-1
+topic read bitraf/nexa/1/#
+topic write bitraf/nexa/1/#
+
+user mattisdevice-1
+topic write bitraf/temperature/2/#
+topic write bitraf/temperature/3/#
+topic write bitraf/humidity/2/#
+
+user bitraf-co2-1
+topic write bitraf/co2/1/#
+
+user bitraf-nexa-controller
+topic write bitraf/nexa/1/cmd/#
+
+user bitraf-hotbot
+topic write bitraf/octoprint/hotbot/#
