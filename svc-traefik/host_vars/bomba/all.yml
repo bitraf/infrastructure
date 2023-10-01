@@ -1,0 +1,13 @@
+traefik_version_tag: "2.10"
+traefik_file_config: bomba-traefik.yml
+traefik_http_to_https_redirect: false
+traefik_endpoints:
+#  web: ":80"
+#  websecure: ":443"
+  mqtt: ":1883"
+  mqtts: ":8883"
+traefik_ports:
+#  - "80:80"
+#  - "443:443"
+  - "1883:1883"
+  - "8883:8883"

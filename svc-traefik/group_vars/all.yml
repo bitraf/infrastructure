@@ -1,0 +1,8 @@
+traefik_version_tag: 2.9
+traefik_http_to_https_redirect: true
+traefik_endpoints:
+  web: ":80"
+  websecure: ":443"
+traefik_ports:
+  - "80:80"
+  - "443:443"
