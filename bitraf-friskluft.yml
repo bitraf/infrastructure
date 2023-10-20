@@ -1,0 +1,23 @@
+- hosts:
+    - bitraf-friskluft
+  vars:
+    lan: "{{ host_database[ansible_hostname].interfaces.lan }}"
+  roles:
+    - lusers
+    - superusers
+    - wireless-network
+
+    - role: systemd-networkd-interface
+      tags: network
+      vars:
+        priority: 10
+        interface: wlan0
+        network_content: |
+          [Match]
+          Name={{ interface }}
+
+          [Network]
+          Address={{ lan.ipv4.address }}/{{ lan.ipv4.netmask }}
+          {% if lan.ipv4.gateway|default("")|length>0 %}
+          Gateway={{ lan.ipv4.gateway }}
+          {% endif %}
