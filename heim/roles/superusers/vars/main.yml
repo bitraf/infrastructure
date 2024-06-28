@@ -6,7 +6,8 @@ superusers:
   - username: mastensg
     state: present
     authorized_keys: |
-      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICOayiImJKc7Qfmp2i33QNreBZ+zatorDVP3IUEPXlch mastensg@reed
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM950QVWTo2zbNvbbU21EKheLZbdNqVtZ15sbq38g2hM mastensg@bitraf.no
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMg+3jA126lIC/dtkV8cgsjtSC9xWQKG6K+1L9Zd+3dR mastensg@mastensg.net
   - username: trygvis
     state: present
     authorized_keys: |
