@@ -37,3 +37,8 @@ superusers:
     authorized_keys: |
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPzUlNNCZe0FJ+0vz1sM9hYMNHJSWFgY6gqyAP0kWm+y
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDYI6OTHiS015oqVINoQ3zEl2CF02UmdEVeO3dzeX1Kv
+  - username: kagee
+    state: present
+    authorized_keys: |
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIeO3y1ScnOFJHt0HsbDpfmpokTw1QZgjKg8EnwXR+8/ hildenae@ember
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPQyer7CgKVX0HscM1Z/jxJbOqczQ9id5g75SCnD6OUl hildenae@offle
