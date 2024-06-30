@@ -8,25 +8,55 @@
         "type": "Balloon",
         "weight": 1,
         "id": "600691975533876a79deb3d3ca8838d9bd03cf2c",
-        "version": 175,
+        "version": 185,
         "child": {
           "type": "VStack",
           "weight": 1,
           "id": "f86841d08cb2f5b8abd96800baa56dc679a37be0",
-          "version": 175,
+          "version": 185,
           "children": [
             {
               "type": "HStack",
               "weight": 1,
               "id": "9c7b581bbd16abb22caa9c47d4badbed607ed07a",
-              "version": 161,
+              "version": 171,
               "children": [
                 {
                   "type": "VStack",
                   "weight": 1,
                   "id": "457d37482a30336f72bd277b36d1c0faed24cff2",
-                  "version": 156,
+                  "version": 166,
                   "children": [
+                    {
+                      "type": "HStack",
+                      "weight": 1,
+                      "id": "c966a5e99604dbaa896eff5568d2fdb1f499ca7f",
+                      "version": 8,
+                      "children": [
+                        {
+                          "type": "Grid",
+                          "weight": 1,
+                          "id": "57ead19fc467c0b81a334c0019518d557e8cb844",
+                          "version": 5,
+                          "title": "etikett2",
+                          "query": "host = \"etikett2\"",
+                          "max": "",
+                          "rows": "service",
+                          "cols": "host",
+                          "row_sort": "lexical",
+                          "col_sort": "lexical",
+                          "description": ""
+                        },
+                        {
+                          "type": "Gauge",
+                          "weight": 1,
+                          "id": "5298b1607240f54f26b0a032f0a572bd2f9a8d3a",
+                          "version": 5,
+                          "title": "p2k16-label alive",
+                          "query": "service = \"p2k16-label\""
+                        }
+                      ]
+                    },
                     {
                       "type": "Grid",
                       "weight": 1,
@@ -92,18 +122,18 @@
         "type": "Balloon",
         "weight": 1,
         "id": "7f76c1a3d084a20883a9e433f46cf827d3c7882d",
-        "version": 116,
+        "version": 135,
         "child": {
           "type": "VStack",
           "weight": 1,
           "id": "fab5882d9eadf83cc3a06725589e7bbdd121f5c2",
-          "version": 116,
+          "version": 135,
           "children": [
             {
               "type": "HStack",
               "weight": 0.25,
               "id": "7ac881ecc732c5c48a13f70ad823eafe8c8e51b9",
-              "version": 19,
+              "version": 35,
               "children": [
                 {
                   "type": "Grid",
@@ -123,14 +153,14 @@
                   "type": "Flot",
                   "weight": 1,
                   "id": "17c6792660c50597427f5e2682d040dc827461a1",
-                  "version": 4,
+                  "version": 5,
                   "title": "total real power",
                   "query": "tagged \"zyxel-gs1200\" and (service = \"total real power\")",
                   "min": "0",
                   "max": "60",
                   "timeRange": 300,
                   "graphType": "line",
-                  "stackMode": "false",
+                  "stackMode": "true",
                   "tooltips": "metric"
                 }
               ]
@@ -139,7 +169,7 @@
               "type": "HStack",
               "weight": 0.25,
               "id": "48d0d042ea77921a1ebc119f437cc4754c85fad4",
-              "version": 24,
+              "version": 27,
               "children": [
                 {
                   "type": "Grid",
@@ -159,7 +189,7 @@
                   "type": "Flot",
                   "weight": 1,
                   "id": "3a1e54f6432eacaa1bd3d9116b37e9769094d747",
-                  "version": 6,
+                  "version": 10,
                   "title": "power",
                   "query": "tagged \"zyxel-gs1200\" and service ~= \"port . power\"",
                   "min": "0",
@@ -336,6 +366,142 @@
         }
       },
       "id": "cd622019a81ac7a24598d52cecb2127751000f4e"
+    },
+    {
+      "name": "test",
+      "view": {
+        "type": "Balloon",
+        "weight": 1,
+        "id": "5c2c021815b92cafc8dfe51372af188cd749e8bc",
+        "version": 29,
+        "child": {
+          "type": "VStack",
+          "weight": 1,
+          "id": "2750e1b5564f5140545ab5f97decdc78e3a6488a",
+          "version": 29,
+          "children": [
+            {
+              "type": "HStack",
+              "weight": 1,
+              "id": "8c56636d82c6f708796c6f65715e1d8325f700bc",
+              "version": 22,
+              "children": [
+                {
+                  "type": "Grid",
+                  "weight": 0.5,
+                  "id": "3fea00d21730866e4b92d1dfcacc1efb33092f95",
+                  "version": 7,
+                  "title": "",
+                  "query": "tagged \"hui\"\r\nand not service =~ \"cpu-%\"\r\nand not service =~ \"df-%\"\r\nand not service =~ \"disk-%\"\r\nand not service =~ \"irq/%\"\r\nand not service =~ \"interface-%\"",
+                  "max": "",
+                  "rows": "service",
+                  "cols": "host",
+                  "row_sort": "lexical",
+                  "col_sort": "lexical",
+                  "description": ""
+                },
+                {
+                  "type": "Grid",
+                  "weight": 0.5,
+                  "id": "6485ef1a25ea5b08067017ac28762048e0fa3eaf",
+                  "version": 4,
+                  "title": "",
+                  "query": "tagged \"hui\" and service =~ \"cpu-%-idle\"",
+                  "max": "100",
+                  "rows": "service",
+                  "cols": "host",
+                  "row_sort": "lexical",
+                  "col_sort": "lexical",
+                  "description": ""
+                },
+                {
+                  "type": "Grid",
+                  "weight": 0.5,
+                  "id": "5013baddb2fb5aa10174d38c28b4d0f4d6e3eb30",
+                  "version": 10,
+                  "title": "",
+                  "query": "tagged \"hui\" and service =~ \"df-%\"",
+                  "max": "",
+                  "rows": "service",
+                  "cols": "host",
+                  "row_sort": "lexical",
+                  "col_sort": "lexical",
+                  "description": ""
+                },
+                {
+                  "type": "VStack",
+                  "weight": 1,
+                  "id": "9b9a193574055fbed4446eebf616bae63f73da1c",
+                  "version": 5,
+                  "children": [
+                    {
+                      "type": "Flot",
+                      "weight": 1,
+                      "id": "ab85d0155830d9a6d17e41409c208ebaf96a81f9",
+                      "version": 6,
+                      "title": "",
+                      "query": "tagged \"hui\" and service =~ \"interface-%/%x\"",
+                      "min": null,
+                      "max": null,
+                      "timeRange": 300,
+                      "graphType": "line",
+                      "stackMode": "false",
+                      "tooltips": "metric"
+                    },
+                    {
+                      "type": "Flot",
+                      "weight": 1,
+                      "id": "d29862b5e73fd17cfe483dc2c33c4b0403f19678",
+                      "version": 2,
+                      "title": "",
+                      "query": "tagged \"hui\" and service =~ \"memory/%\"",
+                      "min": null,
+                      "max": null,
+                      "timeRange": 300,
+                      "graphType": "line",
+                      "stackMode": "true",
+                      "tooltips": "metric"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "id": "6818acb1b3b46fb4cd57299d1eeef89749c30717"
+    },
+    {
+      "name": "Riemann",
+      "view": {
+        "type": "Balloon",
+        "weight": 1,
+        "id": "1478ed5eed609da580cf91c1ff57feb41d6cfff2",
+        "version": 3,
+        "child": {
+          "type": "VStack",
+          "weight": 1,
+          "id": "0925e38bab3832c43932a527091c09c4535747f0",
+          "version": 3,
+          "children": [
+            {
+              "type": "Grid",
+              "weight": 1,
+              "id": "d3a373418f33af29728ed60d7c7af54d0af89583",
+              "version": 3,
+              "title": "attention",
+              "query": "(state = \"critical\") or\r\n(state = \"warning\") or\r\nfalse",
+              "max": "",
+              "rows": "host",
+              "cols": "service",
+              "row_sort": "lexical",
+              "col_sort": "lexical",
+              "description": ""
+            }
+          ]
+        }
+      },
+      "id": "476e6c395c77ae780ee481bae6c6dd8c6ad27f0e"
     }
   ]
 }
