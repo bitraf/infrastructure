@@ -4,6 +4,7 @@ After=network.target
 [Service]
 ExecStart=/opt/riemann-etikett2
 Restart=on-failure
+RestartSec=3
 User=riemann-etikett2
 Group=riemann-etikett2
 

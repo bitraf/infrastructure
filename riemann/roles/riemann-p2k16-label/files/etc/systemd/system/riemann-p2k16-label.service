@@ -4,6 +4,7 @@ After=network.target
 [Service]
 ExecStart=/opt/riemann-p2k16-label
 Restart=on-failure
+RestartSec=3
 User=riemann-p2k16-label
 Group=riemann-p2k16-label
 

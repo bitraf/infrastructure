@@ -5,6 +5,7 @@ After=network.target
 ExecStart=/opt/riemann-zyxel-gs1200/venv/bin/riemann-zyxel-gs1200 /etc/riemann-zyxel-gs1200/config.ini
 WorkingDirectory=/opt/riemann-zyxel-gs1200
 Restart=on-failure
+RestartSec=3
 User=riemann-zyxel-gs1200
 Group=riemann-zyxel-gs1200
 
