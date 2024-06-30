@@ -1,7 +1,7 @@
 is p2k16-label alive?
 
 init
-	go mod init example
+	go mod init riemann-p2k16-label
 	go mod tidy
 
 vendor
