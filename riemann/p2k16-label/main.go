@@ -17,6 +17,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	log.Printf("Connected to Riemann server %s", addr_riemann)
 
 	o := mqtt.NewClientOptions()
 	o.AddBroker(addr_mqtt)
@@ -33,7 +34,7 @@ func main() {
 	alive := ""
 	msg := func(mq mqtt.Client, m mqtt.Message) {
 		alive = string(m.Payload())
-		log.Println("alive?", alive)
+		log.Printf("Received MQTT update: '%s'", alive)
 		send(rm, "True" == alive)
 	}
 
@@ -57,7 +58,7 @@ func send(rm riemanngo.Client, alive bool) {
 		state = "ok"
 	}
 
-	result, err := riemanngo.SendEvent(rm, &riemanngo.Event{
+	_, err := riemanngo.SendEvent(rm, &riemanngo.Event{
 		Service: "p2k16-label",
 		Metric:  metric,
 		Host:    "heim",
@@ -66,5 +67,4 @@ func send(rm riemanngo.Client, alive bool) {
 	if err != nil {
 		panic(err)
 	}
-	log.Println("riemann result", result)
 }
