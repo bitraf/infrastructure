@@ -18,6 +18,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	log.Printf("Connected to Riemann server %s", addr_riemann)
 
 	snmp.Default.Target = addr_printer
 	snmp.Default.Version = snmp.Version1
@@ -46,7 +47,7 @@ func main() {
 func send(rm riemanngo.Client, uptime int64, total_page_count int64) {
 	uptime_f64 := 0.01 * float64(uptime)
 	uptime_days := uptime_f64 / 86400.0
-	result, err := riemanngo.SendEvent(rm, &riemanngo.Event{
+	_, err := riemanngo.SendEvent(rm, &riemanngo.Event{
 		Service:     "uptime",
 		Metric:      uptime_f64,
 		Description: fmt.Sprintf("%.1f days", uptime_days),
@@ -57,8 +58,7 @@ func send(rm riemanngo.Client, uptime int64, total_page_count int64) {
 		panic(err)
 	}
 
-	log.Println("riemann result", result)
-	result, err = riemanngo.SendEvent(rm, &riemanngo.Event{
+	_, err = riemanngo.SendEvent(rm, &riemanngo.Event{
 		Service: "total_page_count",
 		Metric:  total_page_count,
 		Host:    "etikett2",
@@ -67,5 +67,4 @@ func send(rm riemanngo.Client, uptime int64, total_page_count int64) {
 	if err != nil {
 		panic(err)
 	}
-	log.Println("riemann result", result)
 }
