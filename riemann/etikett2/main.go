@@ -50,7 +50,7 @@ func send(rm riemanngo.Client, uptime int64, total_page_count int64) {
 	_, err := riemanngo.SendEvent(rm, &riemanngo.Event{
 		Service:     "uptime",
 		Metric:      uptime_f64,
-		Description: fmt.Sprintf("%.1f days", uptime_days),
+		Description: fmt.Sprintf("%.2f seconds, %.1f days", uptime_f64, uptime_days),
 		Host:        "etikett2",
 		State:       "ok",
 	})

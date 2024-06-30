@@ -18,6 +18,8 @@ If you don't have one, ask one of the superusers for one.
 ansible-playbook -l riemann riemann.yml
 ```
 
+If programs are built (`make`) then they will be pushed and installed.
+
 See also
 --------
 

@@ -1,0 +1,11 @@
+[Unit]
+After=network.target
+
+[Service]
+ExecStart=/opt/riemann-etikett2
+Restart=on-failure
+User=riemann-etikett2
+Group=riemann-etikett2
+
+[Install]
+WantedBy=multi-user.target

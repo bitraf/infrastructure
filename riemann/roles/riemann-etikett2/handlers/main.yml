@@ -1,0 +1,6 @@
+---
+- name: restart riemann-etikett2
+  become: yes
+  systemd:
+    name: riemann-etikett2
+    state: restarted

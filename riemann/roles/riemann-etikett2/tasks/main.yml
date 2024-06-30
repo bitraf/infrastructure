@@ -1,0 +1,33 @@
+---
+- become: yes
+  tags: riemann-etikett2
+  block:
+    - name: unprivileged user
+      user:
+        name: riemann-etikett2
+        state: present
+
+    - name: program
+      local_action: stat path=etikett2/riemann-etikett2
+      register: program
+
+    - name: install
+      copy:
+        src: etikett2/riemann-etikett2
+        dest: /opt/riemann-etikett2
+        mode: +x
+      notify: restart riemann-etikett2
+      when: program.stat.exists
+
+    - name: systemd unit
+      copy:
+        src: etc/systemd/system/riemann-etikett2.service
+        dest: /etc/systemd/system/riemann-etikett2.service
+      notify: restart riemann-etikett2
+
+    - name: enable and start
+      systemd:
+        name: "riemann-etikett2.service"
+        daemon_reload: yes
+        enabled: yes
+        state: started
