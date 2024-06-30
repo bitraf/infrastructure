@@ -1,0 +1,33 @@
+---
+- become: yes
+  tags: riemann-p2k16-label
+  block:
+    - name: unprivileged user
+      user:
+        name: riemann-p2k16-label
+        state: present
+
+    - name: program
+      local_action: stat path=p2k16-label/riemann-p2k16-label
+      register: program
+
+    - name: install
+      copy:
+        src: p2k16-label/riemann-p2k16-label
+        dest: /opt/riemann-p2k16-label
+        mode: +x
+      notify: restart riemann-p2k16-label
+      when: program.stat.exists
+
+    - name: systemd unit
+      copy:
+        src: etc/systemd/system/riemann-p2k16-label.service
+        dest: /etc/systemd/system/riemann-p2k16-label.service
+      notify: restart riemann-p2k16-label
+
+    - name: enable and start
+      systemd:
+        name: "riemann-p2k16-label.service"
+        daemon_reload: yes
+        enabled: yes
+        state: started

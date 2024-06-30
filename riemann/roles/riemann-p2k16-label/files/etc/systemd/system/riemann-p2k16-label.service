@@ -1,0 +1,11 @@
+[Unit]
+After=network.target
+
+[Service]
+ExecStart=/opt/riemann-p2k16-label
+Restart=on-failure
+User=riemann-p2k16-label
+Group=riemann-p2k16-label
+
+[Install]
+WantedBy=multi-user.target

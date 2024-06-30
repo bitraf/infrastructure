@@ -10,6 +10,7 @@
     - riemann
     - riemann-dash
     - riemann-etikett2
+    - riemann-p2k16-label
     - riemann-zyxel-gs1200
   tasks:
     - name: Unattended upgrades

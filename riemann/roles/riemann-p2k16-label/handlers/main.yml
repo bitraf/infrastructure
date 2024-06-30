@@ -1,0 +1,6 @@
+---
+- name: restart riemann-p2k16-label
+  become: yes
+  systemd:
+    name: riemann-p2k16-label
+    state: restarted
