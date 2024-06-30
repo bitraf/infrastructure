@@ -1,0 +1,12 @@
+is p2k16-label alive?
+
+init
+	go mod init example
+	go mod tidy
+
+vendor
+	go mod vendor
+
+main
+	make
+	./riemann-p2k16-label
