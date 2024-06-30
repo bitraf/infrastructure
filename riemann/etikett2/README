@@ -1,0 +1,15 @@
+monitor brother ql-1060n label printer.
+
+gosnmp
+	https://pkg.go.dev/github.com/gosnmp/gosnmp
+
+init
+	go mod init riemann-etikett2
+	go mod tidy
+
+vendor
+	go mod vendor
+
+main
+	make
+	./riemann-etikett2
