@@ -15,6 +15,6 @@
 
 # NOTE(mastensg): the riemann-health roles should not conflict with per-host
 # ansible playbooks.
-- hosts: all
+- hosts: all !bomba
   roles:
     - riemann-health
