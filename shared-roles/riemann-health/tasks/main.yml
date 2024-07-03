@@ -6,6 +6,7 @@
       apt:
         install_recommends: no
         name:
+          - build-essential
           - ruby
           - ruby-dev
 
