@@ -8,7 +8,7 @@
 - hosts:
     # TODO: the ignores hosts can use this role, it just have to be
     # checked that it work.
-    - all !bomba !iot !mysql
+    - all !iot !mysql
   roles:
     - role: unattended-upgrades
       become: yes

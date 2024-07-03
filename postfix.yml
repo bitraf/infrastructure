@@ -1,6 +1,7 @@
 ---
 - hosts:
     - bite
+    - bomba
     - marvin
     - mediawiki
     - p2k16
