@@ -1,0 +1,12 @@
+monitor system daemon.
+
+init
+	go mod init riemann-systemd
+	go mod tidy
+
+vendor
+	go mod vendor
+
+run
+	make
+	./riemann-systemd
