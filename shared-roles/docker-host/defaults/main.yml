@@ -1,4 +1,7 @@
 docker_host__credentials: []
 
 # Literal /etc/docker/daemon.json
-docker_host__daemon_json_content: ""
+docker_host__daemon_json_content: |
+  {
+    "log-driver": "local"
+  }
