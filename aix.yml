@@ -1,5 +1,0 @@
-- hosts:
-    - aix
-  roles:
-    - lusers
-#    - superusers

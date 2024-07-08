@@ -59,7 +59,6 @@ resource "linode_domain_record" "a-records" {
 
   for_each = {
     "" : { type : "A", target : local.wpengine },
-    "aix" : { type : "A", target : "213.52.52.185", },
     "api" : { type : "CNAME", target : "www.bitraf.no", },
     "bitbot" : { type : "A", target : "127.0.0.1", },
     "bite" : { type : "A", target : local.bite, },

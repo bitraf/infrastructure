@@ -1,6 +1,5 @@
 # NOTE(mastensg): keep list sorted and aligned.
 
-aix                 ansible_host=aix.bitraf.no                          ansible_python_interpreter=/usr/local/bin/python3   ansible_become_method=doas
 bite                ansible_host=bite.bitraf.no                         ansible_python_interpreter=/usr/bin/python3
 bitnode             ansible_host=bitnode.bitraf.no
 bomba               ansible_host=bomba.bitraf.no
