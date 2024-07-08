@@ -18,3 +18,8 @@
 - hosts: all
   roles:
     - riemann-health
+
+# NOTE(mastensg): riemann-systemd is only built for linux/amd64.
+- hosts: all,!tv
+  roles:
+    - riemann-systemd
