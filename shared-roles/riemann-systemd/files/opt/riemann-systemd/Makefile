@@ -1,6 +1,6 @@
 .POSIX:
 
-PROG = riemann-etikett2
+PROG = riemann-systemd
 
 all:
 	GOARCH=amd64 GOOS=linux go build
