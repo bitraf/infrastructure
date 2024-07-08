@@ -4,11 +4,6 @@ aix                 ansible_host=aix.bitraf.no                          ansible_
 bite                ansible_host=bite.bitraf.no                         ansible_python_interpreter=/usr/bin/python3
 bitnode             ansible_host=bitnode.bitraf.no
 bomba               ansible_host=bomba.bitraf.no
-boxy2               ansible_host=boxy2.local
-boxy2-eof           ansible_host=boxy2-eof.local
-boxy3               ansible_host=boxy3.local
-boxy3-workshop      ansible_host=boxy3-workshop.local
-boxy4               ansible_host=boxy4.local
 concourse           ansible_host=concourse.bitraf.no
 heim                ansible_host=heim.bitraf.no
 helsing             ansible_host=helsing.local

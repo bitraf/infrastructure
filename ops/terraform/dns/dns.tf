@@ -70,7 +70,6 @@ resource "linode_domain_record" "a-records" {
     "bix" : { type : "A", target : "77.40.158.100", },
     "blog" : { type : "CNAME", target : "www.bitraf.no", },
     "bomba" : { type : "A", target : local.bomba, },
-    "boxy4" : { type : "CNAME", target : "boxy4.local", },
     "channon" : { type : "A", target : "178.79.163.96", },
     "concourse" : { type : "A", target : "77.40.158.111",},
     "concourse-v6": { type: "AAAA", target: "2001:8c0:9302:4:5054:ff:febf:6ac0", },
