@@ -1,0 +1,6 @@
+build
+	make the program before installing it:
+
+	make
+
+	TODO(mastensg): build for other architectures than amd64.

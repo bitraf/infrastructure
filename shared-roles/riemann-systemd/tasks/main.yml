@@ -1,0 +1,33 @@
+---
+- become: yes
+  tags: riemann-systemd
+  block:
+    - name: program directory
+      file:
+        path: /opt/riemann-systemd
+        state: directory
+
+    - name: program
+      local_action: stat path={{ role_path }}/files/opt/riemann-systemd/riemann-systemd
+      register: program
+
+    - name: install
+      copy:
+        src: opt/riemann-systemd/riemann-systemd
+        dest: /opt/riemann-systemd/riemann-systemd
+        mode: +x
+      notify: restart riemann-systemd
+      when: program.stat.exists
+
+    - name: install systemd unit
+      copy:
+        src: etc/systemd/system/riemann-systemd.service
+        dest: /etc/systemd/system/riemann-systemd.service
+      notify: restart riemann-systemd
+
+    - name: enable systemd unit
+      systemd:
+        name: "riemann-systemd.service"
+        daemon_reload: yes
+        enabled: yes
+        state: started

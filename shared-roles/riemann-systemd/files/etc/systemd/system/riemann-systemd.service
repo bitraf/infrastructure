@@ -1,0 +1,14 @@
+[Unit]
+After=network.target
+
+[Service]
+ExecStart=/opt/riemann-systemd/riemann-systemd -h riemann.bitraf.no
+User=nobody
+Group=nogroup
+WorkingDirectory=/tmp
+KillMode=process
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

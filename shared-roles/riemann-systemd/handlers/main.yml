@@ -1,0 +1,6 @@
+---
+- name: restart riemann-systemd
+  become: yes
+  systemd:
+    name: riemann-systemd
+    state: restarted
