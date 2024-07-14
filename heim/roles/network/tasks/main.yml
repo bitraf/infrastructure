@@ -21,6 +21,12 @@
               address 77.40.158.103
               netmask 255.255.255.224
               gateway 77.40.158.97
+      iface ens3 inet6 static
+              address 2001:8c0:ea04:10:77:40:158:103
+              netmask 64
+              gateway  2001:8c0:ea04:10::1
+              autoconf 0
+              dns-nameservers 2001:4860:4860::8888 2001:4860:4860::8844
       auto ens5
       iface ens5 inet static
               address 10.13.37.4
