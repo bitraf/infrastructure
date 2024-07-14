@@ -36,6 +36,12 @@
               netmask 255.255.255.224
               gateway 77.40.158.97
               post-up iptables -A FORWARD -p all -i br1 -j ACCEPT
+      iface br1 inet6 static
+              address 2001:8c0:ea04:10:77:40:158:102
+              netmask 64
+              gateway  2001:8c0:ea04:10::1
+              autoconf 0
+              dns-nameservers 2001:4860:4860::8888 2001:4860:4860::8844
 
 - name: disable ipv6 autoconf for some interfaces
   tags: network
