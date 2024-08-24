@@ -8,63 +8,147 @@
         "type": "Balloon",
         "weight": 1,
         "id": "600691975533876a79deb3d3ca8838d9bd03cf2c",
-        "version": 185,
+        "version": 259,
         "child": {
           "type": "VStack",
           "weight": 1,
           "id": "f86841d08cb2f5b8abd96800baa56dc679a37be0",
-          "version": 185,
+          "version": 259,
           "children": [
             {
               "type": "HStack",
-              "weight": 1,
+              "weight": 0.5,
               "id": "9c7b581bbd16abb22caa9c47d4badbed607ed07a",
-              "version": 171,
+              "version": 235,
               "children": [
                 {
                   "type": "VStack",
                   "weight": 1,
                   "id": "457d37482a30336f72bd277b36d1c0faed24cff2",
-                  "version": 166,
+                  "version": 197,
                   "children": [
                     {
-                      "type": "HStack",
+                      "type": "Grid",
+                      "weight": 4,
+                      "id": "4e540b869129e40ba834cf9aa8f339e3b3260e1f",
+                      "version": 23,
+                      "title": "helse",
+                      "query": "(service = \"cpu\") or\r\n(service = \"load\") or\r\n(service = \"memory\") or\r\n(service = \"disk /\") or\r\n(service = \"system\") or\r\nfalse",
+                      "max": "1",
+                      "rows": "",
+                      "cols": "",
+                      "row_sort": "lexical",
+                      "col_sort": "lexical",
+                      "description": ""
+                    },
+                    {
+                      "type": "Flot",
+                      "weight": 2,
+                      "id": "f0b5822ddd682c2125b163c93a98cd61aec2841e",
+                      "version": 11,
+                      "title": "cpu",
+                      "query": "service = \"cpu\"",
+                      "min": "0",
+                      "max": "1",
+                      "timeRange": 300,
+                      "graphType": "line",
+                      "stackMode": "false",
+                      "tooltips": "metric"
+                    },
+                    {
+                      "type": "Flot",
+                      "weight": 2,
+                      "id": "3494f299f3ccdb10f1e93fd6259df474562d5029",
+                      "version": 20,
+                      "title": "memory",
+                      "query": "service = \"memory\"",
+                      "min": "0",
+                      "max": "1",
+                      "timeRange": 300,
+                      "graphType": "line",
+                      "stackMode": "false",
+                      "tooltips": "metric"
+                    }
+                  ]
+                },
+                {
+                  "type": "VStack",
+                  "weight": 1,
+                  "id": "575be4fbb4d87acf539f5bc8ff77635ac1728e71",
+                  "version": 8,
+                  "children": [
+                    {
+                      "type": "Grid",
+                      "weight": 2,
+                      "id": "fd98a4370eefd59f45b7f4f44151e41fc3d80ed1",
+                      "version": 14,
+                      "title": "ups",
+                      "query": "(host = \"apc\") or\r\n(host = \"eaton\")",
+                      "max": "100",
+                      "rows": "service",
+                      "cols": "host",
+                      "row_sort": "lexical",
+                      "col_sort": "lexical",
+                      "description": ""
+                    },
+                    {
+                      "type": "Flot",
                       "weight": 1,
-                      "id": "c966a5e99604dbaa896eff5568d2fdb1f499ca7f",
-                      "version": 8,
-                      "children": [
-                        {
-                          "type": "Grid",
-                          "weight": 1,
-                          "id": "57ead19fc467c0b81a334c0019518d557e8cb844",
-                          "version": 5,
-                          "title": "etikett2",
-                          "query": "host = \"etikett2\"",
-                          "max": "",
-                          "rows": "service",
-                          "cols": "host",
-                          "row_sort": "lexical",
-                          "col_sort": "lexical",
-                          "description": ""
-                        },
-                        {
-                          "type": "Gauge",
-                          "weight": 1,
-                          "id": "5298b1607240f54f26b0a032f0a572bd2f9a8d3a",
-                          "version": 5,
-                          "title": "p2k16-label alive",
-                          "query": "service = \"p2k16-label\""
-                        }
-                      ]
+                      "id": "47f02be9ee0108104f86d4430559e2010385bbb1",
+                      "version": 1,
+                      "title": "battery",
+                      "query": "service = \"battery.charge\"",
+                      "min": "0",
+                      "max": "100",
+                      "timeRange": 300,
+                      "graphType": "line",
+                      "stackMode": "false",
+                      "tooltips": "metric"
+                    },
+                    {
+                      "type": "Flot",
+                      "weight": 1,
+                      "id": "4da77fabd60d84b242d4d9f4b0eb9a2ff5ec6839",
+                      "version": 5,
+                      "title": "power",
+                      "query": "service = \"ups.power\"",
+                      "min": "0",
+                      "max": "3000",
+                      "timeRange": 300,
+                      "graphType": "line",
+                      "stackMode": "false",
+                      "tooltips": "metric"
+                    }
+                  ]
+                },
+                {
+                  "type": "VStack",
+                  "weight": 1,
+                  "id": "d3314c861f062c9f1939289906f0001537e9b6a4",
+                  "version": 14,
+                  "children": [
+                    {
+                      "type": "Grid",
+                      "weight": 1,
+                      "id": "57ead19fc467c0b81a334c0019518d557e8cb844",
+                      "version": 12,
+                      "title": "etikett2",
+                      "query": "host = \"etikett2\"",
+                      "max": "",
+                      "rows": "service",
+                      "cols": "host",
+                      "row_sort": "lexical",
+                      "col_sort": "lexical",
+                      "description": ""
                     },
                     {
                       "type": "Grid",
                       "weight": 1,
-                      "id": "4e540b869129e40ba834cf9aa8f339e3b3260e1f",
-                      "version": 17,
-                      "title": "helse",
-                      "query": "(service = \"cpu\") or\r\n(service = \"load\") or\r\n(service = \"memory\") or\r\n(service = \"disk /\") or\r\n(service = \"up\") or\r\nfalse",
-                      "max": "1",
+                      "id": "5298b1607240f54f26b0a032f0a572bd2f9a8d3a",
+                      "version": 11,
+                      "title": "p2k16-label alive",
+                      "query": "service = \"p2k16-label\"",
+                      "max": "",
                       "rows": "",
                       "cols": "",
                       "row_sort": "lexical",
@@ -72,42 +156,6 @@
                       "description": ""
                     }
                   ]
-                }
-              ]
-            },
-            {
-              "type": "HStack",
-              "weight": 1,
-              "id": "51061ae8f2bb99caf3623e5e245f476d364fa7e6",
-              "version": 4,
-              "children": [
-                {
-                  "type": "Flot",
-                  "weight": 1,
-                  "id": "3494f299f3ccdb10f1e93fd6259df474562d5029",
-                  "version": 6,
-                  "title": "minne",
-                  "query": "service = \"memory\"",
-                  "min": "0",
-                  "max": "1",
-                  "timeRange": 300,
-                  "graphType": "line",
-                  "stackMode": "false",
-                  "tooltips": "metric"
-                },
-                {
-                  "type": "Flot",
-                  "weight": 1,
-                  "id": "f0b5822ddd682c2125b163c93a98cd61aec2841e",
-                  "version": 4,
-                  "title": "prosessor",
-                  "query": "service = \"cpu\"",
-                  "min": "0",
-                  "max": "1",
-                  "timeRange": 300,
-                  "graphType": "line",
-                  "stackMode": "false",
-                  "tooltips": "metric"
                 }
               ]
             }
