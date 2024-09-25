@@ -1,4 +1,4 @@
-traefik_version_tag: 2.9
+traefik_version_tag: 2.11
 traefik_http_to_https_redirect: true
 traefik_endpoints:
   web: ":80"
