@@ -2,3 +2,4 @@ mqtt_accounts:
   - name: bitraf-p2k16-web
   - name: bitraf-p2k16-web-staging
   - name: bitraf-tool-lock
+  - name: bitraf-homeassistant
