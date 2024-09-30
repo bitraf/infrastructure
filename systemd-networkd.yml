@@ -1,5 +1,4 @@
 - hosts:
-    - concourse
 
   vars:
     interfaces: "{{ host_database[ansible_hostname].interfaces }}"
