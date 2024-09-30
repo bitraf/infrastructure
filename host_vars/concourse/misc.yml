@@ -1,2 +1,0 @@
-packages_debian_release: bullseye
-packages__enable_backports: true

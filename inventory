@@ -3,7 +3,6 @@
 bite                ansible_host=bite.bitraf.no                         ansible_python_interpreter=/usr/bin/python3
 bitnode             ansible_host=bitnode.bitraf.no
 bomba               ansible_host=bomba.bitraf.no
-concourse           ansible_host=concourse.bitraf.no
 heim                ansible_host=heim.bitraf.no
 helsing             ansible_host=helsing.local
 infoscreen-a        ansible_host=infoscreen-a.local
@@ -43,7 +42,6 @@ bite
 [traefik_host]
 bite
 bomba
-concourse
 p2k16-production
 p2k16-staging
 

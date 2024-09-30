@@ -70,8 +70,6 @@ resource "linode_domain_record" "a-records" {
     "blog" : { type : "CNAME", target : "www.bitraf.no", },
     "bomba" : { type : "A", target : local.bomba, },
     "channon" : { type : "A", target : "178.79.163.96", },
-    "concourse" : { type : "A", target : "77.40.158.111",},
-    "concourse-v6": { type: "AAAA", target: "2001:8c0:9302:4:5054:ff:febf:6ac0", },
     "dlock" : { type : "A", target : "77.40.158.109", },
     "door2" : { type : "CNAME", target : "p2k12.bitraf.no", },
     "door" : { type : "CNAME", target : "p2k16.bitraf.no", },
