@@ -24,3 +24,10 @@
         install_recommends: no
       with_items:
         - grafana
+
+    - name: enable systemd unit
+      systemd:
+        name: "grafana-server.service"
+        daemon_reload: yes
+        enabled: yes
+        state: started
