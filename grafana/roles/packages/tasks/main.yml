@@ -23,24 +23,22 @@
   tags: packages
   become: yes
   apt:
-    name: "{{ item }}"
     install_recommends: no
-  with_items:
-    # useful utilities and things
-    - aptitude
-    - bridge-utils
-    - debian-goodies
-    - etckeeper
-    - iperf
-    - ltrace
-    - ncdu
-    - needrestart
-    - netcat-openbsd
-    - screen
-    - strace
-    - tmux
-    - tree
-    - vim
-    - sysstat
-    - nmap
-    - net-tools
+    name:
+      - aptitude
+      - bridge-utils
+      - debian-goodies
+      - etckeeper
+      - iperf
+      - ltrace
+      - ncdu
+      - needrestart
+      - net-tools
+      - netcat-openbsd
+      - nmap
+      - screen
+      - strace
+      - sysstat
+      - tmux
+      - tree
+      - vim
