@@ -2,6 +2,7 @@
 - hosts:
     - bite
     - bomba
+    - grafana
     - marvin
     - mediawiki
     - p2k16-production
