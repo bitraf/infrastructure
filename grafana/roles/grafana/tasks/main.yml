@@ -36,6 +36,12 @@
         dest: /etc/systemd/system/grafana-server.service.d/override.conf
         src:   etc/systemd/system/grafana-server.service.d/override.conf
 
+    - name: grafana configuration file
+      notify: restart grafana-server
+      copy:
+        dest: /etc/grafana/grafana.ini
+        src:   etc/grafana/grafana.ini
+
     - name: enable systemd unit
       systemd:
         name: "grafana-server.service"
