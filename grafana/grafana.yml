@@ -1,0 +1,11 @@
+---
+- hosts: grafana
+  roles:
+    - network
+    - packages
+    - bitraf-base
+    - lusers
+    - superusers
+  vars_files:
+    - ../vars/bitraf_passwords.yml
+    - ../vars/users.yml
