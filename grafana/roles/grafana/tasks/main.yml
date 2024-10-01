@@ -4,13 +4,13 @@
   tags:
     - grafana
   block:
-    - name: Grafana APT key
+    - name: grafana apt key
       notify: update apt cache
       copy:
         dest: /etc/apt/keyrings/grafana.gpg
         src:   etc/apt/keyrings/grafana.gpg
 
-    - name: Grafana APT repository
+    - name: grafana apt repository
       notify: update apt cache
       copy:
         dest: /etc/apt/sources.list.d/grafana.list
@@ -18,12 +18,23 @@
 
     - meta: flush_handlers
 
-    - name: packages
+    - name: grafana apt package
       apt:
         name: "{{ item }}"
         install_recommends: no
       with_items:
         - grafana
+
+    - name: systemd override directory
+      file:
+        path: /etc/systemd/system/grafana-server.service.d
+        state: directory
+
+    - name: systemd override file
+      notify: restart grafana-server
+      copy:
+        dest: /etc/systemd/system/grafana-server.service.d/override.conf
+        src:   etc/systemd/system/grafana-server.service.d/override.conf
 
     - name: enable systemd unit
       systemd:

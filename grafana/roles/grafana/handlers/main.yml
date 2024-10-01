@@ -1,4 +1,9 @@
 ---
+- name: restart grafana-server
+  become: yes
+  systemd:
+    name: grafana-server
+    state: restarted
 
 - name: update apt cache
   become: yes
