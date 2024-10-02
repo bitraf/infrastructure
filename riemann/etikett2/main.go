@@ -32,19 +32,21 @@ func main() {
 		oids := []string{"1.3.6.1.2.1.1.3.0", "1.3.6.1.2.1.43.10.2.1.4.1.1"}
 		result, err := snmp.Default.Get(oids)
 		if err != nil {
-			panic(err)
+			log.Println(err)
+			send(rm, "critical", 0, 0)
+			continue
 		}
 
 		uptime := snmp.ToBigInt(result.Variables[0].Value).Int64()
 		total_page_count := snmp.ToBigInt(result.Variables[1].Value).Int64()
 
-		send(rm, uptime, total_page_count)
+		send(rm, "ok", uptime, total_page_count)
 
 		time.Sleep(13 * time.Second)
 	}
 }
 
-func send(rm riemanngo.Client, uptime int64, total_page_count int64) {
+func send(rm riemanngo.Client, state string, uptime, total_page_count int64) {
 	uptime_f64 := 0.01 * float64(uptime)
 	uptime_days := uptime_f64 / 86400.0
 	_, err := riemanngo.SendEvent(rm, &riemanngo.Event{
@@ -52,7 +54,7 @@ func send(rm riemanngo.Client, uptime int64, total_page_count int64) {
 		Metric:      uptime_f64,
 		Description: fmt.Sprintf("%.2f seconds, %.1f days", uptime_f64, uptime_days),
 		Host:        "etikett2",
-		State:       "ok",
+		State:       state,
 	})
 	if err != nil {
 		panic(err)
@@ -62,7 +64,7 @@ func send(rm riemanngo.Client, uptime int64, total_page_count int64) {
 		Service: "total_page_count",
 		Metric:  total_page_count,
 		Host:    "etikett2",
-		State:   "ok",
+		State:   state,
 	})
 	if err != nil {
 		panic(err)
