@@ -1,0 +1,11 @@
+---
+- name: restart telegraf
+  become: yes
+  systemd:
+    name: telegraf
+    state: restarted
+
+- name: update apt cache
+  become: yes
+  apt:
+    update_cache: yes

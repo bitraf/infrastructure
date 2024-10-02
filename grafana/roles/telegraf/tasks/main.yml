@@ -1,0 +1,38 @@
+---
+- name: telegraf
+  become: yes
+  tags:
+    - telegraf
+  block:
+    - name: influxdata apt key
+      notify: update apt cache
+      copy:
+        dest: /etc/apt/keyrings/influxdata-archive.gpg
+        src:   etc/apt/keyrings/influxdata-archive.gpg
+
+    - name: influxdata apt repository
+      notify: update apt cache
+      copy:
+        dest: /etc/apt/sources.list.d/influxdata.list
+        content: 'deb [signed-by=/etc/apt/keyrings/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main'
+
+    - meta: flush_handlers
+
+    - name: telegraf apt package
+      apt:
+        install_recommends: no
+        name:
+        - telegraf
+
+    - name: telegraf configuration file
+      notify: restart telegraf
+      copy:
+        dest: /etc/telegraf/telegraf.conf
+        src:   etc/telegraf/telegraf.conf
+
+    - name: enable systemd unit
+      systemd:
+        name: "telegraf.service"
+        daemon_reload: yes
+        enabled: yes
+        state: started

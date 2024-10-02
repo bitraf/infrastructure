@@ -8,6 +8,7 @@
     - superusers
     - influxdb
     - grafana
+    - telegraf
   vars_files:
     - ../vars/bitraf_passwords.yml
     - ../vars/users.yml
