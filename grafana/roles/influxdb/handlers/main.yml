@@ -1,0 +1,6 @@
+---
+- name: restart influxdb
+  become: yes
+  systemd:
+    name: influxdb
+    state: restarted

@@ -6,6 +6,7 @@
     - bitraf-base
     - lusers
     - superusers
+    - influxdb
     - grafana
   vars_files:
     - ../vars/bitraf_passwords.yml
