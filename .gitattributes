@@ -3,3 +3,5 @@ vault.yml diff=ansible-vault merge=ansible-vault
 *.vault diff=ansible-vault merge=ansible-vault
 
 secrets.yml diff=ansible-vault merge=binary
+
+riemann/roles/riemann-zyxel-gs1200/files/etc/riemann-zyxel-gs1200/config.ini diff=ansible-vault merge=ansible-vault
