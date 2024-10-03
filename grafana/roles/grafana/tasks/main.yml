@@ -1,0 +1,50 @@
+---
+- name: grafana
+  become: yes
+  tags:
+    - grafana
+  block:
+    - name: grafana apt key
+      notify: update apt cache
+      copy:
+        dest: /etc/apt/keyrings/grafana.gpg
+        src:   etc/apt/keyrings/grafana.gpg
+
+    - name: grafana apt repository
+      notify: update apt cache
+      copy:
+        dest: /etc/apt/sources.list.d/grafana.list
+        content: 'deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main'
+
+    - meta: flush_handlers
+
+    - name: grafana apt package
+      apt:
+        name: "{{ item }}"
+        install_recommends: no
+      with_items:
+        - grafana
+
+    - name: systemd override directory
+      file:
+        path: /etc/systemd/system/grafana-server.service.d
+        state: directory
+
+    - name: systemd override file
+      notify: restart grafana-server
+      copy:
+        dest: /etc/systemd/system/grafana-server.service.d/override.conf
+        src:   etc/systemd/system/grafana-server.service.d/override.conf
+
+    - name: grafana configuration file
+      notify: restart grafana-server
+      copy:
+        dest: /etc/grafana/grafana.ini
+        src:   etc/grafana/grafana.ini
+
+    - name: enable systemd unit
+      systemd:
+        name: "grafana-server.service"
+        daemon_reload: yes
+        enabled: yes
+        state: started

@@ -3,6 +3,7 @@
 bite                ansible_host=bite.bitraf.no                         ansible_python_interpreter=/usr/bin/python3
 bitnode             ansible_host=bitnode.bitraf.no
 bomba               ansible_host=bomba.bitraf.no
+grafana             ansible_host=77.40.158.111
 heim                ansible_host=heim.bitraf.no
 helsing             ansible_host=helsing.local
 infoscreen-a        ansible_host=infoscreen-a.local

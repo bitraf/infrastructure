@@ -1,0 +1,18 @@
+---
+- name: influxdb
+  become: yes
+  tags:
+    - influxdb
+  block:
+    - name: influxdb apt package
+      apt:
+        name:
+        - influxdb
+        - influxdb-client
+        install_recommends: no
+
+    - name: influxdb configuration file
+      notify: restart influxdb
+      copy:
+        dest: /etc/influxdb/influxdb.conf
+        src:   etc/influxdb/influxdb.conf
