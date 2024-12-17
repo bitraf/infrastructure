@@ -1,7 +1,9 @@
 lusers:
   - mastensg
   - trygvis
+  - tingo
 
 superusers:
   - mastensg
   - trygvis
+  - tingo
