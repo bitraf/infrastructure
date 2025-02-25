@@ -13,7 +13,7 @@
       apt:
         install_recommends: no
         name:
-          - openjdk-8-jre
+          - openjdk-17-jdk-headless
 
     - name: riemann directory
       file:
